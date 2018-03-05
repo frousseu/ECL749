@@ -1184,43 +1184,100 @@ table(d$sexe,d$age)
 Ici, on s'intéresse aux variables influençant le nb d'espèces rencontrées le long du littoral. On a la hauteur de la station d'échantillonnage par rapport à la hauteur moyenne de la marée ainsi que l'exposition qui est quantifiée à l'aide d'un index construit à partir de la "sévérité" des conditions de la station (force des vagues, longueur de la zone d'impact, pente, substrat allant de fin à grossier). La base de données se trouve à cet endroit [plages.csv](https://github.com/frousseu/ECL749/tree/master/data). Illustrez vos résultats. 
 
 
-# Travaux
+# Travail de session
 
-Le travail de session se déroulera en deux temps. La première partie (25%) consistera en l'établissement d'une méthodologie afin de répondre à la mise en situation.
+Le travail de session se déroulera en deux temps. La première partie (20%) consistera en l'établissement d'une méthodologie afin de répondre à une mise en situation et la seconde partie (80%) consistera en la rédaction d'un rapport sous forme d'article scientifique à partir d'une base de données en lien avec la première partie. Dans la plupart des cas, il y aura des différences entre la méthodologie proposée pour la mise en situation et la méthodologie utilisée pour récolter les données fournies. Dans ce cas, il faudra adapter votre méthodologie décrite dans la partie 2 du travail afin de refléter la méthodologie utilisée. 
 
-La première partie devra comprendre un plan détaillé de la méthodologie proposée pour récolter et analyser les données. Plus spécifiquement,
-elle ou il devra présenter un plan d’échantillonnage en plus d’indiquer quelles mesures seront
-prises sur le terrain. Une méthode d’analyse statistique devra également être proposée. Cette partie
-du travail devra être remise par courriel au plus tard le vendredi 23 mars à 16h00
+## Partie I
 
-Comment-allez vous répondre à cette question? Quel sera votre plan d'échantillonnage? Quelles seront les variables que vous utilisez pour Quelles méthodes envisagez-vous utiliser pour analyser les données récoltées?
+La première partie (20%) devra comprendre un plan détaillé de la méthodologie proposée pour récolter et analyser les données. Plus spécifiquement, vous devez présenter un plan d’échantillonnage en plus d’indiquer quelles mesures seront
+prises sur le terrain. Une ou des méthodes d'analyses statistiques devront également être proposées. Cette partie
+du travail devra être remise par courriel au plus tard le **vendredi 23 mars à 16h**. Pour ceux désirant utiliser leur propre jeu de données, vous devrez énoncer vous même votre propre mise en situation et m'en faire part d'ici **vendredi le 9 mars à 16h** en me montrant également la base de données qui sera utilisée. Vous devrez proposer une méthodologie par rapport à votre mise en situation. 
+
+Comment-allez vous répondre à cette question? Quel sera votre plan d'échantillonnage? Quelles seront les variables que vous utiliserez? Quelles méthodes envisagez-vous utiliser pour analyser les données récoltées? La méthodologie proposée devrait pouvoir être exposée en un maximum de 2 pages. Vous devrez probablement vous inspirer de la littérature scientifique afin d'identifier les variables pertinentes à utiliser et établir votre plan d'échantillonnage. 
+
+Afin de limiter l'éventail des possibilités, vous devrez vous limiter à identifier un maximum de 4 ou 5 variables pertinentes à utiliser. En effet, de multiples variables pourraient être mesurées, mais il s'agit surtout ici d'identifier quelques variables pertinentes et surtout d'être capable de développer et d'exposer un plan d'échantillonnage pour répondre à une question donnée. De la même façon, il n'est pas nécessaire de mentionner que vous allez inventorier des milliers de sites pour répondre la question. Il s'agit d'utiliser un nombre de stations ou un échantillonnage suffisant en fonction de la question ou du nombre de variables étudiées. Ceci n'est pas toujours évident à évaluer et vous devrez vous fiez à votre jugement pour déterminer l'étendue de votre échantillonnage.
+
+
+## Partie II
+
+Pour la seconde partie du travail (80%), chaque étudiant ou étudiante recevra une base de données en lien avec ce qui a été proposé dans la première partie du travail. Elle ou il devra réaliser les analyses, les interpréter et présenter les résultats dans un bref rapport écrit qui prendra la forme d'un article scientifique comprenant les éléments suivants :
+
+- **Introduction** : court texte présentant et mettant en contexte la question posée et les
+hypothèses biologiques
+- **Méthodologie** : description des méthodes et des données récoltées et description et
+justification des analyses statistiques effectuées
+- **Résultats** : présentation des résultats accompagnée de graphiques et/ou de tableaux
+- **Discussion** : courte explication et interprétation des résultats et de leur signification
+biologique
+- **Références** : un minimum de cinq références (**articles scientifiques**) devront être utilisées pour
+mettre en contexte la problématique et/ou interpréter les résultats
+- **Annexe** : code R utilisé pour effectuer les analyses statistiques
+
+Votre travail au complet ne devrait pas prendre plus de 10 pages. Ce travail est à remettre au plus tard le **vendredi 20 avril à 16h**.
+
+
 
 ## Mises en situation
 
-**La composition du paysage affecte-t-elle l'occurence des strigidés?**
+<br>
 
-On vous demande de déterminer quels sont les éléments du paysage affectant la présence des espèces les plus communes de strigidés dans le sud du Québec.
+**1. Composition du paysage, Grand-duc d'Amérique et occurence de la Chouette rayée**
 
-**Facteur influençant la richesse en poissons dans les récif coraliens**
+Quels sont les caractéristiques du paysage affectant la présence dde la Chouette rayée (*i.e.* une espèce de hibou, *Strix varia*) dans le sud du Québec? Est-ce que le Grand-duc d'Amérique (*Bubo virginianus*) à une influence sur sa présence?
 
-**Effet de la fragmentation et de la forêt mature sur la richesse aviaire en milieu tropical**
+<br>
 
-**Variables influençant l'abondance de moineaux en milieu agricole**
+**2. Richesse ichtyologique dans les récif coraliens**
+
+Quels sont les variables influençant la richesse en poissons dans les récifs coraliens?
+
+<br>
+
+**3. Diversité aviaire, forêt et fragmentation en milieu tropical**
+
+Quel est l'effet de la fragmentation et de la forêt mature sur la richesse aviaire en milieu tropical?
+
+<br>
+
+**4. L'abondance des moineaux dans un contexte agricole**
+
+Quels sont les éléments du paysage affectant l'abondance du moineau domestique en milieu agricole dans le sud du Québec?
+
+<br>
+
+**5. La diversité des papillons dans les prairies naturelles**
+
+Quelles sont les caractéristiques de la végétation affectant la diversité en espèce de papillons dans les prairies naturelles
+
+
+
+
+
+
+
+
+
+
 
 
 # Liens utiles
 
 ## R
 
-[Quick-R](https://www.statmethods.net/index.html)
+[Quick-R](https://www.statmethods.net/index.html): site d'introduction à R
 
-[Base R Cheat Sheet](http://github.com/rstudio/cheatsheets/raw/master/base-r.pdf)
+[Base R Cheat Sheet](http://github.com/rstudio/cheatsheets/raw/master/base-r.pdf): guide mémoire pour les fonctions de base de R
 
-[RStudio Cheat Sheets](https://www.rstudio.com/resources/cheatsheets/)
+[RStudio Cheat Sheets](https://www.rstudio.com/resources/cheatsheets/): divers guides mémoires pour R sur différents sujets 
+
+[R Spatial](http://www.rspatial.org/): introduction à R pour l'analyse de données et la modélisation spatiales
 
 ## Statistiques
 
-[GLMM FAQ](https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html)
+[GLMM FAQ](https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html): guide pour l'utilisation des modèles mixtes avec R
+
+[Generalized linear mixed models: a practical guide for ecology and evolution](https://doi.org/10.1016/j.tree.2008.10.008])
 
 [A protocol for conducting and presenting results of regression-type analyses](http://onlinelibrary.wiley.com/doi/10.1111/2041-210X.12577/abstract)
 
@@ -1266,7 +1323,7 @@ On vous demande de déterminer quels sont les éléments du paysage affectant la
 
 
 
-```{r, eval=FALSE, include=FALSE} 
+```{r, eval=FALSE, include=FALSE,echo=FALSE} 
 d<-read.table("C:/Users/rouf1703/Downloads/ZuurDataMixedModelling/Sparrows.txt",header=TRUE)
 d<-read.table("U:/2018/2018/Ateliers/sparrows.txt",header=TRUE)
 library(plyr)
@@ -1279,7 +1336,7 @@ write.table(d[sample(1:nrow(d),87),c("Sex","wingcrd","wt")],"U:/2018/2018/Atelie
 
 
 
-```{r,eval=FALSE,include=FALSE}
+```{r,eval=FALSE,include=FALSE,echo=FALSE}
 
 d
 d$v1
