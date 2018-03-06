@@ -1138,6 +1138,8 @@ Malheureusement, ou plutôt heureusement, il n'y a pas nécessairment une meille
 
 Pour cet exercice, vous étudierez ce qui influence la charge parasitaire chez le Colibri à gorge rubis (*Archilochus colubris*), une espèce retrouvée au Québec. Dans la base de données [colibris.csv](https://github.com/frousseu/ECL749/tree/master/data), vous retrouverez différentes variables comme le sexe (4 = mâle, 5 = femelle) et l'âge (1 = jeune, 2 = adulte). L'exercice consiste à déterminer quelles sont les variables qui affectent la quantité de parasites. Pour interpréter vos résultats, illustrez graphiquement votre modèle. 
 
+<!--
+
 ### Solution
 
 On importe d'abord les données et on affiche notre `data.frame` et un petit résumé de ce qu'il contient.
@@ -1177,11 +1179,12 @@ table(d$sexe,d$age)
 
 ```
 
-
+-->
 
 ## La richesse spécifique le long du littoral
 
 Ici, on s'intéresse aux variables influençant le nb d'espèces rencontrées le long du littoral. On a la hauteur de la station d'échantillonnage par rapport à la hauteur moyenne de la marée ainsi que l'exposition qui est quantifiée à l'aide d'un index construit à partir de la "sévérité" des conditions de la station (force des vagues, longueur de la zone d'impact, pente, substrat allant de fin à grossier). La base de données se trouve à cet endroit [plages.csv](https://github.com/frousseu/ECL749/tree/master/data). Illustrez vos résultats. 
+
 
 
 # Travail de session
@@ -1190,29 +1193,29 @@ Le travail de session se déroulera en deux temps. La première partie (20%) con
 
 ## Partie I
 
-La première partie (20%) devra comprendre un plan détaillé de la méthodologie proposée pour récolter et analyser les données. Plus spécifiquement, vous devez présenter un plan d’échantillonnage en plus d’indiquer quelles mesures seront
+La première partie (20%) devra comprendre la méthodologie proposée pour récolter et analyser les données. Plus spécifiquement, vous devrez présenter un plan d’échantillonnage en plus d’indiquer quelles mesures seront
 prises sur le terrain. Une ou des méthodes d'analyses statistiques devront également être proposées. Cette partie
-du travail devra être remise par courriel au plus tard le **vendredi 23 mars à 16h**. Pour ceux désirant utiliser leur propre jeu de données, vous devrez énoncer vous même votre propre mise en situation et m'en faire part d'ici **vendredi le 9 mars à 16h** en me montrant également la base de données qui sera utilisée. Vous devrez proposer une méthodologie par rapport à votre mise en situation. 
+du travail devra être remise par courriel au plus tard le **vendredi 23 mars à 16h**. Pour ceux désirant utiliser leur propre jeu de données, vous devrez énoncer vous même votre propre mise en situation et m'en faire part d'ici vendredi le 16 mars à 16h en me montrant également la base de données qui sera utilisée (ou un extrait).
 
-Comment-allez vous répondre à cette question? Quel sera votre plan d'échantillonnage? Quelles seront les variables que vous utiliserez? Quelles méthodes envisagez-vous utiliser pour analyser les données récoltées? La méthodologie proposée devrait pouvoir être exposée en un maximum de 2 pages. Vous devrez probablement vous inspirer de la littérature scientifique afin d'identifier les variables pertinentes à utiliser et établir votre plan d'échantillonnage. 
+Comment-allez vous répondre à cette mise en situation? Quel sera votre plan d'échantillonnage? Quelles seront les variables que vous utiliserez? Quelles méthodes envisagez-vous utiliser pour analyser les données récoltées? La méthodologie proposée devrait pouvoir être exposée en un maximum de 2 pages. Puisque certains éléments sont inconnus, il sera bien sûr impossible de détailler tous les aspects de votre méthodologie. Le travail proposé ici a surtout pour objectif de vous faire réfléchir à un design d'étude vous permettant de répondre à une question de nature écologique. 
 
-Afin de limiter l'éventail des possibilités, vous devrez vous limiter à identifier un maximum de 4 ou 5 variables pertinentes à utiliser. En effet, de multiples variables pourraient être mesurées, mais il s'agit surtout ici d'identifier quelques variables pertinentes et surtout d'être capable de développer et d'exposer un plan d'échantillonnage pour répondre à une question donnée. De la même façon, il n'est pas nécessaire de mentionner que vous allez inventorier des milliers de sites pour répondre la question. Il s'agit d'utiliser un nombre de stations ou un échantillonnage suffisant en fonction de la question ou du nombre de variables étudiées. Ceci n'est pas toujours évident à évaluer et vous devrez vous fiez à votre jugement pour déterminer l'étendue de votre échantillonnage.
+Vous devrez probablement vous inspirer de la littérature scientifique afin d'identifier les variables à utiliser et établir votre plan d'échantillonnage. Afin de limiter l'éventail des possibilités, il serait préférable de vous limiter à identifier un maximum de 4 ou 5 variables à utiliser. En effet, de multiples variables pourraient être mesurées, mais il s'agit surtout ici d'identifier quelques variables pertinentes et surtout d'être capable de développer et d'exposer un plan d'échantillonnage pour répondre à une question donnée. De la même façon, il n'est pas nécessaire de mentionner que vous allez inventorier des milliers de sites pour répondre à la question. Il s'agit d'utiliser un nombre de stations ou un échantillonnage suffisant en fonction de la question ou du nombre de variables étudiées. Ceci n'est pas toujours évident à évaluer et vous devrez vous fier à votre jugement pour déterminer l'étendue de votre échantillonnage. 
 
 
 ## Partie II
 
 Pour la seconde partie du travail (80%), chaque étudiant ou étudiante recevra une base de données en lien avec ce qui a été proposé dans la première partie du travail. Elle ou il devra réaliser les analyses, les interpréter et présenter les résultats dans un bref rapport écrit qui prendra la forme d'un article scientifique comprenant les éléments suivants :
 
-- **Introduction** : court texte présentant et mettant en contexte la question posée et les
-hypothèses biologiques
-- **Méthodologie** : description des méthodes et des données récoltées et description et
-justification des analyses statistiques effectuées
-- **Résultats** : présentation des résultats accompagnée de graphiques et/ou de tableaux
-- **Discussion** : courte explication et interprétation des résultats et de leur signification
-biologique
-- **Références** : un minimum de cinq références (**articles scientifiques**) devront être utilisées pour
-mettre en contexte la problématique et/ou interpréter les résultats
-- **Annexe** : code R utilisé pour effectuer les analyses statistiques
+- **Introduction** : Courte introduction présentant et mettant en contexte la question posée et les
+hypothèses biologiques.
+- **Méthodologie** : Description des méthodes et des données récoltées et description et
+justification des analyses statistiques effectuées.
+- **Résultats** : Présentation des résultats accompagnée de graphiques et/ou de tableaux.
+- **Discussion** : Courte explication et interprétation des résultats et de leur signification
+biologique.
+- **Références** : Un minimum de cinq références (**articles scientifiques**) devront être utilisées pour
+mettre en contexte la problématique et/ou interpréter les résultats.
+- **Annexe** : Code R (propre!) utilisé pour effectuer les manipulations de données, les analyses statistiques et les graphiques. Ce code devrait contenir toutes les lignes de programmation permettant de reproduire votre travail à partir de votre base de données jusqu'aux graphiques présentés. Les lignes de codes inutiles, exploratoires ou générant des erreurs devraient être éliminées. Les parties plus compliquées de votre code devraient inclure des commentaires expliquant ce qui est effectué.
 
 Votre travail au complet ne devrait pas prendre plus de 10 pages. Ce travail est à remettre au plus tard le **vendredi 20 avril à 16h**.
 
@@ -1220,36 +1223,37 @@ Votre travail au complet ne devrait pas prendre plus de 10 pages. Ce travail est
 
 ## Mises en situation
 
+Voici les différentes mises en situation. Si vous utilisez vos propres données, inspirez-vous de ces mises en situation pour formuler la vôtre.
+
 <br>
 
 **1. Composition du paysage, Grand-duc d'Amérique et occurence de la Chouette rayée**
 
-Quels sont les caractéristiques du paysage affectant la présence dde la Chouette rayée (*i.e.* une espèce de hibou, *Strix varia*) dans le sud du Québec? Est-ce que le Grand-duc d'Amérique (*Bubo virginianus*) à une influence sur sa présence?
+Quelles sont les caractéristiques du paysage affectant la présence de la Chouette rayée (*i.e.* une espèce de hibou, *Strix varia*) dans le sud du Québec? Est-ce que le Grand-duc d'Amérique (*Bubo virginianus*) a une influence sur sa présence?
 
 <br>
 
 **2. Richesse ichtyologique dans les récif coraliens**
 
-Quels sont les variables influençant la richesse en poissons dans les récifs coraliens?
+Quelles sont les variables influençant la richesse en poissons dans les récifs coraliens?
 
 <br>
 
 **3. Diversité aviaire, forêt et fragmentation en milieu tropical**
 
-Quel est l'effet de la fragmentation et de la forêt mature sur la richesse aviaire en milieu tropical?
+Quel est l'effet de la fragmentation forestière sur la richesse aviaire en milieu tropical?
 
 <br>
 
 **4. L'abondance des moineaux dans un contexte agricole**
 
-Quels sont les éléments du paysage affectant l'abondance du moineau domestique en milieu agricole dans le sud du Québec?
+Quels sont les éléments du paysage affectant l'abondance du Moineau domestique (*Passer domesticus*) en milieu agricole dans le sud du Québec?
 
 <br>
 
 **5. La diversité des papillons dans les prairies naturelles**
 
-Quelles sont les caractéristiques de la végétation affectant la diversité en espèce de papillons dans les prairies naturelles
-
+Quelles sont les caractéristiques de la végétation affectant la diversité en espèces de papillons dans les prairies naturelles?
 
 
 
