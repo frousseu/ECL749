@@ -1136,9 +1136,8 @@ Malheureusement, ou plutôt heureusement, il n'y a pas nécessairment une meille
 
 ## Les parasites chez le Colibri à gorge rubis
 
-Pour cet exercice, vous étudierez ce qui influence la charge parasitaire chez le Colibri à gorge rubis (*Archilochus colubris*), une espèce retrouvée au Québec. Dans la base de données [colibris.csv](https://github.com/frousseu/ECL749/tree/master/data), vous retrouverez différentes variables comme le sexe (4 = mâle, 5 = femelle) et l'âge (1 = jeune, 2 = adulte). L'exercice consiste à déterminer quelles sont les variables qui affectent la quantité de parasites. Pour interpréter vos résultats, illustrez graphiquement votre modèle. 
+Pour cet exercice, vous étudierez ce qui influence la charge parasitaire chez le Colibri à gorge rubis (*Archilochus colubris*), une espèce retrouvée au Québec. Dans la base de données [colibris.csv](https://github.com/frousseu/ECL749/tree/master/data), vous retrouverez différentes variables comme le sexe (4 = mâle, 5 = femelle) et l'âge (1 = adulte, 2 = jeune). L'exercice consiste à déterminer quelles sont les variables qui affectent la quantité de parasites. Pour interpréter vos résultats, illustrez graphiquement votre modèle. 
 
-<!--
 
 ### Solution
 
@@ -1151,22 +1150,22 @@ summary(d)
 
 ```
 
-On voit quelques zéros dans la colonne parasites et on peut donc se demander à quel type de données nous avons à faire. On peut illustrer les valeurs de parasites avec un histogramme.
+On voit quelques zéros dans la colonne *parasites* et on peut donc se demander à quel type de données nous avons à faire. On peut illustrer les valeurs de *parasites* avec un histogramme.
 ```{r}
 
 hist(d$parasites)
 
 ```
 
-On a ici un nombre d'individus, avec des valeurs allant de 0 à environ 40. Il faudra donc probablement modéliser l'abondance de parasites avec une distribution de poisson. On a également plusieurs colibris dans la base de données. Une deuxième question à se poser est est-ce qu'on plusieurs décomptes de parasites pour un même individus? On peut vérifier ceci en utilisant la fonction table qui va comptabiliser le nombre de fois que chaque numéro de bague apparaît dans la base de données.
+On a ici un nombre d'individus, avec des valeurs allant de 0 à environ 40. Il faudra donc probablement modéliser l'abondance de parasites avec une distribution de poisson. On a également plusieurs colibris dans la base de données. Une deuxième question à se poser est est-ce qu'on a plusieurs comptes de parasites pour un même individus? On peut vérifier ceci en utilisant la fonction `table` qui va comptabiliser le nombre de fois que chaque numéro de bague apparaît dans la base de données. En utilisant une seconde fois la fonction `table`, on compte le nombre de fois où chacune de ces valeurs est observée.
 
 ```{r}
 
-table(d$bague)
+table(table(d$bague))
 
 ```
 
-On voit que pour la majorité des colibris, on a une seule valeur, mais certain on plusieurs valeurs. On devrait donc par défaut se diriger vers les modèles mixtes pour traiter l'individu comme un effet aléatoire puisque les comptes de parasites sur un même individu ne sont pas indépendants. Par contre, puisque la majorité des individus ont une seule observation, cela peut créer des problèmes dans le cadre des modèles mixtes et on pourrait plutôt opter pour effectuer une moyenne ou pour une sélection aléatoire d'une seule observation pour les individus ayant plusieurs observations. On pourrait également comparer les deux approches et déterminer si nos conclusions par rapport à l'effet de nos variables sont fortement affectées par notre méthode d'analyse. Si ce n'est pas le cas, on peut choisir la méthode qui nous convient en justifiant notre choix et en exposant le fait que nos conclusions ne sont pas affectées par la méthode choisie.
+On voit que pour la majorité des colibris, on a une seule valeur, mais certains ont plusieurs valeurs (2, 3 ou 4 observations). On devrait donc par défaut se diriger vers les modèles mixtes pour traiter l'individu comme un effet aléatoire puisque les comptes de parasites sur un même individu ne sont pas indépendants. Par contre, puisque la majorité des individus ont une seule observation, cela peut créer des problèmes dans le cadre des modèles mixtes et on pourrait plutôt opter pour effectuer une moyenne ou pour une sélection aléatoire d'une seule observation pour les individus ayant plusieurs observations. On pourrait également comparer les deux approches et déterminer si nos conclusions par rapport à l'effet de nos variables sont fortement affectées par notre méthode d'analyse. Si ce n'est pas le cas, on peut choisir la méthode qui nous convient en justifiant notre choix et en exposant le fait que nos conclusions ne sont pas affectées par la méthode choisie.
 
 On devrait également explorer les liens entre nos variables explicatives. On peut faire ceci avec des `boxplot` ou des graphiques standards.
 
@@ -1179,13 +1178,133 @@ table(d$sexe,d$age)
 
 ```
 
--->
+Les femelles sont plus massives que les mâles et les adultes semblent également plus massifs que les jeunes. Cependant, il semble y avoir une disproportion de mâles par rapport aux femelles chez les jeunes.
+
+Avant de lancer nos modèles, il faut transformer le sexe et l'âge en facteur étant donné que ces deux variables sont représentées par des valeurs numériques.
+
+```{r}
+
+d$sexe<-as.factor(d$sexe)
+d$age<-as.factor(d$age)
+
+library(lme4)
+
+m1<-glm(parasites~sexe+age+masse,data=d,family=poisson)
+m2<-glmer(parasites~sexe+age+masse+(1|bague),data=d,family=poisson)
+
+summary(m1)
+summary(m2)
+
+```
+
+On obtient des résultats bien différents selon nos deux modèles. On a un effet négatif de la masse, mais pour l'âge et le sexe nos conclusions sont très différentes. Puisque nous avons une seule observation pour la majorité des individus, il est peut être préférable de ne pas utiliser de modèles mixtes qui requièrent plusieurs observations pour chaque niveau. 
+
+<!-- On peut visualiser les prédictions de nos modèles avec visreg et en créant une fenêtre graphique avec en haut les prédictions pour le glm et en bas les prédictions pour le modèle mixte. Remarquez que nous n'avons pas d'intervalles de confiance autour des prédictions pour le modèle mixte. La raison de ceci est expliquée dans la [GLMM FAQ](https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html#testing-hypotheses). -->
+
+```{r,eval=FALSE,echo=FALSE,include=FALSE}
+
+par(mfrow=c(2,3))
+visreg(m1,scale="response",ylim=c(0,8))
+visreg(m2,"sexe",scale="response",ylim=c(0,8))
+visreg(m2,"age",scale="response",ylim=c(0,8))
+visreg(m2,"masse",scale="response",ylim=c(0,8))
+
+```
+
+On pourrait opter pour un GLM et ne prendre qu'une seule observation aléatoirement par individu. On peut faire ceci en utilisant une combinaison de `split`, `lapply` et `sample`. Je vous laisse étudier le code en vous donnant quelques indications sur chaque étape.
+
+```{r}
+
+s<-split(d,d$bague) # on sépare les données par individu dans une liste
+l<-lapply(s,function(i){ # on applique une fonction sur chaque data.frame de la liste
+   if(nrow(i)==1){ # on prend la ligne s'il n'y en qu'une
+     i
+   }else{
+     i[sample(1:nrow(i),1),] # ou on choisit aléatoirement une ligne s'il y en a plusieurs
+   } 
+})
+d2<-do.call("rbind",l) # on fusionne les différents subsets de la liste ensemble dans un nouveau data.frame
+
+```
+
+Dans l'objet `d2`, on a maintenant une seule ligne par individu.
+
+```{r}
+
+m1sub<-glm(parasites~sexe+age+masse,data=d2,family=poisson)
+summary(m1sub)
+
+```
+
+Nos conclusions pour ce glm modifié sont très similaires. On conclut donc que les mâles et les jeunes sont davantage infectés par les parasites. Plusieurs interprétations sont possibles, mais aucune ne me semble évidente et il faudrait chercher dans la littérature pour valider ces interprétations. Quant à la masse, elle a un effet négatif sur le nombre de parasites. Ceci pourrait s'expliquer par le fait que les individus plus massifs sont aussi en meilleure santé et donc plus aptes à se défendre contre les parasites.
+
+```{r}
+
+par(mfrow=c(2,2))
+visreg(m1sub,scale="response",ylim=c(0,8))
+
+```
+
 
 ## La richesse spécifique le long du littoral
 
 Ici, on s'intéresse aux variables influençant le nb d'espèces rencontrées le long du littoral. On a la hauteur de la station d'échantillonnage par rapport à la hauteur moyenne de la marée ainsi que l'exposition qui est quantifiée à l'aide d'un index construit à partir de la "sévérité" des conditions de la station (force des vagues, longueur de la zone d'impact, pente, substrat allant de fin à grossier). La base de données se trouve à cet endroit [plages.csv](https://github.com/frousseu/ECL749/tree/master/data). Illustrez vos résultats. 
 
+### Solution
 
+Importons d'abord les données.
+```{r}
+
+d <- read.csv("https://raw.githubusercontent.com/frousseu/ECL749/master/data/plages.csv")
+head(d)
+
+```
+
+Comme pour l'exercice précédent, on a une variable réponse qui correspond à un compte et qui est très asymmétrique à droite avec des valeurs de zéros.
+```{r}
+
+
+hist(d$richesse)
+range(d$richesse)
+
+```
+
+On semble également avoir des comptes effectués sur plusieurs plages. Vérifions ceci.
+
+```{r}
+
+table(d$plage)
+
+```
+
+On a cinq observations par plages et 9 plages. Il faudrait donc utiliser des modèles mixtes avec la plage en effet aléatoire. On devrait également explorer les liens entre les différentes variables. On peut inclure à la fois la richesse et les variables explicatives ce qui nous permettra d'un seul coup de vérifier la linéarité du lien avec les variables explicatives et la corrélation des variables explicatives. 
+
+```{r}
+
+plot(d[,c("richesse","exposition","hauteur")])
+
+```
+
+On remarque premièrement qu'il n'y a que trois valeurs d'exposition. On pourrait décider de traiter cette variable comme un facteur, mais puisque l'effet semble linéaire et qu'on peut s'imaginer que les valeurs représentent un gradient on pourrait décider de les traiter comme une variable numérique.
+
+```{r}
+
+m<-glmer(richesse~hauteur+exposition+(1|plage),data=d,family=poisson)
+summary(m)
+
+```
+
+On a des effets négatifs significatifs des deux variables ce qui signifie que la hauteur et l'exposition sont toutes deux associées à un moins grand nombre d'espèces. On peut visualiser l'effet de ces deux variables avec visreg. 
+
+```{r}
+
+par(mfrow=c(2,3))
+visreg(m,scale="linear")
+visreg(m,scale="response")
+
+```
+
+La série du haut représente les prédictions du modèle sous l'échelle de la fonction de lien *log* et la série du bas représente les prédictions du modèle à l'échelle de la réponse. Contrairement aux GLMS, il n'y a pas d'intervalles de confiance puisque la meilleure façon de les calculer est incertaine. Ceci est expliqué dans la [GLMM FAQ](https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html#testing-hypotheses). 
 
 # Travail de session
 
@@ -1275,7 +1394,7 @@ Quelles sont les caractéristiques de la végétation affectant la diversité en
 
 [RStudio Cheat Sheets](https://www.rstudio.com/resources/cheatsheets/): divers guides mémoires pour R sur différents sujets 
 
-[R Spatial](http://www.rspatial.org/): introduction à R pour l'analyse de données et la modélisation spatiales
+[R Spatial](http://www.rspatial.org/): introduction à R pour l'analyse et la modélisation de données spatiales
 
 ## Statistiques
 
