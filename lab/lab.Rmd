@@ -1390,17 +1390,19 @@ Quelles sont les caractéristiques de la végétation affectant la diversité en
 
 [Quick-R](https://www.statmethods.net/index.html): site d'introduction à R
 
-[Base R Cheat Sheet](http://github.com/rstudio/cheatsheets/raw/master/base-r.pdf): guide mémoire pour les fonctions de base de R
+[Base R Cheat Sheet](http://github.com/rstudio/cheatsheets/raw/master/base-r.pdf): Guide mémoire pour les fonctions de base de R
 
-[RStudio Cheat Sheets](https://www.rstudio.com/resources/cheatsheets/): divers guides mémoires pour R sur différents sujets 
+[RStudio Cheat Sheets](https://www.rstudio.com/resources/cheatsheets/): Divers guides mémoires pour R sur différents sujets 
 
-[R Spatial](http://www.rspatial.org/): introduction à R pour l'analyse et la modélisation de données spatiales
+[R Spatial](http://www.rspatial.org/): Introduction à R pour l'analyse et la modélisation de données spatiales
 
 ## Statistiques
 
-[GLMM FAQ](https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html): guide pour l'utilisation des modèles mixtes avec R
+[GLMM FAQ](https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html): Guide pour l'utilisation des modèles mixtes avec R
 
-[Generalized linear mixed models: a practical guide for ecology and evolution](https://doi.org/10.1016/j.tree.2008.10.008])
+[Generalized linear mixed models: a practical guide for ecology and evolution](https://doi.org/10.1016/j.tree.2008.10.008)
+
+[GUSTA ME](https://sites.google.com/site/mb3gustame/): **GUide to STatistical Analysis in Microbial Ecology**. Un guide assez complet et très *user friendly* sur les analyses statistiques, surtout multivariées, comprenant l'explication, l'utilisation, l'interprétation, les suppositions et des exemples de plusieurs types d'analyses multivariées. Bien que le site soit orienté vers l'écologie microbienne, il est pertinent pour les biologistes et les écologistes en général.
 
 [A protocol for conducting and presenting results of regression-type analyses](http://onlinelibrary.wiley.com/doi/10.1111/2041-210X.12577/abstract)
 
