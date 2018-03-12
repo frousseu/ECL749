@@ -492,7 +492,7 @@ d<-read.table("sparrows.txt",header=TRUE)
 
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE,eval=FALSE,include=FALSE}
 
 d<-read.table("C:/Users/God/Desktop/sparrows.txt",header=TRUE,fill=TRUE,stringsAsFactors = FALSE)
 
@@ -1306,6 +1306,21 @@ visreg(m,scale="response")
 
 La série du haut représente les prédictions du modèle sous l'échelle de la fonction de lien *log* et la série du bas représente les prédictions du modèle à l'échelle de la réponse. Contrairement aux GLMS, il n'y a pas d'intervalles de confiance puisque la meilleure façon de les calculer est incertaine. Ceci est expliqué dans la [GLMM FAQ](https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html#testing-hypotheses). 
 
+
+# Atelier 6
+
+## Recherche de codes ou de fonctions
+
+Pour ce premier exercice, je vous demande d'ordonner un tableau de données en ordre décroissant selon le numéros de ferme et un numéro d'échantillon.
+
+Par la suite, vous devez trouver une fonction permettant de grouper les sites selon leur similarité en terme de.
+
+## Analyse de données
+
+
+
+
+
 # Travail de session
 
 Le travail de session se déroulera en deux temps. La première partie (20%) consistera en l'établissement d'une méthodologie afin de répondre à une mise en situation et la seconde partie (80%) consistera en la rédaction d'un rapport sous forme d'article scientifique à partir d'une base de données en lien avec la première partie. Dans la plupart des cas, il y aura des différences entre la méthodologie proposée pour la mise en situation et la méthodologie utilisée pour récolter les données fournies. Dans ce cas, il faudra adapter votre méthodologie décrite dans la partie 2 du travail afin de refléter la méthodologie utilisée. 
@@ -1386,7 +1401,11 @@ Quelles sont les caractéristiques de la végétation affectant la diversité en
 
 # Liens utiles
 
-## R
+Ici, je tente de regrouper différentes ressources qui vous seront presque assurément utiles lors de la réalisation de vos projets. Si vous découvrez des éléments qui seraient pertinents à ajouter, vous pouvez m'en faire part. Afin de ne pas "noyer le poisson", j'essaie de ne mentionner que les ressources les plus importantes.
+
+## Ressources en ligne
+
+### R
 
 [Quick-R](https://www.statmethods.net/index.html): site d'introduction à R
 
@@ -1396,21 +1415,52 @@ Quelles sont les caractéristiques de la végétation affectant la diversité en
 
 [R Spatial](http://www.rspatial.org/): Introduction à R pour l'analyse et la modélisation de données spatiales
 
-## Statistiques
+### Statistiques
 
 [GLMM FAQ](https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html): Guide pour l'utilisation des modèles mixtes avec R
 
-[Generalized linear mixed models: a practical guide for ecology and evolution](https://doi.org/10.1016/j.tree.2008.10.008)
-
-[GUSTA ME](https://sites.google.com/site/mb3gustame/): **GUide to STatistical Analysis in Microbial Ecology**. Un guide assez complet et très *user friendly* sur les analyses statistiques, surtout multivariées, comprenant l'explication, l'utilisation, l'interprétation, les suppositions et des exemples de plusieurs types d'analyses multivariées. Bien que le site soit orienté vers l'écologie microbienne, il est pertinent pour les biologistes et les écologistes en général.
+[GUSTA ME](https://sites.google.com/site/mb3gustame/): GUide to STatistical Analysis in Microbial Ecology. Un guide assez complet et très *user friendly* sur les analyses statistiques, surtout multivariées, comprenant l'explication, l'utilisation, l'interprétation, les suppositions et des exemples de plusieurs types d'analyses multivariées. Bien que le site soit orienté vers l'écologie microbienne, il est pertinent pour les biologistes et les écologistes en général.
 
 [Ordination Methods for Ecologists](http://ordination.okstate.edu/): Site abordant plusieurs sujets liés à l'ordination.
 
+[Analysis of community ecology data in R](https://www.davidzeleny.net/anadat-r/doku.php/en:start): Un autre site d'introduction aux analyses multivariées très utile. 
+
 [Ateliers R du CSBQ](https://qcbs.ca/wiki/r): Ateliers en ligne du CSBQ concernant plusieurs sujets liés à R (manipulation de données, programmation, ggplot) ou aux statistiques (glm, modèles mixtes, analyses multivariées, etc.) 
+
+## Ressources publiées
+
+### Articles 
+
+[Generalized linear mixed models: a practical guide for ecology and evolution](https://doi.org/10.1016/j.tree.2008.10.008)
 
 [A protocol for conducting and presenting results of regression-type analyses](http://onlinelibrary.wiley.com/doi/10.1111/2041-210X.12577/abstract)
 
 [A protocol for data exploration to avoid common statistical problems](http://onlinelibrary.wiley.com/doi/10.1111/j.2041-210X.2009.00001.x/full)
+
+### Livres
+
+[The R Book]()
+
+[Introductory statistics with R]()
+
+[Beginner R]()
+
+[Statistics for terrified biologists](): La série de Highland Statistics, les *Zuur*
+
+[La série des *Zuur*](): Highland Statistics
+
+[Numerical Ecology with R]():
+
+[Numerical Ecology]():
+
+## Forums
+
+Quelle que soit votre question sur R ou sur les statistiques, il est fort probable que celle-ci ait déjà été posée et répondue sur l'un de ces forums. Il s'agit d'utiliser les bons mots clés et de bien explorer les questions reliées.
+
+[Stack Overflow](https://stackoverflow.com/questions/tagged/r): Programmation avec R (questions portant le tag "R").
+
+[Cross Validated](https://stats.stackexchange.com/): Questions concernant les statistiques.
+
 
 
 
