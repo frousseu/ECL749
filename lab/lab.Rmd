@@ -1404,6 +1404,10 @@ Quelles sont les caractéristiques de la végétation affectant la diversité en
 
 [GUSTA ME](https://sites.google.com/site/mb3gustame/): **GUide to STatistical Analysis in Microbial Ecology**. Un guide assez complet et très *user friendly* sur les analyses statistiques, surtout multivariées, comprenant l'explication, l'utilisation, l'interprétation, les suppositions et des exemples de plusieurs types d'analyses multivariées. Bien que le site soit orienté vers l'écologie microbienne, il est pertinent pour les biologistes et les écologistes en général.
 
+[Ordination Methods for Ecologists](http://ordination.okstate.edu/): Site abordant plusieurs sujets liés à l'ordination.
+
+[Ateliers R du CSBQ](https://qcbs.ca/wiki/r): Ateliers en ligne du CSBQ concernant plusieurs sujets liés à R (manipulation de données, programmation, ggplot) ou aux statistiques (glm, modèles mixtes, analyses multivariées, etc.) 
+
 [A protocol for conducting and presenting results of regression-type analyses](http://onlinelibrary.wiley.com/doi/10.1111/2041-210X.12577/abstract)
 
 [A protocol for data exploration to avoid common statistical problems](http://onlinelibrary.wiley.com/doi/10.1111/j.2041-210X.2009.00001.x/full)
