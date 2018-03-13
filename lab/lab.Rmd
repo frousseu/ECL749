@@ -1309,16 +1309,15 @@ La série du haut représente les prédictions du modèle sous l'échelle de la 
 
 # Atelier 6
 
-## Recherche de codes ou de fonctions
+Pour cet exercice, nous allons développer la débrouillardise sur les internets. Nous allons utiliser le jeu de données [iris](https://github.com/frousseu/ECL749/tree/master/data) pour effectuer différentes tâches. Cette base de données contient des mesures morphométriques pour trois espèces d'iris.
 
-Pour ce premier exercice, je vous demande d'ordonner un tableau de données en ordre décroissant selon le numéros de ferme et un numéro d'échantillon.
+1. Ordonnez la base de données selon l'espèce et puis selon la longueur des pétales.
 
-Par la suite, vous devez trouver une fonction permettant de grouper les sites selon leur similarité en terme de.
+2. Trouvez une fonction permettant de faire du *clustering* et tentez d'effectuer un groupement permettant de classifier les trois espèces ou de discriminer entre les individus.
 
-## Analyse de données
+3. Effectuez une analyse en composantes principales afin de représenter la variation dans ce jeu de données et illustrez les résultats dans un graphique.
 
-
-
+4. *Bonus*. Est-ce que des variables environnementales permettent d'expliquer les variations en composition de plantes alpines dans le jeu de données *aravo* du package **ade4**?
 
 
 # Travail de session
@@ -1421,9 +1420,9 @@ Ici, je tente de regrouper différentes ressources qui vous seront presque assur
 
 [GUSTA ME](https://sites.google.com/site/mb3gustame/): GUide to STatistical Analysis in Microbial Ecology. Un guide assez complet et très *user friendly* sur les analyses statistiques, surtout multivariées, comprenant l'explication, l'utilisation, l'interprétation, les suppositions et des exemples de plusieurs types d'analyses multivariées. Bien que le site soit orienté vers l'écologie microbienne, il est pertinent pour les biologistes et les écologistes en général.
 
-[Ordination Methods for Ecologists](http://ordination.okstate.edu/): Site abordant plusieurs sujets liés à l'ordination.
-
 [Analysis of community ecology data in R](https://www.davidzeleny.net/anadat-r/doku.php/en:start): Un autre site d'introduction aux analyses multivariées très utile. 
+
+[Ordination Methods for Ecologists](http://ordination.okstate.edu/): Site abordant plusieurs sujets liés à l'ordination.
 
 [Ateliers R du CSBQ](https://qcbs.ca/wiki/r): Ateliers en ligne du CSBQ concernant plusieurs sujets liés à R (manipulation de données, programmation, ggplot) ou aux statistiques (glm, modèles mixtes, analyses multivariées, etc.) 
 
@@ -1439,19 +1438,19 @@ Ici, je tente de regrouper différentes ressources qui vous seront presque assur
 
 ### Livres
 
-[The R Book]()
+Plusieurs des livres suivants sont disponibles à la bibliothèque et certains sont disponibles en pdf sur internet.
 
-[Introductory statistics with R]()
+[The R Book](https://www.wiley.com/en-us/The+R+Book%2C+2nd+Edition-p-9780470973929): Un classique très complet pour l'introduction à R et aux analyses statistiques avec R.
 
-[Beginner R]()
+[Introductory statistics with R](http://www.springer.com/gp/book/9780387790534)
 
-[Statistics for terrified biologists](): La série de Highland Statistics, les *Zuur*
+[Statistics for terrified biologists](https://www.wiley.com/en-us/Statistics+for+Terrified+Biologists-p-9781405149563)
 
-[La série des *Zuur*](): Highland Statistics
+[La série des *Zuur*](http://www.highstat.com/index.php/books): La série de *Highland Statistics* est très orientée sur la pratique et couvre plusieurs analyases en écologie, surtout en ce qui a trait à la modélisation (GLM, GLMM, GAM, etc.)
 
-[Numerical Ecology with R]():
+[Numerical Ecology with R](http://adn.biol.umontreal.ca/~numericalecology/numecolR/): Les versions anciennes sont disponibles en ligne en verison pdf.
 
-[Numerical Ecology]():
+[Numerical Ecology](https://elsevier-internet-dev.squiz.co.uk/books/numerical-ecology/legendre/978-0-444-53868-0): Un classique sur plusieurs types d'analyses en écologie, particulièrement les analyses multivariées. Les versions anciennes sont disponibles en ligne en verison pdf.
 
 ## Forums
 
@@ -1513,302 +1512,3 @@ write.table(d[sample(1:nrow(d),87),c("Sex","wingcrd","wt")],"U:/2018/2018/Atelie
 
 
 
-
-
-```{r,eval=FALSE,include=FALSE,echo=FALSE}
-
-d
-d$v1
-d[2,3]
-d[,3]
-d[3:5,]
-d$v1[5:7]
-
-d[d$v1>3 | d$z=="a",]
-d[d$v1>3 & d$z=="b",]
-
-vec<-v
-vec
-vec[3:5]
-vec
-vec<-vec[3:5]
-vec
-vec<-vec+1
-vec
-vec<-"salut"
-vec
-v
-
-mean(v)     # moyenne de v
-length(v)   # nb d'?l?ments
-max(v)      # valeur maximale
-dim(m)      # nb de lignes et nb de colonnes dans m
-dim(d)
-
-subset(x=d,subset=v1>5,select=c(v1,z))
-subset(d,v1>5,c(v1,z))
-d
-?subset
-
-x<-c(15,10,11,12,10,11,14,NA,13,NA,13)
-mean(x)
-mean(x,na.rm=TRUE)
-
-x
-unique(x)
-which(x==13)
-x[which(x==13)]
-which.min(x)
-x %in% c(12,13)
-sort(x)
-order(x)
-x[order(x)]
-ifelse(x>12,1,0)
-is.na(x)
-x[is.na(x)]
-x
-x[is.na(x)]<-33
-x
-
-d<-d[c(1:9,1,1),]
-d
-order(d$v1)
-d[rev(order(d$v1)),]
-
-#dat<-data.frame(id=LETTERS[1:10],long=rnorm(10,mean=50,sd=10))
-#write.table(dat,"data.txt",row.names=F)
-
-donnee<-read.table("data.txt",header=T)
-getwd()
-setwd("C:/Documents and Settings/Francois/Mes documents/ECL749/CoursR")
-donnee<-read.table("data.txt",header=T)
-head(donnee)
-dim(donnee)
-
-d<-read.table("test1.txt",header=T,stringsAsFactors=F)
-d
-mean(d$long)
-d$long
-d<-read.table("test1.txt",header=T,dec=",")
-mean(d$long)
-
-d<-read.table("test2.txt",header=T)
-
-d<-read.table("test3.txt",header=T)
-
-## EXERCICE 1 ##################################################################
-
-# remplir l'espace vide avec un NA
-# changer le N avec un NA
-# rajouter les - dans la date incompl?te
-# retransformer la colonne stay en num?rique s'il y a lieu
-# enlever les NA ou mettre la vraie valeur à partir des dates
-
-d<-read.table("oiescorrige.txt",header=T,stringsAsFactors=F)
-d<-d[!is.na(d$stay),]
-res<-aggregate(d$stay,list(?tat=d$state),mean)
-res<-aggregate(stay~state,data=d,mean)
-oie<-res[rev(order(res[,2])),]
-head(oie)
-################################################################################
-
-x<-runif(50,20,30)
-y<-x+rnorm(50,mean=0,sd=2)
-plot(x,y)
-
-plot(x,y,col="red",pch=16,cex=2)
-
-plot(x,y,col="red",pch=16,cex=2,xlim=c(10,40),ylim=c(10,40),main="Graphique",xlab="Axe des X",ylab="Axe des Y")
-
-d<-data.frame(x=x,y=y)
-d<-d[order(d$x),]
-plot(d$x,d$y,type="n",xlab="X",ylab="Y")
-lines(d$x,d$y)
-points(d$x,d$y,col="red",cex=1.5)
-
-par(mfrow=c(1,2))
-plot(d$x,d$y,type="n")
-lines(d$x,d$y,lwd=2,col="blue")
-plot(d$x,d$y,type="n",col="black",xlab="X",ylab="Y")
-lines(d$x,d$y,col="black")
-points(d$x,d$y,col="red",cex=1.5)
-text(26.5,20,label="augmentation",col="orange",cex=2)
-
-par(mfrow=c(1,1))
-plot(1:20,1:20,col=1:20,pch=1:20,cex=3,xlim=c(0,22))
-text(1:20+1,1:20,label=1:20,cex=1.1)
-
-age<-c(rep("juv?nile",20),rep("immature",20),rep("adulte",20))
-longueur<-c(rnorm(20,mean=10,sd=5),rnorm(20,mean=55,sd=10),rnorm(20,mean=75,sd=15))
-masse<-c(rnorm(20,mean=10,sd=2),rnorm(20,mean=45,sd=10),rnorm(20,mean=75,sd=15))
-d<-data.frame(age,longueur,masse)
-head(d)
-plot(d$longueur,d$masse,type="n",xlab="Longueur",ylab="Masse")
-points(d$longueur[d$age=="juv?nile"],d$masse[d$age=="juv?nile"],col="darkgreen",pch=16)
-points(d$longueur[d$age=="immature"],d$masse[d$age=="immature"],col="blue",pch=16)
-points(d$longueur[d$age=="adulte"],d$masse[d$age=="adulte"],col="red",pch=16)
-legend(x="topleft",legend=c("juv?nile","immature","adulte"),pch=16,col=c("darkgreen","blue","red"),inset=0.1,title="Ã‚ge")
-
-par(mfrow=c(1,2))
-temp<-rnorm(1000,mean=20,sd=5)
-hist(temp)
-hist(temp,breaks=0:40)
-
-par(mfrow=c(1,1))
-head(oie)
-barplot(oie$stay,ylab="Temps de r?sidence moyen",xlab="Ã‰tat",names.arg=oie$state,border="white",col="red",cex.names=0.7,space=0)
-
-## EXERCICE 2 ##################################################################
-
-#setwd("C:/Documents and Settings/Francois/Mes documents/COLIBRIS/Donn?es/Base de donn?es propres")
-#dd<-read.table("calcul08d?cembre2009.txt",header=T,stringsAsFactors=F)
-#d<-subset(dd,dd$annee>2006,select=c(abreuv,typemilieu,bague,x,y))
-#d$typemilieu<-ifelse(d$typemilieu%in%c("autre","plantation"),"friche",d$typemilieu)
-#names(d)[2]<-"milieu"
-#names(d)[3]<-"nbind"
-#d<-aggregate(nbind~abreuv+milieu+x+y,data=d,function(i){length(unique(i))})
-#write.table(d,"colibris.txt",row.names=F)
-
-setwd("C:/Documents and Settings/Francois/Mes documents/ECL749/CoursR")
-d<-read.table("colibris.txt",header=T,stringsAsFactors=F)
-barplot(d$nbind,names.arg=d$abreuv,cex.names=0.6,las=2,xlab="Abreuvoir",ylab="Nb d'individus",col="blue",border="white",space=0)
-par(bg="black",mar=c(4,4,1,1))
-plot(d$x,d$y,cex=d$nbind/20,xlim=c(0,600),ylim=c(0,1300),type="n",xaxt="n",yaxt="n",xlab="",ylab="")
-axis(1,at=c(100,200,300,400,500),labels=c(100,200,300,400,500),col="white")
-axis(2,at=seq(100,1200,by=100),labels=seq(100,1200,by=100),col="white",las=2)
-points(d$x[d$milieu=="champs"],d$y[d$milieu=="champs"],cex=d$nbind[d$milieu=="champs"]/20,pch=16,col="lightgoldenrod")
-points(d$x[d$milieu=="foret"],d$y[d$milieu=="foret"],cex=d$nbind[d$milieu=="foret"]/20,pch=16,col="darkgreen")
-points(d$x[d$milieu=="friche"],d$y[d$milieu=="friche"],cex=d$nbind[d$milieu=="friche"]/20,pch=16,col="brown")
-box(col="white")
-legend(x="topright",legend=c("champs","for?t","friche"),pch=16,cex=1.5,pt.cex=2,col=c("lightgoldenrod","darkgreen","brown"),inset=0.05,text.col="white")
-
-install.packages("lme4")
-library(lme4)
-
-a<-matrix(1:30,5,6)
-a
-
-t(a)
-
-help.search("piechart")
-
-## Exercice 3 ##################################################################
-#letters[]
-#paste(letters[],collapse="")
-#Sys.time()
-#substr(Sys.time(),1,4)
-################################################################################
-
-age<-c(rep("juv?nile",20),rep("immature",20),rep("adulte",20))
-longueur<-c(rnorm(20,mean=10,sd=5),rnorm(20,mean=55,sd=10),rnorm(20,mean=75,sd=15))
-masse<-c(rnorm(20,mean=10,sd=2),rnorm(20,mean=45,sd=10),rnorm(20,mean=75,sd=15))
-d<-data.frame(age,longueur,masse)
-head(d)
-m<-lm(masse~age+longueur+age:longueur,data=d)
-m<-lm(masse~age*longueur,data=d)
-
-summary(m)
-
-summary(1:10)
-summary(d)
-
-d<-data.frame(age,longueur,masse,stringsAsFactors=F)
-m<-lm(masse~age*longueur,data=d)
-class(d$age)
-d$age<-as.factor(d$age)
-class(d$age)
-m<-lm(masse~age*longueur,data=d)
-
-par(mfrow=c(2,2))
-plot(m)
-
-par(mfrow=c(2,2))
-plot(fitted(m),resid(m))
-hist(resid(m))
-qqnorm(resid(m))
-qqline(resid(m))
-
-pjuv<-predict(m,data.frame(longueur=0:20,age=rep("juv?nile",length(0:20))))
-pimm<-predict(m,data.frame(longueur=30:80,age=rep("immature",length(30:80))))
-padu<-predict(m,data.frame(longueur=30:110,age=rep("adulte",length(30:110))))
-plot(d$longueur,d$masse,type="n")
-points(d$longueur[d$age=="juv?nile"],d$masse[d$age=="juv?nile"],col="red",pch=16)
-points(d$longueur[d$age=="immature"],d$masse[d$age=="immature"],col="blue",pch=16)
-points(d$longueur[d$age=="adulte"],d$masse[d$age=="adulte"],col="darkgreen",pch=16)
-lines(0:20,pjuv,col="red",lwd=2)
-lines(30:80,pimm,col="blue",lwd=2)
-lines(30:110,padu,col="darkgreen",lwd=2)
-legend("bottomright",legend=c("juv?nile","immature","adulte"),pch=16,col=c("red","blue","darkgreen"),inset=0.05)
-
-mjuv<-predict(m,data.frame(age="juv?nile",longueur=mean(d$longueur[d$age=="juv?nile"])))
-ijuv<-predict(m,data.frame(age="immature",longueur=mean(d$longueur[d$age=="immature"])))
-ajuv<-predict(m,data.frame(age="adulte",longueur=mean(d$longueur[d$age=="adulte"])))
-barplot(c(mjuv,ijuv,ajuv),names.arg=c("juv?nile","immature","adulte"))
-
-
-
-
-
-
-
-
-
-
-
-####################
-####################
-###################
-lac<-c(rep("A",25),rep("B",25),rep("C",25))
-age<-sample(1:4,75,replace=TRUE)
-masse<-c(rnorm(n=25,mean=20,sd=3),rnorm(n=25,mean=25,sd=3),rnorm(n=25,mean=35,sd=3))  
-longueur<-c(rnorm(n=25,mean=150,sd=20),rnorm(n=25,mean=159,sd=19),rnorm(n=25,mean=220,sd=25))
-d<-data.frame(lac,age,masse,longueur)
-head(d)
-hist(d$masse)
-plot(d$longueur,d$masse)
-summary(d)
-points(d$longueur[d$lac=="A"],d$masse[d$lac=="A"],col="blue")
-points(d$longueur[d$lac=="B"],d$masse[d$lac=="B"],col="red")
-points(d$longueur[d$lac=="C"],d$masse[d$lac=="C"],col="green")
-t.test(d$masse[d$lac=="A"],d$masse[d$lac=="B"])
-analysedevariance<-aov(masse~lac,data=d)
-r?gression<-lm(masse~longueur,data=d)
-summary(analysedevariance)
-summary(r?gression)
-plot(longueur,masse)
-abline(r?gression)
-
-
-
-d<-subset(InsectSprays,spray%in%c("A","B","C"))
-m<-aov(count~spray,data=d)
-summary(m)
-summary.lm(m)
-TukeyHSD(m)
-
-Orthodont
-
-
-
-
-
-
-
-
-
-
-
-
-boxplot(count~spray,data=d)
-
-
-
-
-
-
-help.search("Orthodont")
-library(nlme)
-summary(glm(distance~age+Sex,data=d))
-
-
-```
