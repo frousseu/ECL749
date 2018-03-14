@@ -1436,6 +1436,10 @@ Ici, je tente de regrouper différentes ressources qui vous seront presque assur
 
 [A protocol for data exploration to avoid common statistical problems](http://onlinelibrary.wiley.com/doi/10.1111/j.2041-210X.2009.00001.x/full)
 
+[Application of multivariate statistical techniques in microbial ecology](http://onlinelibrary.wiley.com/doi/10.1111/mec.13536/epdf)
+
+[Multivariate analyses in microbial ecology](http://onlinelibrary.wiley.com/doi/10.1111/j.1574-6941.2007.00375.x/full)
+
 ### Livres
 
 Plusieurs des livres suivants sont disponibles à la bibliothèque et certains sont disponibles en pdf sur internet.
