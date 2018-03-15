@@ -1317,11 +1317,11 @@ Pour cet exercice, nous allons développer la débrouillardise sur les internets
 
 3. Effectuez une analyse en composantes principales afin de représenter la variation dans ce jeu de données et illustrez les résultats dans un graphique.
 
-4. *Bonus*. Est-ce que des variables environnementales permettent d'expliquer les variations en composition de plantes alpines dans le jeu de données *aravo* du package **ade4**?
+<!-- 4. *Bonus*. Est-ce que des variables environnementales permettent d'expliquer les variations en composition de plantes alpines dans le jeu de données *aravo* du package **ade4**? -->
 
 ### Solution
 
-**1. Ordonnez la base de données selon l'espèce et puis selon la longueur des pétales.**
+#### 1.
 
 On charge en premier les données.
 ```{r}
@@ -1331,7 +1331,7 @@ head(d)
 
 ```
 
-Pour ordonner les données, on peut utiliser la fonction `order`. Pour illustrer son fonctionnement, on peut d'abord présenter un cas simple. Pour ce faire, créeons un vecteur de trois éléments et appliquons lui la fonction.
+Pour ordonner les données, on peut utiliser la fonction `order`. Pour illustrer son fonctionnement, on peut d'abord présenter un cas simple. Pour ce faire, créons un vecteur de trois éléments et appliquons la fonction.
 
 ```{r}
 
@@ -1356,15 +1356,15 @@ head(d)
 
 ```
 
-Remarquez que si nous avions utiliser la fonction `attach`, l'ordre des éléments dans notre nouveau tableau de données ne serait plus le même que dans les colonnes qui auraient été attachées précédemment.
+Remarquez que si nous avions utilisé la fonction `attach`, l'ordre des éléments dans notre nouveau tableau de données ne serait plus le même que dans les colonnes qui auraient été attachées précédemment. C'est une des raisons pour laquelle l'utilisation de `attach` est déconseillée. 
 
-**2. Trouvez une fonction permettant de faire du *clustering* et tentez d'effectuer un groupement permettant de classifier les individus sur la base de leurs caractéristiques morphologiques. Est-ce que vous êtes capable d'identifier les trois espèces dans les groupes établis?**
+#### 2.
 
 Ce qu'on veut ici, c'est une méthode qui nous permet de classifier les individus sur la base de leurs caractéristiques morphologiques. Sommes-nous capable de retrouver les espèces en les classifiant avec une quelconque méthode? 
 
-Pour trouver une méthode de *clustering*, la façon la plus simple est de taper *clustering in R* dans *Google*. Le premier lien est le site [*Quick-R*](https://www.statmethods.net/advstats/cluster.html) de *DataCamp*.  On y trouve entre autres les fonction `kmeans` et `hclust`. Essayons la première. Le code est un peu compliqué puisque l'exemple cherche à identifier plusieurs *clusters* de façon successive. L'important dans ces exemples est la fonction `kmeans`. Pour son utilisation, on peut aller voir dans le fichier d'aide et dans ses exemples. Les deux arguments importants sont le tableau de variables morphologiques et le nombre de *clusters* voulus.
+Pour trouver une méthode de classification, la façon la plus simple est de taper *clustering in R* dans *Google*. Le premier lien est le site [Quick-R](https://www.statmethods.net/advstats/cluster.html) de *DataCamp*.  On y trouve entre autres les fonctions `kmeans` et `hclust`. testons la première. Le code est un peu compliqué puisque l'exemple cherche à identifier plusieurs groupes de façon successive. L'important dans ces exemples est la fonction `kmeans`. Pour son utilisation, on peut aller voir dans le fichier d'aide et dans ses exemples. Les deux arguments importants sont le tableau de variables morphologiques et le nombre de *clusters* désirés.
 
-```{r, echoi=FALSE}
+```{r, echo=FALSE}
 
 set.seed(123)
 
@@ -1377,7 +1377,7 @@ k
 
 ```
 
-Si vous étudiez le fichier d'aide pour voir quelles valeurs sont retournées pas la fonction (ou les exemples), vous verrez que les *clusters* sont retournés dans l'objet et qu'ils sont accessibles avec l'opérateur `$`. On peut donc comparer les *clusters* identifiés aux espèces à l,aide de la fonction `table`.
+Si vous étudiez le fichier d'aide (et les exemples) pour voir quelles valeurs sont retournées pas la fonction, vous verrez que les *clusters* sont retournés dans l'objet et qu'ils sont accessibles avec l'opérateur `$`. On peut donc les extraire et les comparer les *clusters* identifiés aux espèces à l'aide de la fonction `table`. On pourrait également les combiner dans un même tableau avec la fonction `data.frame`.
 ```{r}
 
 table(d$Species,k$cluster)
@@ -1386,42 +1386,49 @@ table(d$Species,k$cluster)
 
 On voit que le groupe 1 semble très bien correspondre à l'espèce *setosa* et les deux autres groupes correspondent assez bien aux deux autres espèces, quoiqu'il y a un certain niveau de confusion entre les deux espèces. Évidemment, ici, on connaît les groupements à l'avance. Ceci est uniquement pour illustrer une méthode de classification qui permettrait éventuellement de classifier des sites ou des objets sur la base de variables quantitatives.
 
-On pourrait également essayer le *clustering* hiérarchique avec la fonction `hclust` et appliquer les différentes commandes utilisées dans l'exemple pour établir de grands groupes et illustrer les résultats.
+On pourrait également essayer la classification hiérarchique avec la fonction `hclust` et appliquer les différentes commandes utilisées dans l'exemple pour établir de grands groupes et illustrer les résultats.
 
 ```{r,fig.width=11}
 
 dis <- dist(d[,-5], method = "euclidean") # on calcule la distance entre les objets
 h <- hclust(dis) # on les classifie
 plot(h,labels=d$Species,cex=0.5) # on illustre les résultats en réduisant la taille du texte
-groups <- cutree(h, k=3) # cut tree into 5 clusters
-rect.hclust(h, k=3, border="red") 
+groups <- cutree(h, k=3) # on crée 3 grands groupes
+rect.hclust(h, k=3, border="red") # on ajoute ces groupes sur l'arbre de classification
 
 ```
 
-On obtient des résultats assez similaires à la méthode k-means, mais ici la classification est hiérarchique. Ceci n'est qu'un exercice de recherche de fonctions pour illustrer les méthodes de classification. Il faudrait évidemment faire des recherches plus approfondies pour identifier les meilleures méthodes adaptées à notre problème. Un point important est qu'il aurait fallu s'assurer de standardiser (*scaler*) nos données avant la classification afin de donner le même poids à toutes les variables.
+On obtient des résultats assez similaires à la méthode k-means, mais ici la classification est hiérarchique. Ceci n'est qu'un exercice de recherche de fonctions pour illustrer les méthodes de classification. Il faudrait évidemment faire des recherches plus approfondies pour identifier les meilleures méthodes adaptées à notre problème. Un point important ignoré lors de nos classification est qu'il aurait fallu s'assurer de standardiser (*scaler*) nos données avant la classification afin de donner le même poids à toutes les variables.
 
-**3. Effectuez une analyse en composantes principales afin de représenter la variation dans ce jeu de données et illustrez les résultats dans un graphique.**
+#### 3.
 
 Il existe plusieurs fonctions pour effectuer des PCA, mais nous allons utiliser la fonction `rda` du package vegan, un package classique pour les analyses multivariées. Remarquez que nous pouvons utiliser l'argument `scale` pour standardiser les variables afin de ne pas donner plus de poids à certaines variables dans l'analyse.
-```{r}
+```{r,warning=FALSE,message=FALSE}
 
 library(vegan)
+
 m<-rda(d[,-5],scale=TRUE)
-m
+summary(m)
 
 ```
 
-
-La construction de graphiques élégants pour illustrer les ordinations n'est pas toujours évidente. Pour ce faire, vous pouvez vous inspirer de ce que vous trouvez sur internet ou utiliser les fonctions de bases qui ne donnent pas toujours de beaux résultats. Voici un [article de blog](https://www.fromthebottomoftheheap.net/2012/04/11/customising-vegans-ordination-plots/) qui donne différentes méthodes pour améliorer l'illustration d'une ordination à partir de `rda`. Sachez également qu'il est généralement possible d'extraire les coordonées de toutes les valeurs utilisées afin de produire les graphiques, ce qui donne toute la flexibilité possible dans les illustrations, mais ce qui représente aussi beaucoup de travail.
+La majeure partie de la variation dans le jeu de données est capturée par le premier axe (i.e. 73%). Afin d'interpréter les résultats, il est essentiel d'illustrer les résultats dans un graphique. La construction de graphiques élégants pour illustrer les ordinations n'est pas toujours évidente et les fonctions de bases ne donnent pas toujours les plus belles illustrations. Pour ce faire, vous pouvez vous inspirer de ce que vous trouvez sur internet. Voici un [article de blog](https://www.fromthebottomoftheheap.net/2012/04/11/customising-vegans-ordination-plots/) qui donne différentes méthodes pour améliorer l'illustration d'une ordination à partir de `rda`. Bien que cela représente plus de travail, sachez qu'il est généralement possible d'extraire les coordonées de toutes les valeurs utilisées afin de produire les graphiques, ce qui donne toute la flexibilité possible pour l'illustration des résultats. Ici, nous nous contenterons de graphiques simples relativement simples sur lesquels nous illustrerons les différentes espèces. Remarquez que nous utilisons un vecteur de couleurs que nous indexons par la suite en se basant sur le fait que la colonne `d$Species` est considérée comme un `factor`.
 ```{r}
 
-biplot(m,scaling=1)
+col<-c("tomato4","orange","darkblue")
+
+biplot(m,scaling=1,display = c("sites","species"),type = c("text","points"),col=c("white","black"),main="Scaling 1")
+points(m,scaling=1,col=col[as.integer(d$Species)],pch=1)
+legend("bottomright",col=col,pch=1,legend=levels(d$Species))
+
+
+biplot(m,scaling=2,display = c("sites","species"),type = c("text","points"),col=c("white","black"),main="Scaling 2")
+points(m,scaling=2,col=col[as.integer(d$Species)],pch=1)
+legend("bottomright",col=col,pch=1,legend=levels(d$Species))
 
 ```
 
-
-**4. *Bonus*. Est-ce que des variables environnementales permettent d'expliquer les variations en composition de plantes alpines dans le jeu de données *aravo* du package ade4?**
-
+L'axe 1 est surtout déterminé par les dimensions des pétales et dans une moindre mesure par la longueur des sépales. Quant au second axe, il est surtout déterminé par la largeur des sépales. En consultant le premier graphique, le groupe *setosa* semble se distinguer de façon assez marquée par rapport aux deux autres espèces. Avec le second graphique, on constate que les dimensions des pétales sont très corrélées, alors que ce n'est pas du tout le cas pour les dimensions des sépales.
 
 
 # Travail de session
