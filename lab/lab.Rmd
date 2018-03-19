@@ -1430,6 +1430,13 @@ legend("bottomright",col=col,pch=1,legend=levels(d$Species))
 
 L'axe 1 est surtout déterminé par les dimensions des pétales et dans une moindre mesure par la longueur des sépales. Quant au second axe, il est surtout déterminé par la largeur des sépales. En consultant le premier graphique, le groupe *setosa* semble se distinguer de façon assez marquée par rapport aux deux autres espèces. Avec le second graphique, on constate que les dimensions des pétales sont très corrélées, alors que ce n'est pas du tout le cas pour les dimensions des sépales.
 
+# Méthodes / résultats
+
+Articles à lire pour le cours du 20 mars.
+
+[Latitudinal and altitudinal patterns of plant community diversity on mountain summits across the tropical Andes](http://onlinelibrary.wiley.com/doi/10.1111/ecog.02567/abstract)
+
+[Predictors of malaria infection in a wild bird population: landscape-level analyses reveal climatic and anthropogenic factors](http://onlinelibrary.wiley.com/doi/10.1111/1365-2656.12214/full)
 
 # Travail de session
 
