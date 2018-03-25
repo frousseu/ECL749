@@ -1485,6 +1485,7 @@ Quelles sont les caractéristiques du paysage affectant la présence de la Choue
 Voici la base de données [chouette]("https://raw.githubusercontent.com/frousseu/ECL749/master/data/chouette.csv") et une description des variables:
 
 -**site**: station d'écoute
+-**year**: année de visite
 -**rayon**: rayon auquel les % ont été mesurés
 -**for_feuil**: % de forêt feuillue
 -**for_con**: % de forêt coniférienne
@@ -1522,6 +1523,19 @@ Quel est l'effet de la fragmentation forestière sur la richesse aviaire en mili
 **4. L'abondance des moineaux dans un contexte agricole**
 
 Quels sont les éléments du paysage affectant l'abondance du Moineau domestique (*Passer domesticus*) en milieu agricole dans le sud du Québec?
+
+Voici la base de données [moineaux]("https://raw.githubusercontent.com/frousseu/ECL749/master/data/moineaux.csv") et une description des variables:
+
+-**ferme**: identifiant de la ferme
+-**vis**: numéro de la visite
+-**abHOSP**: nombre de moineaux détectés
+-**int500**: % de culture intensive dans un rayon de 500m (maïs ou soya)
+-**ext500**: % de culture extensive dans un rayon de 500m (pâturage, céréales, cultures maraîchères)
+-**for500**: % de forêt dans un rayon de 500m
+-**eau500**: % d'eau (surface) dans un rayon de 500m
+-**supbat_500**: % de bâtiments (surface) dans un rayon de 500m
+-**peribat500mean**: périmètre total de bâtiments dans un rayon de 500m (en mètres)
+-**perim500mean_km**: périmètre total de bâtiments dans un rayon de 500m (en km)
 
 <br>
 
