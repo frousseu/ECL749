@@ -1501,6 +1501,16 @@ Voici la base de données [chouette]("https://raw.githubusercontent.com/frousseu
 
 Quelles sont les variables influençant la richesse en poissons dans les récifs coraliens?
 
+Voici la base de données [poissons_coraux]("https://raw.githubusercontent.com/frousseu/ECL749/master/data/poissons_coraux.csv") et une description des variables:
+
+-**nbpoissons**: nb d'espèces de poissons détectées
+-**nbcoraux**: nb d'espèces de coraux détectées
+-**nbgrandscoraux**: nb d'espèces de coraux de grande taille ( > 50cm )
+-**complexité**: indice de complexité du relief variant de 1 (peu complexe) à 5 (très complexe)
+-**pente**: pente générale de la section de récif échantillonnée
+-**site**: site d'échantillonnage
+
+
 <br>
 
 **3. Diversité aviaire, forêt et fragmentation en milieu tropical**
