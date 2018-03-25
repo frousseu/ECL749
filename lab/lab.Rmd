@@ -1543,14 +1543,15 @@ Voici la base de données [moineaux]("https://raw.githubusercontent.com/frousseu
 
 Quelles sont les caractéristiques de la végétation affectant la diversité en espèces de papillons dans les prairies naturelles?
 
+Voici la base de données [papillons]("https://raw.githubusercontent.com/frousseu/ECL749/master/data/papillons.csv") et une description des variables:
 
-
-
-
-
-
-
-
+-**site**: site de récolte
+-**habitat**: type d'habitat (champs de foin, graminées courtes, graminés grandes, mixtes)
+-**batiment**: % de superficie en batiment
+-**urbain**: % de superficie en zone urbaine
+-**year**: année
+-**julien**: jour julien
+-**nbsp**: nb d'espèces de papillons
 
 
 # Liens utiles
