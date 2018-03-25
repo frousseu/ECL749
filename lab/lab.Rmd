@@ -1482,7 +1482,7 @@ Voici les différentes mises en situation. Si vous utilisez vos propres données
 
 Quelles sont les caractéristiques du paysage affectant la présence de la Chouette rayée (*i.e.* une espèce de hibou, *Strix varia*) dans le sud du Québec? Est-ce que le Grand-duc d'Amérique (*Bubo virginianus*) a une influence sur sa présence?
 
-Voici la base de données [chouette]("https://raw.githubusercontent.com/frousseu/ECL749/master/data/chouette.csv") et une description des variables:
+Les données ont été récoltées en montérégie et en estrie. À chaque site, trois stations d'écoute d'une durée de 10 minutes ont été effectuées au courant de la saison propice à la détection. L'espèce était considérée présente lorsqu'il y avait au moins une détection. Voici la base de données [chouette]("https://raw.githubusercontent.com/frousseu/ECL749/master/data/chouette.csv") et une description des variables. 
 
 -**site**: station d'écoute
 -**year**: année de visite
