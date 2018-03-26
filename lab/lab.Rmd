@@ -1484,7 +1484,7 @@ Voici les différentes mises en situation. Si vous utilisez vos propres données
 
 Quelles sont les caractéristiques du paysage affectant la présence de la Chouette rayée (*i.e.* une espèce de hibou, *Strix varia*) dans le sud du Québec? Est-ce que le Grand-duc d'Amérique (*Bubo virginianus*) a une influence sur sa présence?
 
-Les données ont été récoltées en Montérégie et en Estrie. À chaque site, trois stations d'écoute d'une durée de 10 minutes ont été effectuées au courant de la saison propice à la détection. L'espèce était considérée présente lorsqu'il y avait au moins une détection. Voici la base de données [chouette]("https://raw.githubusercontent.com/frousseu/ECL749/master/data/chouette.csv") et une description des variables. 
+Les données ont été récoltées en Montérégie et en Estrie. À chaque site, trois stations d'écoute d'une durée de 10 minutes ont été effectuées au courant de la saison propice à la détection. L'espèce était considérée présente lorsqu'il y avait au moins une détection. Voici la base de données [chouette](https://raw.githubusercontent.com/frousseu/ECL749/master/data/chouette.csv) et une description des variables. 
 
 - **site**: station d'écoute
 - **year**: année de visite
@@ -1504,7 +1504,7 @@ Les données ont été récoltées en Montérégie et en Estrie. À chaque site,
 
 Quelles sont les variables influençant la richesse en poissons dans les récifs coraliens?
 
-Ces données ont été récoltées dans différentes sections de sites dans les Caraïbes. Le nombre d'espèces de poissons a été évalué à partir de 5 heures d'observations à chaque endroit dans des moments propices. Voici la base de données [poissons_coraux]("https://raw.githubusercontent.com/frousseu/ECL749/master/data/poissons_coraux.csv") et une description des variables:
+Ces données ont été récoltées dans différentes sections de sites dans les Caraïbes. Le nombre d'espèces de poissons a été évalué à partir de 5 heures d'observations à chaque endroit dans des moments propices. Voici la base de données [poissons_coraux](https://raw.githubusercontent.com/frousseu/ECL749/master/data/poissons_coraux.csv) et une description des variables:
 
 - **nbpoissons**: nb d'espèces de poissons détectées
 - **nbcoraux**: nb d'espèces de coraux détectées
@@ -1520,13 +1520,23 @@ Ces données ont été récoltées dans différentes sections de sites dans les 
 
 Quel est l'effet de la fragmentation forestière sur la richesse aviaire en milieu tropical?
 
+Ces données ont été récoltées dans différents sites fragmentés d'une région du Costa Rica. Le nombre d'espèces d'oiseaux à l'intérieur de chaque fragment a été évalué en visitant chaque parcelle pour un minimum de 4h chacune et jusqu'à ce que le nb de nouvelles espèces rencontrées n'augmente pas pendant une période de deux heures. Les visites ont été effectuées pendant la période de reproduction et à des moments propices (*i.e.* tôt le matin, conditions climatiques clémentes) pour l'observation. Voici la base de données [fragmentation_aviaire](https://raw.githubusercontent.com/frousseu/ECL749/master/data/fragmentation_aviaire.csv) et une description des variables:
+
+- **alpha**: nb d'espèces d'oiseaux répertoriées
+- **alti**: altitude du site
+- **super**: superficie du fragment (hectares)
+- **frag**: type de fragment (*small* ou *large*)
+- **foret**: % de superficie en forêt dans un rayon de 1000m
+- **vieille**: % de superficie en vieille forêt dans un rayon de 1000m
+- **site**: numéro du site
+
 <br>
 
 **4. L'abondance des moineaux dans un contexte agricole**
 
 Quels sont les éléments du paysage affectant l'abondance du Moineau domestique (*Passer domesticus*) en milieu agricole dans le sud du Québec?
 
-Ces données ont été récoltées à diverses fermes de la Montérégie et de l'Estrie. Des stations d'écoute d'une durée de 10 minutes ont effectuées à chaque ferme tôt le matin pendant les mois de mai et juin. Voici la base de données [moineaux]("https://raw.githubusercontent.com/frousseu/ECL749/master/data/moineaux.csv") et une description des variables:
+Ces données ont été récoltées à diverses fermes de la Montérégie et de l'Estrie. Des stations d'écoute d'une durée de 10 minutes ont effectuées à chaque ferme tôt le matin pendant les mois de mai et juin. Voici la base de données [moineaux](https://raw.githubusercontent.com/frousseu/ECL749/master/data/moineaux.csv) et une description des variables:
 
 - **ferme**: identifiant de la ferme
 - **vis**: numéro de la visite
@@ -1545,7 +1555,7 @@ Ces données ont été récoltées à diverses fermes de la Montérégie et de l
 
 Quelles sont les caractéristiques de la végétation affectant la diversité en espèces de papillons dans les prairies naturelles?
 
-Ces données ont été récoltées à divers sites dans les prairies américaines. À chaque site, 5 transects de 100 m de récolte active (avec un filet) et 2 nuitée de récolte passive (avec un drap et de la lumière) ont été effectuées pendant les mois de juin et juillet. Voici la base de données [papillons]("https://raw.githubusercontent.com/frousseu/ECL749/master/data/papillons.csv") et une description des variables:
+Ces données ont été récoltées à divers sites dans les prairies américaines. À chaque site, 5 transects de 100 m de récolte active (avec un filet) et 2 nuitée de récolte passive (avec un drap et de la lumière) ont été effectuées pendant les mois de juin et juillet. Voici la base de données [papillons](https://raw.githubusercontent.com/frousseu/ECL749/master/data/papillons.csv) et une description des variables:
 
 - **site**: site de récolte
 - **habitat**: type d'habitat (champs de foin ou pâturage, graminées courtes, graminés grandes, mixtes)
