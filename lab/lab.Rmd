@@ -1480,15 +1480,39 @@ Voici les différentes mises en situation. Si vous utilisez vos propres données
 
 <br>
 
-**1. Composition du paysage, Grand-duc d'Amérique et occurence de la Chouette rayée**
+**1. Composition du paysage, Grand-duc d'Amérique et occurrence de la Chouette rayée**
 
 Quelles sont les caractéristiques du paysage affectant la présence de la Chouette rayée (*i.e.* une espèce de hibou, *Strix varia*) dans le sud du Québec? Est-ce que le Grand-duc d'Amérique (*Bubo virginianus*) a une influence sur sa présence?
+
+Les données ont été récoltées en montérégie et en estrie. À chaque site, trois stations d'écoute d'une durée de 10 minutes ont été effectuées au courant de la saison propice à la détection. L'espèce était considérée présente lorsqu'il y avait au moins une détection. Voici la base de données [chouette]("https://raw.githubusercontent.com/frousseu/ECL749/master/data/chouette.csv") et une description des variables. 
+
+-**site**: station d'écoute
+-**year**: année de visite
+-**rayon**: rayon auquel les % ont été mesurés
+-**for_feuil**: % de forêt feuillue
+-**for_con**: % de forêt coniférienne
+-**for_mix**: % de forêt mixte
+-**for_feuil**: % de forêt perturbée ou secondaire
+-**cult_int**: % de culture intensive (maïs ou soya)
+-**cult_ext**: % de culture extensive (pâturage, céréales, cultures maraîchères)
+-**GDApres**: Grand-duc d'Amérique présent ou absent (1/0)
+-**CRpres**: Chouette rayée présente ou absente (1/0)
 
 <br>
 
 **2. Richesse ichtyologique dans les récif coraliens**
 
 Quelles sont les variables influençant la richesse en poissons dans les récifs coraliens?
+
+Voici la base de données [poissons_coraux]("https://raw.githubusercontent.com/frousseu/ECL749/master/data/poissons_coraux.csv") et une description des variables:
+
+-**nbpoissons**: nb d'espèces de poissons détectées
+-**nbcoraux**: nb d'espèces de coraux détectées
+-**nbgrandscoraux**: nb d'espèces de coraux de grande taille ( > 50cm )
+-**complexité**: indice de complexité du relief variant de 1 (peu complexe) à 5 (très complexe)
+-**pente**: pente générale de la section de récif échantillonnée
+-**site**: site d'échantillonnage
+
 
 <br>
 
@@ -1502,20 +1526,34 @@ Quel est l'effet de la fragmentation forestière sur la richesse aviaire en mili
 
 Quels sont les éléments du paysage affectant l'abondance du Moineau domestique (*Passer domesticus*) en milieu agricole dans le sud du Québec?
 
+Voici la base de données [moineaux]("https://raw.githubusercontent.com/frousseu/ECL749/master/data/moineaux.csv") et une description des variables:
+
+-**ferme**: identifiant de la ferme
+-**vis**: numéro de la visite
+-**abHOSP**: nombre de moineaux détectés
+-**int500**: % de culture intensive dans un rayon de 500m (maïs ou soya)
+-**ext500**: % de culture extensive dans un rayon de 500m (pâturage, céréales, cultures maraîchères)
+-**for500**: % de forêt dans un rayon de 500m
+-**eau500**: % d'eau (surface) dans un rayon de 500m
+-**supbat_500**: % de bâtiments (surface) dans un rayon de 500m
+-**peribat500mean**: périmètre total de bâtiments dans un rayon de 500m (en mètres)
+-**perim500mean_km**: périmètre total de bâtiments dans un rayon de 500m (en km)
+
 <br>
 
 **5. La diversité des papillons dans les prairies naturelles**
 
 Quelles sont les caractéristiques de la végétation affectant la diversité en espèces de papillons dans les prairies naturelles?
 
+Voici la base de données [papillons]("https://raw.githubusercontent.com/frousseu/ECL749/master/data/papillons.csv") et une description des variables:
 
-
-
-
-
-
-
-
+-**site**: site de récolte
+-**habitat**: type d'habitat (champs de foin, graminées courtes, graminés grandes, mixtes)
+-**batiment**: % de superficie en batiment
+-**urbain**: % de superficie en zone urbaine
+-**year**: année
+-**julien**: jour julien
+-**nbsp**: nb d'espèces de papillons
 
 
 # Liens utiles
