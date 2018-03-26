@@ -1317,8 +1317,6 @@ Pour cet exercice, nous allons développer la débrouillardise sur les internets
 
 3. Effectuez une analyse en composantes principales afin de représenter la variation dans ce jeu de données et illustrez les résultats dans un graphique.
 
-<!-- 4. *Bonus*. Est-ce que des variables environnementales permettent d'expliquer les variations en composition de plantes alpines dans le jeu de données *aravo* du package **ade4**? -->
-
 ### Solution
 
 #### 1.
@@ -1429,6 +1427,10 @@ legend("bottomright",col=col,pch=1,legend=levels(d$Species))
 ```
 
 L'axe 1 est surtout déterminé par les dimensions des pétales et dans une moindre mesure par la longueur des sépales. Quant au second axe, il est surtout déterminé par la largeur des sépales. En consultant le premier graphique, le groupe *setosa* semble se distinguer de façon assez marquée par rapport aux deux autres espèces. Avec le second graphique, on constate que les dimensions des pétales sont très corrélées, alors que ce n'est pas du tout le cas pour les dimensions des sépales.
+
+# Atelier 7
+
+Quelles questions pouvez-vous vous poser avec le jeu de données *aravo* du package **ade4**? Est-ce que des variables environnementales permettent d'expliquer les variations en composition de plantes alpines (CCA)? Réalisez et illustrer quelques analyses multivariées afin d'explorer ce jeu de données. Vous pouvez vous inspirer du site [GUSTA ME](https://sites.google.com/site/mb3gustame/) (donné en référence dans les liens utiles plus bas) et de son *wizard* sur les analyses contraintes ou encore de l'information contenue dans ce site [Analysis of community ecology data in R](https://www.davidzeleny.net/anadat-r/doku.php/en:ordination).
 
 # Méthodes / résultats
 
