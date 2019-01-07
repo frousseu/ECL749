@@ -1,7 +1,7 @@
 ---
-title: "Ateliers R"
-author: ""
-date: ""
+title: "ECL749 Ateliers R"
+author: "François Rousseu"
+date: "Hiver 2019"
 output:
   html_document:
     depth: 4
