@@ -173,13 +173,6 @@ l
 
 ```
 
-### Principaux objets avec des données
-
-- vecteur (1 dimension, 1 type de données)
-- matrice (`matrix`) (2 dimensions, 1 type de données)
-- data.frame (2 dimensions, tout type de données)
-- liste (`list`)(1 dimension, tout type d'objets)
-- `array` (3 dimension, un type de données)
 
 ### Type de données
 
@@ -190,6 +183,14 @@ class(1)
 class("allo")
 class(TRUE)
 ```
+
+### Types d'objets
+
+- vecteur (1 dimension, 1 type de données)
+- matrice (`matrix`) (2 dimensions, 1 type de données)
+- data.frame (2 dimensions, tout type de données)
+- liste (`list`) (1 dimension, tout type d'objets)
+- `array` (3 dimension, un type de données)
 
 ### Objets et assignation
 
@@ -472,6 +473,8 @@ Finalement, effectuez et interprétez un test de t pour comparer la masse chez l
 
 Il y a peut-être quelques petits problèmes avec la base de données...
 
+<!--
+
 ### Solution 
 
 On télécharge le fichier *sparrows.txt* avec le bouton de droit en appuyant sur le bouton *raw*. On met ce fichier à un endroit correspondant au répertoire courant ou on change le répertoire courant pour accomoder la localisation du fichier. Vous pouvez aussi utiliser le menu de RStudio *Session / Set Working Directory / Choose Directory*. Remarquez que la ligne `setwd("chemin/vers/le/fichier.txt")` va s'écrire dans la console. Le mieux serait d'inclure cette ligne dans votre script. Remarquez qu'il serait aussi possible d'écrire le chemin vers le fichier au long au lieu de seulement inscrire le nom du fichier (entre guillemets) pour la fonction `read.table`.
@@ -577,6 +580,11 @@ t.test(m$wt,f$wt)
 ```
 
 La valeur de *p* est inférieure à 0.05 et l'intervalle de confiance a des bornes inférieure et supérieures positives, on conclut donc que les mâles ont une masse supérieure aux femelles et que cette différence est de l'ordre de 1 ou 2 grammes.
+
+-->
+
+
+<!--
 
 # Atelier 2
 
@@ -1199,7 +1207,7 @@ summary(m2)
 
 On obtient des résultats bien différents selon nos deux modèles. On a un effet négatif de la masse, mais pour l'âge et le sexe nos conclusions sont très différentes. Puisque nous avons une seule observation pour la majorité des individus, il est peut être préférable de ne pas utiliser de modèles mixtes qui requièrent plusieurs observations pour chaque niveau. 
 
-<!-- On peut visualiser les prédictions de nos modèles avec visreg et en créant une fenêtre graphique avec en haut les prédictions pour le glm et en bas les prédictions pour le modèle mixte. Remarquez que nous n'avons pas d'intervalles de confiance autour des prédictions pour le modèle mixte. La raison de ceci est expliquée dans la [GLMM FAQ](https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html#testing-hypotheses). -->
+On peut visualiser les prédictions de nos modèles avec visreg et en créant une fenêtre graphique avec en haut les prédictions pour le glm et en bas les prédictions pour le modèle mixte. Remarquez que nous n'avons pas d'intervalles de confiance autour des prédictions pour le modèle mixte. La raison de ceci est expliquée dans la [GLMM FAQ](https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html#testing-hypotheses).
 
 ```{r,eval=FALSE,echo=FALSE,include=FALSE}
 
@@ -1474,6 +1482,8 @@ mettre en contexte la problématique et/ou interpréter les résultats.
 
 Votre travail au complet ne devrait pas prendre plus de **10 pages**. Ce travail est à remettre au plus tard le **vendredi 20 avril à 16h**.
 
+-->
+
 <!-- 
 
 Clarifier les références partie 1 vs partie 2 
@@ -1489,6 +1499,8 @@ Donner exemple de variable dans une analyse de prévalence qui ne varie pas (ex 
 Toujours se demander, est-ce que nos variables varient? Est-ce que l'échelle à laquelle on mesure les choses fait du sens
 
 -->
+
+<!--
 
 ## Mises en situation
 
@@ -1581,6 +1593,8 @@ Ces données ont été récoltées à divers sites dans les prairies américaine
 - **julien**: jour julien
 - **nbsp**: nb d'espèces de papillons
 
+
+-->
 
 # Liens utiles
 
