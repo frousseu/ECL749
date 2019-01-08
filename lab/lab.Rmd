@@ -389,7 +389,7 @@ Par défaut, le premier élément listé à l'intérieur d'une fonction est l'ob
 Certaines fonctions sont représentées par des opérateurs. En voici quelques exemples.
 
 
-```{r, results="hold"}
+```{r}
 
 3==4 # égal
 3+4 # addition
