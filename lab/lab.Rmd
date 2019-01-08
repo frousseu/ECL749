@@ -125,6 +125,13 @@ knitr::opts_chunk$set(echo=TRUE, tidy=TRUE)
 
 # Atelier 1
 
+## R et RStudio
+
+[R](https://cran.r-project.org/) est un langage et un environnement pour le calcul scientifique et les graphiques. Il peut cependant être utilisé pour bien d'autres choses puisqu'il s'agit avant tout d'un langage de programmation.
+
+
+[RStudio](https://www.rstudio.com/) est en quelque sorte un éditeur de texte avancé facilitant l'utilisation et la communication avec R. À l'intérieur de cette interface, vous pouvez créer un script avec vos lignes de commande qui pourront être envoyées dans la console R. Il y a beaucoup de fonctionnalités dans RStudio et ces dernières sont décrites dans cette *cheat sheet*: [RStudio IDE Cheat Sheet](https://www.rstudio.com/resources/cheatsheets/#ide) 
+
 ## Opérations et objets de base 
 
 R peut être utilisé comme une simple calculatrice!
@@ -137,7 +144,7 @@ R peut être utilisé comme une simple calculatrice!
 
 ```
 
-On peut également assigner des objets à des symboles avec l'opérateur `<-` et concaténer des nombres ensemble pour créer un vecteur, un objet à **1 dimension**. Par la suite, on peut effectuer des opérations vectorisées. 
+On peut également assigner des objets à des symboles avec l'opérateur `<-` et concaténer des nombres ensemble avec la fonction `c` pour créer un vecteur, un objet à **1 dimension**. Par la suite, on peut effectuer des opérations vectorisées, i.e. à chaque élément du vecteur. 
 
 ```{r}
 v1<-c(1,2,3,4,5,6,7,8,9)  
@@ -155,7 +162,7 @@ m<-cbind(v1,v2)  #! Colle deux vecteurs ensemble
 m
 ```
 
-Une matrice est composée d'un même type de valeur, soit numérique, caractère ou logique. Plus général, un `data.frame` peut contenir plusieurs types de valeurs. C'est l'équivalent d'un tableau de données dans Excel. 
+Une matrice est composée d'un même type de valeurs, soit numérique, caractère ou logique. Plus général, un `data.frame` peut contenir plusieurs types de valeurs. C'est l'équivalent d'un tableau de données dans Excel. 
 
 ```{r}
 
@@ -178,18 +185,43 @@ l
 
 Les principaux types de données ou de valeurs dans R sont:
 
-```{r, results="hold"}
-class(1)
-class("allo")
-class(TRUE)
+```{r}
+x<-c(1,2,3,4,5)
+class(x)
 ```
 
-### Types d'objets
+```{r}
+x<-c("bonjour","allo","bye")
+class(x)
+```
 
-- vecteur (1 dimension, 1 type de données)
-- matrice (`matrix`) (2 dimensions, 1 type de données)
-- data.frame (2 dimensions, tout type de données)
-- liste (`list`) (1 dimension, tout type d'objets)
+```{r}
+x<-c(TRUE,TRUE,FALSE)
+class(x)
+```
+
+Il y a également le type de données correspondant à un facteur (**factor**),
+
+```{r}
+x<-c("bonjour","allo","bye","allo","bye")
+x<-factor(x)
+class(x)
+```
+
+Si on affiche cet objet dans la console:
+
+```{r}
+x
+```
+
+Les *factors* sont des vecteurs de catégories ayant chacune une étiquette et représentés internalement par des entiers. Par défaut, les étiquettes sont numérotées par ordre alphabétique. 
+
+### Objets de données
+
+- `vector` (1 dimension, 1 type de données)
+- `matrix` (2 dimensions, 1 type de données)
+- `data.frame` (2 dimensions, tout type de données)
+- `list` (1 dimension, tout type d'objets)
 - `array` (3 dimension, un type de données)
 
 ### Objets et assignation
@@ -223,9 +255,9 @@ Tout ce qui est contenu dans une session R est un **objet** qui porte un nom.
 
 <br><br><br>
 
-## Indexation
+## Accéder aux données
 
-L'indexation est le processus par lequel on accède aux données à l'intérieur d'un objet. Pour ce faire, on utilise généralement les opérateurs `[` et `$` avec différentes conditions pour établir notre sélection.
+L'accès aux données se fait par l'intermédiaire de l'indexation qui est le processus par lequel on accède aux données à l'intérieur d'un objet. Pour ce faire, on utilise généralement les opérateurs `[` et `$` avec différentes conditions pour établir notre sélection.
 
 ### Avec un vecteur
 
@@ -369,45 +401,11 @@ c(3,4)%in%c(4,5,6,7) # élément du vecteur 1 contenule vecteur 2
 
 ```
 
-
-## Aide
-
-Dès que l'on se met à jouer avec R, on est vite obligé d'aller inspecter son fichier d'aide. Ceci peut être tout aussi éclairant que frustrant! Mais c'est généralement éclairant et absolument essentiel. Pour accéder à l'aide sur la fonction `rep`, on n'a qu'à taper `?rep`.
-
-### Section *Description*
-
-Cette section contient une courte description de ce que fait la fonction.
-
-### Section *Usage*
-
-Cette section montre comment la fonction est utilisée et liste également la plupart du temps les valeurs par défaut des arguments.
-
-### Section *Arguments*
-
-Cette section explique l'utilisation de chacun des arguments de la fonction et donne également les valeurs par défaut.
-
-### Section *Details*
-
-Cette section donne parfois des détails plus précis par rapport à l'utilisation de la fonction.
-
-### Section *Value*
-
-Cette section décrit la valeur retournée par la fonction.
-
-### Section *See Also*
-
-Cette section donne des suggestions concernant d'autres fonctions jouant un rôle similaire.
-
-### Section *Examples*
-
-Cette section très utile donne des exemples d'utilisation de la fonction. Ces exemples peuvent être copiés et collés directement dans votre session R afin d'étudier l'utilisation de la fonction. Pour bien comprendre l'utilisation d'une fonction, cette section n'est pas à négliger! 
-
-
 ## Importation des données
 
-### Le répertoire courant (*Working directory*)
+### Le répertoire courant
 
-Lorsqu'on débute avec R, c'est souvent à cette première étape cruciale qu'on a des problèmes! Premièrement, R travaille dans un seul dossier à la fois, c'est-à-dire que la base de données doit être dans le bon dossier, appelé **répertoire courant**. Pour dire à R quel est ce dossier, on va dans RStudio sous l'onglet *Session/Set Working Directory*. On doit généralement faire cette opération à chaque début de session de travail dans R, à moins que RStudio s'ouvre par défaut au bon endroit. On peut également inspecter le répertoire courant à l'aide de la fonction `getwd`.
+Lorsqu'on débute avec R, c'est souvent à cette première étape cruciale qu'on a des problèmes! Premièrement, R travaille dans un seul dossier à la fois, c'est-à-dire que la base de données doit être dans le bon dossier, appelé **répertoire courant** (*Working Directory*). Pour dire à R quel est ce dossier, on va dans RStudio sous l'onglet *Session > Set Working Directory*. On doit généralement faire cette opération à chaque début de session de travail dans R, à moins que RStudio s'ouvre par défaut au bon endroit. On peut également inspecter le répertoire courant à l'aide de la fonction `getwd`.
 
 ```{r}
 
@@ -423,7 +421,7 @@ list.files()
 
 ```
 
-### Les données manquantes (`NA`)
+### Les données manquantes
 
 Avant d'importer des données, il est nécessaire d'aborder la gestion des données manquantes par R. Les données manquantes sont toujours représentées par des `NA`, que ce soit dans les vecteurs ou dans les tableaux de données. Lorsqu'on veut importer des données avec des cellules vides, il est souvent nécessaire de remplacer les cellules vides par des `NA`. Parfois, il est possible de dire à une éventuelle fonction que les cellules vides correspondent à des `NA`.
 
@@ -431,18 +429,124 @@ Avant d'importer des données, il est nécessaire d'aborder la gestion des donn�
 
 Il existe plusieurs méthodes pour importer des données dans R. La façon classique est par l'intermédiaire de la fonction `read.table`. Cette fonction prend des fichiers textes (*.txt*) qui doivent répondre à plusieurs critéres:
 
-- Il ne doit y avoir aucun espace dans les noms des différentes variables et dans les éléments de la base de données. Par exemple, Â« bon à modéré» va créer des problèmes. On devrait plutôt écrire "bon.à.modéré" ou "bon_à_modéré". Encore mieux serait d'éviter les accents ou d'utiliser un code.
+- Il ne doit y avoir aucun espace dans les noms des différentes variables et dans les éléments de la base de données. Par exemple, «bon à modéré» va créer des problèmes. On devrait plutôt écrire "bon.à.modéré" ou "bon_à_modéré". Encore mieux serait d'éviter les accents ou d'utiliser un code.
 
 - **AUCUNE** cellule ne doit être vide. Si une cellule est vide ou si on a écrit un commentaire au lieu d'un nombre, on écrit `NA` dans la cellule. Autrement, R produira un message d'erreur puisqu'il considérera qu'une ligne du tableau est incomplète.
 
-- Il faut généralement utiliser le point plutÃ´t que la virgule pour les nombres décimaux (à moins de le spécifier dans les arguments)
+- Il faut généralement utiliser le point plutôt que la virgule pour les nombres décimaux (à moins de le spécifier dans les arguments)
 
-Les messages d'erreurs sont pratiquement obligatoires lors de l'importation d'une nouvelle base de données. Il s'agit juste d'être en mesure de bien les interpréter et d'observer ces quelques règles de base.
+- Par défaut, les colonnes contenant du texte ou tout caractère ne pouvant pas être interprétés comme un chiffre seront considérées comme étant des colonnes contenant du texte (*character*) et seront automatiquement converties en *factor* par les fonctions d'importation de base comme `read.table`. Pour éviter ceci, il est possible de spécifier l'argument `stringsAsFactors = FALSE`.
 
-Plusieurs autres fonctions sont disponibles selon le format des données (`read.delim`, `read.csv`, etc.). Le format *.csv* est souvent le plus pratique, car il réduit les risques de problèmes lors de l'importation en raison de la délimitation des cellules. Il est également possible d'utiliser le package **readxl** pour lire directement des fichiers `.xlsx`. Bien qu'étant la façon classique d'importer des données, la fonction `read.table` est assez capricieuse... On peut également exporter des données avec la fonction `write.table`.
+Les messages d'erreurs sont très très fréquents lors de l'importation d'une nouvelle base de données. Il s'agit d'être en mesure de bien les interpréter et d'observer ces quelques règles de base.
 
-<!-- Mettre un exemple de read.table ou de read.csv avec le complete path ou pas-->
+Plusieurs autres fonctions sont disponibles selon le format des données (`read.delim`, `read.csv`, etc.). Le format *.csv* est souvent le plus pratique, car il réduit les risques de problèmes lors de l'importation en raison de la délimitation des cellules. Il est également possible d'utiliser le package **readxl** pour lire directement des fichiers `.xlsx`. Bien qu'étant la façon classique d'importer des données, la fonction `read.table` est assez capricieuse... On peut également exporter des données avec les fonctions `write.table` ou `write.csv`.
 
+Voici les fonctions de base les plus souvent utilisées pour importer des données:
+
+- `read.table` : pour des fichiers *.txt*
+
+- `read.csv` : pour des fichiers *.csv* (c'est la meilleure façon)
+
+- `read_excel` : fonction du package **readxl** pour des fichiers *.xlsx*
+
+Voici un exemple:
+```{r, results="hold"} 
+getwd()
+d<-read.table("data.txt")
+```
+
+Le code précédent se base sur le fait que le fichier de données est dans le répertoire courant. Si ce n'était pas le cas, il serait aussi possible de spécifier l'emplacement exact du fichier à charger en indiquant le chemin au complet. De cette façon, il est possible d'aller chercher des bases de données ailleurs que dans le répertoire courant.
+
+```{r} 
+d<-read.table("C:/Users/rouf1703/Documents/UdeS/GitHub/ECL749/lab/data.txt",header=TRUE)
+```
+
+### Inspection des données
+
+Il existe plusieurs fonctions pour inspecter les données suite à leur importation ou pour inspecter un `data.frame`. Lors de l'importation de données, il est fortement recommandé de faire un peu d'inspection pour s'assurer que le tout est conforme à nos attentes. 
+
+La fonction `dim` permet de connaître le nombre de lignes (*i*) et le nombres de colonnes (*j*) d'un `data.frame`.
+
+```{r} 
+dim(d)
+```
+
+La fonction `head` permet d'observer les 6 premières lignes.
+
+```{r} 
+head(d)
+```
+
+La fonction `str` permet d'inspecter le type de données dans chacune des colonnes.
+
+```{r} 
+str(d)
+```
+
+La fonction `summary` permet de résumer les données dans chacune des colonnes.
+
+```{r} 
+summary(d)
+```
+
+## Sauvegarde du travail
+
+Suite à une session de travail dans R, il est généralement possible de sauvegarder deux types d'éléments soit un fichier de commande (ou un script R, *nomdufichier.R*) ou l'environnement de travail (un *workspace*, *nomdufichier.RData*). 
+
+Le premier sert à conserver les lignes de commandes et le second à conserver les objets générés dans la session de travail. En général, le plus important est de sauvegarder les lignes de commandes utilisées. Pour ce faire, il faut cliquer sur le bouton disquette en haut à gauche du panneau des scripts. Par la suite, il est possible d'envoyer à nouveau nos lignes de commande pour produire la tâche désirée.
+
+### Script .R
+
+- Fichier de commande ou script permettant de refaire les analyses. **C'est ce qui est important à conserver!**
+
+- On peut ouvrir un script *.R* avec le menu de RStudio en faisant: *File > Open File* ou en utilisant le bouton d'ouverture de dossier.
+
+- On peut insérer des commentaires dans un script avec le symbole `#` de cette façon:
+
+```{r, eval=TRUE} 
+# permet de répéter 2 fois le vecteur allant de 1 à 5
+rep(1:5,2)
+```
+
+### .RData
+
+- Environnement de travail avec les objets de la console R au moment de la sauvegarde (mais ne contient pas les lignes de commandes!)
+
+- On peut le conserver au besoin en utilisant la fonction `save` ou en suivant dans le menu de RStudio  *Session > Save Workspace As*
+
+- On peut ouvrir un environnement de travail avec la fonction `load` ou en faisant *Session > Load Workspace*
+
+## Aide
+
+Dès que l'on se met à jouer avec R, il est rapidement essentiel d'aller inspecter son fichier d'aide. Ceci peut être tout aussi éclairant que frustrant! Mais c'est généralement éclairant et absolument essentiel. Pour accéder à l'aide sur la fonction `rep`, on n'a qu'à taper `?rep`.
+
+##### Section *Description*
+
+Cette section contient une courte description de ce que fait la fonction.
+
+##### Section *Usage*
+
+Cette section montre comment la fonction est utilisée et liste également la plupart du temps les valeurs par défaut des arguments.
+
+##### Section *Arguments*
+
+Cette section explique l'utilisation de chacun des arguments de la fonction et donne également les valeurs par défaut.
+
+##### Section *Details*
+
+Cette section donne parfois des détails plus précis par rapport à l'utilisation de la fonction.
+
+##### Section *Value*
+
+Cette section décrit la valeur retournée par la fonction.
+
+##### Section *See Also*
+
+Cette section donne des suggestions concernant d'autres fonctions jouant un rôle similaire.
+
+##### Section *Examples*
+
+Cette section très utile donne des exemples d'utilisation de la fonction. Ces exemples peuvent être copiés et collés directement dans votre session R afin d'étudier l'utilisation de la fonction. Pour bien comprendre l'utilisation d'une fonction, cette section n'est pas à négliger! 
 
 ## Packages
 
@@ -452,26 +556,30 @@ Les packages sont des banques de fonctions destinées à des tâches spécifique
 install.packages("spatstat")
 ```
 
-Dépendamment de si on travaille avec R ou RStudio, on demande parfois de sélectionner un miroir CRAN à partir duquel le téléchargement sera fait. Une fois le package installé, il faut activer le package dans notre session de travail R. Pour les packages spéciaux qui ne font pas partie des packages de base de R, on doit les activer à chaque session de travail avec la fonction `library`
+Dépendamment de si on travaille avec R ou RStudio, on demande parfois de sélectionner un miroir CRAN à partir duquel le téléchargement sera fait. Une fois le package installé, il faut activer le package dans notre session de travail R. Pour les packages spéciaux qui ne font pas partie des packages de base de R, on doit les activer à chaque session de travail avec la fonction `library`.
 
 ```{r, eval=FALSE}
-library("spatstat")
+library(spatstat)
 ```
 
-Il est fréquent d'utiliser une fonction dans R sans avoir préalablement charger le package la contenant. Dans ce cas, un message d'erreur nous dit que la fonction utilisée n'existe pas. Ceci peut également résulter d'une mauvaise orthographe de la fonction.
+Remarquez que l'utilisation des guillemets "" est optionnelle dans la fonction library, mais c'est rarement le cas dans les autres fonction lorsque l'on réfère à un nom.
+
+Il est fréquent d'utiliser une fonction dans R sans avoir préalablement chargé le package la contenant. Dans ce cas, un message d'erreur nous dit que la fonction utilisée n'existe pas. Ceci peut également résulter d'une mauvaise orthographe de la fonction.
 
 
 ## Exercice
 
-Ce premier exercice consiste à importer une base de données en format *.txt*. Cette base de données contient des mesures morphométriques d'une espèce de bruants (un oiseau). Vous pouvez la télécharger à l'adresse suivante: [https://github.com/frousseu/ECL749/tree/master/data](https://github.com/frousseu/ECL749/tree/master/data).
+Ce premier exercice consiste à importer une base de données en format *.txt*. Cette base de données contient des mesures morphométriques d'une espèce de bruant (un oiseau). Vous pouvez la télécharger à l'adresse suivante: [https://raw.githubusercontent.com/frousseu/ECL749/master/data/sparrows.txt](https://raw.githubusercontent.com/frousseu/ECL749/master/data/sparrows.txt). Vous devez utiliser le bouton droit de la souris pour sauvegarder le contenu de la page dans un fichier *.txt*.
 
 Par la suite, vous devez calculer la longueur moyenne de la corde de l'aile (wingcrd) et de la masse (wt) et effectuez un graphique mettant en relation les deux mesures. La fonction `plot` devrait vous être utile. 
 
-Vous devez également utiliser la fonction `table` pour compter le nb d'observations de mâles et de femelles et apprendre la fonction `boxplot` pour comparer la variabilité de la masse chez les deux sexes.
+Vous devez également utiliser la fonction `table` pour compter le nb d'observations de mâles et de femelles et apprendre le fonctionnement de la fonction `boxplot` pour comparer la variabilité de la masse chez les deux sexes.
 
 Finalement, effectuez et interprétez un test de t pour comparer la masse chez les deux sexes. Ici, la fonction subset pourrait être utile, mais il est possible de s'en sortir en utilisant seulement l'indexage.
 
 Il y a peut-être quelques petits problèmes avec la base de données...
+
+<br><br><br><br><br><br><br><br>
 
 <!--
 
