@@ -214,7 +214,7 @@ Si on affiche cet objet dans la console:
 x
 ```
 
-Les *factors* sont des vecteurs de catégories ayant chacune une étiquette et représentés internalement par des entiers. Par défaut, les étiquettes sont numérotées par ordre alphabétique. 
+Les *factors* sont des vecteurs de catégories ayant chacune une étiquette et représentées de façon interne par des entiers. Par défaut, les étiquettes sont numérotées par ordre alphabétique. 
 
 ### Objets de données
 
@@ -427,17 +427,23 @@ Avant d'importer des données, il est nécessaire d'aborder la gestion des donn�
 
 ### Les fonctions d'importation
 
-Il existe plusieurs méthodes pour importer des données dans R. La façon classique est par l'intermédiaire de la fonction `read.table`. Cette fonction prend des fichiers textes (*.txt*) qui doivent répondre à plusieurs critéres:
+Il existe plusieurs méthodes pour importer des données dans R. La façon classique est par l'intermédiaire de la fonction `read.table`. Cette fonction prend des fichiers textes (*.txt*) qui doivent répondre à plusieurs critères:
+
+<br><br><br>
 
 - Il ne doit y avoir aucun espace dans les noms des différentes variables et dans les éléments de la base de données. Par exemple, «bon à modéré» va créer des problèmes. On devrait plutôt écrire "bon.à.modéré" ou "bon_à_modéré". Encore mieux serait d'éviter les accents ou d'utiliser un code.
 
 - **AUCUNE** cellule ne doit être vide. Si une cellule est vide ou si on a écrit un commentaire au lieu d'un nombre, on écrit `NA` dans la cellule. Autrement, R produira un message d'erreur puisqu'il considérera qu'une ligne du tableau est incomplète.
 
-- Il faut généralement utiliser le point plutôt que la virgule pour les nombres décimaux (à moins de le spécifier dans les arguments)
+- Il faut généralement utiliser le point plutôt que la virgule pour les nombres décimaux (à moins de le spécifier dans les arguments). Autrement, une virgule sera considérée comme étant du caractère.
 
 - Par défaut, les colonnes contenant du texte ou tout caractère ne pouvant pas être interprétés comme un chiffre seront considérées comme étant des colonnes contenant du texte (*character*) et seront automatiquement converties en *factor* par les fonctions d'importation de base comme `read.table`. Pour éviter ceci, il est possible de spécifier l'argument `stringsAsFactors = FALSE`.
 
+<br><br><br>
+
 Les messages d'erreurs sont très très fréquents lors de l'importation d'une nouvelle base de données. Il s'agit d'être en mesure de bien les interpréter et d'observer ces quelques règles de base.
+
+<br><br><br>
 
 Plusieurs autres fonctions sont disponibles selon le format des données (`read.delim`, `read.csv`, etc.). Le format *.csv* est souvent le plus pratique, car il réduit les risques de problèmes lors de l'importation en raison de la délimitation des cellules. Il est également possible d'utiliser le package **readxl** pour lire directement des fichiers `.xlsx`. Bien qu'étant la façon classique d'importer des données, la fonction `read.table` est assez capricieuse... On peut également exporter des données avec les fonctions `write.table` ou `write.csv`.
 
@@ -452,7 +458,7 @@ Voici les fonctions de base les plus souvent utilisées pour importer des donné
 Voici un exemple:
 ```{r, results="hold"} 
 getwd()
-d<-read.table("data.txt")
+d<-read.table("data.txt",header=TRUE)
 ```
 
 Le code précédent se base sur le fait que le fichier de données est dans le répertoire courant. Si ce n'était pas le cas, il serait aussi possible de spécifier l'emplacement exact du fichier à charger en indiquant le chemin au complet. De cette façon, il est possible d'aller chercher des bases de données ailleurs que dans le répertoire courant.
