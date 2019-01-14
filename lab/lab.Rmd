@@ -587,20 +587,11 @@ Il y a peut-être quelques petits problèmes avec la base de données...
 
 <br><br><br><br><br><br><br><br>
 
-<!--
+
 
 ### Solution 
 
-On télécharge le fichier *sparrows.txt* avec le bouton de droit en appuyant sur le bouton *raw*. On met ce fichier à un endroit correspondant au répertoire courant ou on change le répertoire courant pour accomoder la localisation du fichier. Vous pouvez aussi utiliser le menu de RStudio *Session / Set Working Directory / Choose Directory*. Remarquez que la ligne `setwd("chemin/vers/le/fichier.txt")` va s'écrire dans la console. Le mieux serait d'inclure cette ligne dans votre script. Remarquez qu'il serait aussi possible d'écrire le chemin vers le fichier au long au lieu de seulement inscrire le nom du fichier (entre guillemets) pour la fonction `read.table`.
-
-```{r, error=TRUE,cache=TRUE}
-
-setwd("C:/Users/rouf1703/Desktop")
-d<-read.table("sparrows.txt",header=TRUE)
-
-```
-
-Le message d'erreur retourné nous dit qu'il manque un élément à la ligne 83 du tableau de données. Il est important de bien lire les messages d'erreur, car la plupart du temps, ils nous donnent une indication du problème. Le plus simple est probablement d'aller dans le tableau de données et de remplacer manuellement la cellule manquante par un `NA`. 
+On télécharge le fichier *sparrows.txt* avec le bouton de droit en appuyant sur le bouton *raw*. On met ce fichier à un endroit correspondant au répertoire courant ou on change le répertoire courant pour celui de l'emplacementr du fichier. Vous pouvez aussi utiliser le menu de RStudio *Session > Set Working Directory > Choose Directory*. Remarquez que la ligne `setwd("chemin/vers/le/fichier.txt")` va s'écrire dans la console. Le mieux serait d'inclure cette ligne dans votre script. Remarquez qu'il serait aussi possible d'écrire le chemin vers le fichier au long au lieu de seulement inscrire le nom du fichier (entre guillemets) pour la fonction `read.table`.
 
 ```{r, error=TRUE}
 
@@ -609,10 +600,11 @@ d<-read.table("sparrows.txt",header=TRUE)
 
 ```
 
-```{r, echo=FALSE,eval=FALSE,include=FALSE}
+Le message d'erreur retourné nous dit qu'il manque un élément à la ligne 83 du tableau de données. Il est important de bien lire les messages d'erreur, car la plupart du temps, ils nous donnent une indication du problème. Le plus simple est probablement d'aller dans le tableau de données et de remplacer manuellement la cellule manquante par un `NA`. 
 
-d<-read.table("C:/Users/God/Desktop/sparrows.txt",header=TRUE,fill=TRUE,stringsAsFactors = FALSE)
-
+```{r, echo=FALSE,eval=TRUE,include=TRUE}
+# This reads the corrected file with the NA added
+d<-read.table("C:/Users/rouf1703/Desktop/sparrows2.txt",header=TRUE)
 ```
 
 Maintenant qu'on a les données, on peut calculer les moyennes des deux variables *wingcrd* et *wt*.
@@ -624,7 +616,7 @@ mean(d$wt)
 
 ```
 
-On on obtient un `NA` pour la première moyenne et un message d'erreur pour la seconde. Inspectons ce que contient le vecteur `d$wingcrd` pour comprendre pourquoi un `NA` est retourné. On voit que le vecteur contient une valeur de `NA` et par défaut, la fonction `mean` retourne un `NA` (`?mean`). Pour corriger cette situation, on doit utiliser l'argument `na.rm = TRUE` de la fonction `mean`.
+On obtient un `NA` pour la première moyenne et un message d'avertissement pour la seconde. Inspectons ce que contient le vecteur `d$wingcrd` pour comprendre pourquoi un `NA` est retourné. On voit que le vecteur contient une valeur de `NA` et par défaut, la fonction `mean` retourne un `NA` (`?mean`). Pour ignorer le `NA`, on doit utiliser l'argument `na.rm = TRUE` de la fonction `mean`.
 
 ```{r, hold=TRUE}
 
@@ -641,11 +633,14 @@ d$wt
 
 ```
 
-On semble avoir des valeurs, mais on voit également que le résultat indique qu'il y a `48 Levels` dans notre vecteur. Ceci indique que R a transformé la colonne en **facteur**. Par défaut, la fonction `read.table` converti en facteur toute colonne qui ne semble pas être composée de données numériques ou logiques. Ceci vaut certainement pour les données de type caractère. Puisqu'une virgule se trouve quelque part dans notre série de valeurs, R a considéré que ces données étaient des facteurs et a converti le tout en conséquence. Pour comprendre un peu mieux l'utilisation des facteurs avec R, consultez la section d'aide sur la fonction `?factor`. En bref, les `factor` sont des valeurs comportant une étiquette (la plupart du temps un caractère) et étant représentées par un entier allant de 1 au nombre d'étiquettes différentes. Pour éviter ce problème, le plus simple serait de retourner dans le tableau de données initiales et de changer la virgule pour un point pour que la colonne soit interprétée comme une colonne de valeurs numériques. 
+```{r, echo=FALSE,eval=TRUE,include=TRUE}
+# This reads the corrected file with comma replaced with a dot
+d<-read.table("C:/Users/rouf1703/Desktop/sparrows3.txt",header=TRUE)
+```
+
+On semble avoir des valeurs, mais on voit également que le résultat indique qu'il y a `48 Levels` dans notre vecteur. Ceci indique que R a transformé la colonne en **facteur**. Par défaut, la fonction `read.table` convertit en facteur toute colonne qui ne semble pas être composée de données numériques ou logiques. Ceci est le cas pour les données de type `character`. Puisqu'une virgule se trouve quelque part dans notre série de valeurs, R a considéré que ces données étaient des facteurs et a convertit le tout en conséquence. Pour comprendre un peu mieux l'utilisation des facteurs avec R, consultez la section d'aide sur la fonction `?factor`. En bref, les `factor` sont des valeurs comportant une étiquette (la plupart du temps un caractère) et étant représentées par un entier allant de 1 au nombre d'étiquettes différentes. Pour éviter ce problème, le plus simple serait de retourner dans le tableau de données initiales et de changer la virgule pour un point pour que la colonne soit interprétée comme une colonne de valeurs numériques. 
 
 Maintenant que nous avons toutes nos valeurs, nous pouvons calculer les deux moyennes et effectuer un graphique représentant le lien entre ces deux mesures avec la fonction `plot`.
-
-
 
 ```{r, hold=TRUE}
 
@@ -688,15 +683,18 @@ f<-d[d$Sex=="f",]
 Un peu comme dans la fonction `boxplot`, il n'est pas nécessaire d'utiliser les guillemets ou le `$` puisque la fonction `subset` cherchera dans le `data.frame` soumis pour trouver la colonne demandée (ici, *Sex*). Avec l'indexage régulier, il faut toutefois identifé où se trouve la colonne avec `d$Sex`. Par la suite, on effectue notre test de t.
 
 ```{r}
-
 t.test(m$wt,f$wt)
-
 ```
 
 La valeur de *p* est inférieure à 0.05 et l'intervalle de confiance a des bornes inférieure et supérieures positives, on conclut donc que les mâles ont une masse supérieure aux femelles et que cette différence est de l'ordre de 1 ou 2 grammes.
 
--->
+Plutôt que de séparer les mâles et les femelles en deux `data.frame`, il serait encore plus efficace d'utiliser une formule pour spécifier notre test de t.
 
+```{r}
+t.test(wt~Sex,data=d)
+```
+
+Les résultats sont identiques. Cependant, le sexe de référence a été inversé entre les deux façons de formuler le test de t.
 
 <!--
 
@@ -828,7 +826,7 @@ Il existe trois principaux systèmes dans R pour effectuer des graphiques. Les g
 
 ## Exercice
 
-Pour cet exercice, nous utiliserons une base de données ( [pines.csv](https://github.com/frousseu/ECL749/tree/master/data) ) portant sur la croissance de jeunes Pins blancs (*Pinus strobus*) en lien avec avec l'utilisation d'un fertilisant, la déprédation par le Cerf de Virginie, la compétition avec la strate arbustive et l'espacement entre les individus. Cette base de données comporte plusieurs colonnes:
+Pour cet exercice, nous utiliserons une base de données ([pines.csv](https://github.com/frousseu/ECL749/tree/master/data) ) portant sur la croissance de jeunes Pins blancs (*Pinus strobus*) en lien avec avec l'utilisation d'un fertilisant, la déprédation par le Cerf de Virginie, la compétition avec la strate arbustive et l'espacement entre les individus. Cette base de données comporte plusieurs colonnes:
 
 <br>
 
