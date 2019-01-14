@@ -696,8 +696,6 @@ t.test(wt~Sex,data=d)
 
 Les résultats sont identiques. Cependant, le sexe de référence a été inversé entre les deux façons de formuler le test de t.
 
-<!--
-
 # Atelier 2
 
 ## Retour
@@ -716,15 +714,15 @@ Pour insérer des commentaires dans un script, on utilise le dièse `#` (ou, pou
 
 ### Environnement de travail
 
-Il est possible de sauvegarder à la fois un script (un fichier *.R*) qui contient du code ou un environnement de travail (un fichier *.RData*, le *Workspace*) qui contient les objets créés dans l'environnement. En général, il est beaucoup plus utile de conserver un script avec le code important puisque celui-ci peut être relancé à nouveau et c'est celui qui contient le travail important. Sauvegarder l'environnement de travail n'est généralement utile que si on crée des objets longs à produire ou si on veut partager des objets avec d'autres personnes par exemple. Pour sauvergarder l'environnement de travail, on peut aller sous le menu de RStudio et faire *Session / Save Workspace As*. Il est également possible de conserver l'historique des commandes, mais ceci n'est pas très utile puisque cela conserve l'ensemble des commandes qui ont été envoyées à la console, y compris les commandes contenant des erreurs.
+Il est possible de sauvegarder à la fois un script (un fichier *.R*) qui contient du code ou un environnement de travail (un fichier *.RData*, le *Workspace*) qui contient les objets créés dans l'environnement. En général, il est beaucoup plus utile de conserver un script avec le code important puisque celui-ci peut être relancé à nouveau et c'est celui qui contient le travail important. Sauvegarder l'environnement de travail n'est généralement utile que si on crée des objets longs à produire ou si on veut partager des objets avec d'autres personnes par exemple. Pour sauvergarder l'environnement de travail, on peut aller sous le menu de RStudio et faire *Session > Save Workspace As*. Il est également possible de conserver l'historique des commandes, mais ceci n'est pas très utile puisque cela conserve l'ensemble des commandes qui ont été envoyées à la console, y compris les commandes contenant des erreurs.
 
 
 ### Importation de données
 
-Comme vous avez pu le constater, l'importation de données avec `read.table` peut être ardue lorsqu'on débute. Pour éviter beaucoup de problème, une inspection préalable de la base de données est souvent nécessaire. Le message d'erreur le plus commun est probablement celui-ci.
+Comme vous avez pu le constater, l'importation de données avec `read.table` peut être ardue lorsque l'on débute. Pour éviter beaucoup de problème, une inspection préalable de la base de données est souvent nécessaire. Le message d'erreur le plus commun est probablement celui-ci.
 
 ```{r,error=TRUE}
-d<-read.table("sparrows2.txt",header=TRUE)
+d<-read.table("Sparrows.txt",header=TRUE)
 ```
 
 Ce message indique que soit on a fait une erreur dans le nom du fichier, soit le fichier ne se trouve pas dans le répertoire courant. Dans cet exemple, il s'agit d'une erreur dans le nom du fichier. Remarquez également l'utilisation de l'argument `header` pour spécifier que la première ligne du tableau de données contient les noms de colonnes. Un autre argument très utilisé est `stringsAsFactors = FALSE` qui permet de spécfier que les données de type caractère ne doivent pas être automatiquement converties en `factor`.
@@ -769,7 +767,7 @@ Le signe d'égalité simple `=` est la plupart du temps utilisé pour spécifier
 
 ### Les facteurs
 
-Étudions un peu plus les facteurs. Comme dit plus haut, un `factor` est un vecteur avec différents niveaux ayant une étiquette et représenter internalement par des entiers. Par défaut, les étiquettes sont classées par ordre alphabétique pour établir la représentation en entier. En général, avant de faire une analyse statistique comportant des facteurs, il faut s'assurer que nos variables catégoriques sont converties en tant que tel avec les fonctions `factor` ou `as.factor`. Ceci est particulièrement important pour les facteurs représentés par des valeurs numériques. Autrement, les modèles risquent de considérer ces variables comme numériques.
+Étudions un peu plus les facteurs. Comme dit plus haut, un `factor` est un vecteur avec différents niveaux ayant une étiquette et représenté de façon interne par des entiers. Par défaut, les étiquettes sont classées par ordre alphabétique pour établir la représentation en entier. En général, avant de faire une analyse statistique comportant des facteurs, il faut s'assurer que nos variables catégoriques sont converties en tant que tel avec les fonctions `factor` ou `as.factor`. Ceci est particulièrement important pour les facteurs représentés par des valeurs numériques. Autrement, les modèles risquent de considérer ces variables comme numériques.
 
 ```{r}
 v<-c("c","b","b","a","a","a")
@@ -785,11 +783,11 @@ mean(v)
 v+1
 ```
 
-### Consulter l'aide!
+### Consultez l'aide!
 
-Avant d'utiliser une fonction, il faut se rappeler que c'est toujours un bon réflexe de consulter l'aide et particulièrement les exemples qui montrent comment utliser la fonction et ses arguments.
+Avant d'utiliser une fonction, il faut se rappeler que c'est toujours un bon réflexe de consulter l'aide et particulièrement les exemples qui montrent souvent comment utiliser la fonction et ses arguments. 
 
-## Brève introduction aux graphiques
+## Les graphiques
 
 La principale fonction pour créer des graphiques est la fonction `plot`. Certains arguments de cette fonction sont décrits dans le fichier d'aide de la fonction (`?plot`), mais la plupart des arguments sont décrits dans la page de la fonction `?par` qui sert à établir les paramètres graphiques utilisés. Voici quelques paramètres (ou arguments) graphiques fréquemment utilisés. Notez la fonction `par` et l'argument `mfrow` qui sert à créer une fenêtre graphique 2 x 2. L'argument `mar` de la fonction `par` permet de modifier la largeur des marges du graphique (bas, gauche, haut et droite). 
 
@@ -824,9 +822,10 @@ legend("topleft",pch=16,col=c("red","blue"),legend=c("Série 1","Série 2"),titl
 
 Il existe trois principaux systèmes dans R pour effectuer des graphiques. Les graphiques de bases sont représentés par les fonctions `plot`, `par` et les fonctions associées. Un autre système, passablement plus compliqué est le package [lattice](https://cran.r-project.org/web/packages/lattice/index.html) qui est souvent utilisé par d'autres fonctions. Un autre système, très populaire, est ggplot2 qui est de plus en plus utilisé. Un des principaux avantages de [ggplot2](http://ggplot2.org/) est que ce système permet de faire rapidement des graphiques plus attrayants comparativement aux graphiques de bases. La documentation concernant ggplot2 est également très détaillée et bien expliquée pour quiconque voudrait employer ce système. Toutefois, dans ce cours, nous n'utiliserons que les graphiques de bases puisque ceux-ci sont plus souvent utilisés par d'autres packages utiles en écologie.
 
+
 ## Exercice
 
-Pour cet exercice, nous utiliserons une base de données ([pines.csv](https://github.com/frousseu/ECL749/tree/master/data) ) portant sur la croissance de jeunes Pins blancs (*Pinus strobus*) en lien avec avec l'utilisation d'un fertilisant, la déprédation par le Cerf de Virginie, la compétition avec la strate arbustive et l'espacement entre les individus. Cette base de données comporte plusieurs colonnes:
+Pour cet exercice, nous utiliserons une base de données ([pines.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/pines.csv)) portant sur la croissance de jeunes Pins blancs (*Pinus strobus*) en lien avec avec l'utilisation d'un fertilisant, la déprédation par le Cerf de Virginie, la compétition avec la strate arbustive et l'espacement entre les individus. Cette base de données comporte plusieurs colonnes:
 
 <br>
 
@@ -846,11 +845,13 @@ Vous devrez réaliser plusieurs tâches et/ou répondre aux questions suivantes:
 
 1) Importez la base de données.
 
-2) Explorez et illustrez les liens entre la hauteur et la largeur et les différentes variables explicatives (utilisez `boxplot`, `mfrow`).
+2) Explorez et illustrez les liens entre la hauteur et la largeur et les différentes variables explicatives (utilisez `boxplot`ainsi que la fonction `par` et son argument `mfrow` pour fractionner votre fenêtre graphique).
 
-3) Effectuez une ANOVA afin d'étudier l'effet du broutement, de la couverture arbustive, du fertilisant et de l'espacement sur la hauteur et la largeur des individus. Pour ce faire, vous pouvez utiliser les fonctions `lm` ou `aov` en combinaison avec la fonction `summary` Interprétez également les résultats.
+3) Effectuez une ANOVA afin d'étudier l'effet du broutement, de la couverture arbustive, du fertilisant et de l'espacement sur la hauteur et la largeur des individus. Pour ce faire, vous pouvez utiliser les fonctions `lm` ou `aov` en combinaison avec la fonction `summary`. Interprétez également les résultats.
 
-4) Réalisez une carte schématique permettant d'illustrer la plantation et les traitements (espacement et fertilisant). Pour ce faire, vous devrez utiliser les fonctions `plot` et `legend`. Voux aurez également besoin des différents paramètres graphiques (arguments) décrit plus haut (`col`, `cex`, `pch`). La tâche pourrait aussi être facilitée en créant des groupes selon les différentes possibilités.
+4) Réalisez une carte schématique permettant d'illustrer la plantation et les traitements (espacement et fertilisant). Pour ce faire, vous devrez utiliser les fonctions `plot`, `legend` et possiblement `points`. Voux aurez également besoin des différents paramètres graphiques (arguments) décrit plus haut (`col`, `cex`, `pch`). La tâche pourrait aussi être facilitée en créant des groupes selon les différentes possibilités.
+
+<!--
 
 ### Solution
 
