@@ -849,7 +849,7 @@ Vous devrez réaliser plusieurs tâches et/ou répondre aux questions suivantes:
 
 3) Effectuez une ANOVA afin d'étudier l'effet du broutement, de la couverture arbustive, du fertilisant ou de l'espacement sur la hauteur et la largeur des individus. Pour ce faire, vous pouvez utiliser les fonctions `lm` ou `aov` en combinaison avec la fonction `summary`. Interprétez également les résultats.
 
-4) Réalisez une carte schématique permettant d'illustrer la plantation et les traitements (espacement et fertilisant). Pour ce faire, vous devrez utiliser les fonctions `plot`, `legend` et possiblement `points`. Voux aurez également besoin des différents paramètres graphiques (arguments) décrit plus haut (`col`, `cex`, `pch`). La tâche pourrait aussi être facilitée en créant des groupes selon les différentes possibilités.
+4) Réalisez une carte schématique permettant d'illustrer la plantation et les traitements (espacement et fertilisant). Pour ce faire, vous devrez utiliser les fonctions `plot`, `legend` et possiblement `points`. Voux aurez également besoin des différents paramètres graphiques (arguments) décrits plus haut (`col`, `cex`, `pch`). La tâche pourrait aussi être facilitée en créant des groupes selon les différentes possibilités.
 
 <!--
 
