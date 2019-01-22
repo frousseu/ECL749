@@ -118,7 +118,7 @@ h5 {
 </style>
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo=TRUE, tidy=TRUE)
+knitr::opts_chunk$set(echo=TRUE, tidy=TRUE, error=TRUE)
 ```
 
 <br><br><br>
@@ -851,13 +851,11 @@ Vous devrez réaliser plusieurs tâches et/ou répondre aux questions suivantes:
 
 4) Réalisez une carte schématique permettant d'illustrer la plantation et les traitements (espacement et fertilisant). Pour ce faire, vous devrez utiliser les fonctions `plot`, `legend` et possiblement `points`. Voux aurez également besoin des différents paramètres graphiques (arguments) décrits plus haut (`col`, `cex`, `pch`). La tâche pourrait aussi être facilitée en créant des groupes selon les différentes possibilités.
 
-<!--
-
 ### Solution
 
 #### 1.
 
-En premier, on importe la base de données. On peut visualiser son contenu avant l'importation ou après avec différentes fonctions comme `head` ou `summary`.
+En premier, on importe la base de données. On peut visualiser son contenu avec différentes fonctions comme `head` ou `summary`.
 ```{r,eval=FALSE}
 
 d<-read.csv("U:/2018/2018/Ateliers/pines.csv",header=TRUE)
@@ -865,7 +863,7 @@ head(d)
 
 ```
 
-```{r}
+```{r,echo=FALSE}
 
 d<-read.csv("https://raw.githubusercontent.com/frousseu/ECL749/master/data/pines.csv",header=TRUE)
 head(d)
@@ -874,35 +872,28 @@ head(d)
 
 #### 2.
 
-Par la suite, on peut explorer les liens entre les variables réponses (hauteur et largeur) et les variables explicatives. Pour ce faire, on peut utiliser le `boxplot` et créer deux graphiques à quatre panneaux contenant toutes les variables.
+Par la suite, on explore les liens entre les variables réponses (hauteur et largeur) et les variables explicatives. Pour ce faire, on peut utiliser des `boxplot` et créer une fenêtre graphique avec toutes les variables. On pourrait églement ajouter un titre général à nos graphiques en utilisant le paramètre graphique `oma` pour indiquer que nous voulons une marge externe (*outer margin*) et la fonction `mtext`.
 
 ```{r}
 
-par(mfrow=c(2,2),mar=c(4,3,1,1))
+par(mfrow=c(2,4),mar=c(4,4,1,1),oma=c(0,0,6,0))
 
-boxplot(height~deer,data=d,xlab="deer")
-boxplot(height~fert,data=d,xlab="fert")
-boxplot(height~spacing,data=d,xlab="spacing")
-boxplot(height~cover,data=d,xlab="cover")
+boxplot(height~deer,data=d,xlab="deer",ylab="height")
+boxplot(height~fert,data=d,xlab="fert",ylab="height")
+boxplot(height~spacing,data=d,xlab="spacing",ylab="height")
+boxplot(height~cover,data=d,xlab="cover",ylab="height")
+boxplot(width~deer,data=d,xlab="deer",ylab="width")
+boxplot(width~fert,data=d,xlab="fert",ylab="width")
+boxplot(width~spacing,data=d,xlab="spacing",ylab="width")
+boxplot(width~cover,data=d,xlab="cover",ylab="width")
 
-```
-
-On peut faire de même pour la largeur des arbres.
-
-```{r}
-
-par(mfrow=c(2,2),mar=c(4,3,1,1))
-
-boxplot(width~deer,data=d,xlab="deer")
-boxplot(width~fert,data=d,xlab="fert")
-boxplot(width~spacing,data=d,xlab="spacing")
-boxplot(width~cover,data=d,xlab="cover")
+mtext("Effets des traitements sur la hauteur et la largeur des pins",side=3,outer=TRUE,font=2)
 
 ```
 
 #### 3.
 
-Pour effectuer une ANOVA, on peut utiliser la commande très générale `lm`. Avant de faire ceci, il faudra toutefois convertir nos variables numériques en facteurs, autrement, `lm` interprétera les différentes variables comme étant des variables numériques. Par exemple, dans la sortie suivante, on peut voir qu'il n'y a qu'une seule ligne par variable et on ne voit pas les niveaux des facteurs (1, 2 ou 3) à côté des noms de variables.
+Pour effectuer une ANOVA, on peut utiliser la commande très générale `lm`. Avant de faire ceci, il faudra toutefois convertir nos variables numériques en facteurs, autrement, `lm` interprétera les différentes variables comme étant des variables numériques. Par exemple, dans la sortie suivante, on peut voir qu'il n'y a qu'une seule ligne par variable et on ne voit pas les niveaux des facteurs (1, 2 ou 3) collés aux noms des variables. Lorsque les étiquettes des niveaux des facteurs n'apparaissent pas à côté des noms des variables, cela indique généralement que les variables sont traitées comme étant numériques.
 
 ```{r}
 
@@ -911,7 +902,7 @@ summary(m)
 
 ```
 
-Avant de faire notre modèle, on doit donc convertir nos variables en facteur en utilisant la fonction `as.factor`. Ce problème ne se poserait pas si nous avions des niveaux représentés par des caractères, puisque la fonction `read.csv` aurait automatiquement converti ces valeurs en `factor`. Cela n'indique pas qu'il faut nécessairement utiliser des caractères pour désigner des facteurs, mais seulement qu'il faut porter attention aux niveaux identifiés par des entiers, ce qui est relativement commun dans les bases de données.
+Avant de faire notre modèle, on doit donc convertir nos variables en facteur en utilisant la fonction `as.factor`. Ce problème ne se poserait pas si nous avions des niveaux représentés par des caractères, puisque la fonction `read.csv` aurait automatiquement convertit ces valeurs en `factor`. Cela n'indique pas qu'il faut nécessairement utiliser des caractères pour désigner des facteurs, mais seulement qu'il faut porter attention aux niveaux identifiés par des entiers, ce qui est relativement commun dans les bases de données.
 
 ```{r}
 
@@ -925,13 +916,11 @@ summary(m)
 
 ```
 
-On voit maintenant que les noms des coefficients ont changé puisqu'ils se rapportent maintenant aux niveaux des différents facteurs. Maintenant, si on interprète l'effet de nos variables, on voit que le broutement par le cerf à un effet positif sur la taille, mais l'utilisation du fertilisant et l'espacement entre les arbres ont tous deux un effet négatif sur la hauteur des arbres. Quant au recouvrement arbustif, des valeurs faibles ou modérées ont un effet positif comparativement à l'absence de recouvrement arbustif, mais un recouvrement élevé à un effet négatif comparativement à toutes les autres classe de recouvrement. Globablement, on peut aussi dire que nos variables expliquent une portion significative de la variance en hauteur, comme en témoigne le test du *F*. La proportion de variance expliquée (*R*^*2*^) est d'environ 15%. Comment interpréteriez vous ces résultats?
-
-Je vous laisse explorer l'effet des variables sur la largeur des arbres.
+On voit maintenant que les noms des coefficients ont changé puisqu'ils se rapportent maintenant aux niveaux des différents facteurs. Maintenant, si on interprète l'effet de nos variables, on voit que le broutement par le cerf à un effet positif sur la taille, mais l'utilisation du fertilisant et l'espacement entre les arbres ont tous deux un effet négatif sur la hauteur des arbres. Quant au recouvrement arbustif, des valeurs faibles ou modérées ont un effet positif comparativement à l'absence de recouvrement arbustif, mais un recouvrement élevé à un effet négatif comparativement à toutes les autres classe de recouvrement. Globablement, on peut aussi dire que nos variables expliquent une portion significative de la variance en hauteur, comme en témoigne le test du *F*. La proportion de variance expliquée (*R*^*2*^) est d'environ 15%. Comment interpréteriez vous ces résultats? Je vous laisse explorer l'effet des variables sur la largeur des arbres.
 
 #### 4.
 
-Pour construire une carte schématique de la plantation en fonction des traitements (fertilisation et espacement), nous pouvons utiliser les numéros de lignes et de colonnes de chacun des arbres. Il y a plusieurs options pour associer des symboles aux traitements. À ce stade, le plus simple est probablement de créer différents sous-ensembles et d'ajouter les points sur un graphique déjà existant. En illustrant la localisation de tous les arbres en premier, on s'assure que la fenêtre graphique couvrira l'ensemble de la plantation. Pour éviter que des points se tracent avec la fonction `plot` initiale, on peut soit utiliser la couleur blanche avec l'argument `col = "white"` ou encore utiliser l'argument `type = "n"`. Ceci produit le graphique, mais sans tracer les points associés. On peut également utiliser la fonction `legend` pour identifier les différentes possibilités. Pour éviter de taper des commandes trop longue, j'utilise un vecteur `leg` où j'écris le texte qui composera la légende.
+Pour construire une carte schématique de la plantation en fonction des traitements (fertilisation et espacement), nous pouvons utiliser les numéros de lignes et de colonnes de chacun des arbres. Il y a plusieurs options pour associer des symboles aux traitements. À ce stade, le plus simple est probablement de créer différents sous-ensembles et d'ajouter les points sur un graphique déjà existant. En illustrant la localisation de tous les arbres en premier, on s'assure que la fenêtre graphique couvrira l'ensemble de la plantation. Pour éviter que des points se tracent avec la fonction `plot` initiale, on peut soit utiliser la couleur blanche avec l'argument `col = "white"` ou encore utiliser l'argument `type = "n"`. Ceci produit le graphique, mais sans tracer les points associés. On peut également utiliser la fonction `legend` pour identifier les différentes possibilités. Pour éviter d'écrire des commandes trop longues, j'utilise un vecteur `leg` où j'écris le texte qui composera la légende.
 
 ```{r,fig.height=7,fig.width=8}
 
@@ -965,7 +954,7 @@ L'argument `sep` permet de spécifier aux fonctionx `read.table` ou `read.csv` q
 
 ### Vecteurs vs `data.frame`
 
-Plusieurs ont été tenté de renommer les colonnes et de se créer des vecteurs indépendants pour ensuite les soumettre aux fonctions `boxplot` ou `lm`. Ceci est plutôt à éviter. Premièrement, cela implique plus de travail et plus de lignes de codes. Ensuite, en créant des vecteurs indépendants, on court le risque de perdre l'ordre selon lequel les valeurs sont emmagasinées ou d'avoir des vecteurs de longueurs différentes si on décide de supprimer les valeurs manquantes dans certains vecteurs, mais qu'on oublie de le faire dans d'autres. La meilleure façon de procéder est de faire usage de l'argument `data` lorsque celui-ci est disponible et donc d'utiliser notre `data.frame`. De plus, lorsque l'argument `data` est utilié, il devient inutile d'utiliser le `$` pour indiquer nos variables. Par exemple, les deux lignes suivantes sont équivalentes.
+Plusieurs ont été tenté de renommer les colonnes et de se créer des vecteurs indépendants pour ensuite les soumettre aux fonctions `boxplot` ou `lm`. Ceci est généralement à éviter. Premièrement, cela implique plus de travail et plus de lignes de codes. Ensuite, en créant des vecteurs indépendants, on court le risque de perdre l'ordre selon lequel les valeurs sont emmagasinées ou d'avoir des vecteurs de longueurs différentes si on décide de supprimer les valeurs manquantes dans certains vecteurs, mais qu'on oublie de le faire dans d'autres. La meilleure façon de procéder est de faire usage de l'argument `data` lorsque celui-ci est disponible et donc d'utiliser notre `data.frame`. De plus, lorsque l'argument `data` est utilié, il devient inutile d'utiliser le `$` pour indiquer nos variables. Par exemple, les deux lignes suivantes sont équivalentes.
 
 ```{r, eval=FALSE}
 boxplot(d$height~d$deer,data=d)
@@ -1029,15 +1018,16 @@ lines(0:100,p,col="red")
 
 ### Les coûts de la reproduction
 
-Le premier exercice consiste à étudier l'effet de la reproduction sur la longévité chez les mâles de drosophiles (une espèce de mouche). Voici la base de données [flies.csv](https://github.com/frousseu/ECL749/tree/master/data). Cinq traitements ont été utilisés. Les mâles ont été mis en présence de 0, 1 ou 8 femelles et celles-ci étaient soient vierges, soient gestantes (donc non-réceptives à l'accouplement). D'autres variables ont été mesurées, notamment la longueur du thorax des mâles et la proportion du temps passé à dormir. Dans cet exercice vous devez:
+Le premier exercice consiste à étudier l'effet de la reproduction sur la longévité chez les mâles de drosophiles (une espèce de mouche). L'idée est que la reproduction a probablement un coût et ce coût pourrait être observé sur la longévité des individus; les mâles étant davantage exposés à la reproduction devraient vivre moins longtemps. Voici la base de données [flies.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/flies.csv). Cinq traitements ont été utilisés. Les mâles ont été mis en présence de 0, 1 ou 8 femelles et celles-ci étaient soient vierges, soient gestantes (donc non-réceptives à l'accouplement). D'autres variables ont été mesurées, notamment la longueur du thorax des mâles et la proportion du temps passé à dormir. Dans cet exercice vous devez:
 
-1) Explorez les données
+1) Explorez les données, i.e. faire des graphiques permettant d'illustrer la distribution ou les liens entres les différentes variables.
 
-2) Déterminer si la longévité est influencée par le traitement
+2) Déterminez si la longévité est influencée par le traitement.
 
 3) Vérifiez les conditions d'applications avec la fonction `plot` appliquée sur votre modèle.
 
-### Solution
+
+#### Solution
 
 On importe d'abord le fichier et on effectue quelques graphiques pour explorer les données.
 
@@ -1065,7 +1055,7 @@ library(multcomp)
 summary(glht(m,linfct = mcp(Treatment = "Tukey")))
 ```
 
-ce sont surtout les traitements où les mâles ont été mis en présence de femelles réceptives qui ont eu un effet négatif sur la longévité. Du côté des conditions d'applications de la régression, on note une certaine hétéroscédasticité, *i.e.* que la variance change selon les valeurs prédites. Ceci est possiblement un problème, mais nous assumerons que les conditions ne dévient pas trop de l'homoscédasticité. Par contre, on peut voir que les résidus ont une distribution normale comme en témoigne le *QQ-plot*.
+Ce sont surtout les traitements où les mâles ont été mis en présence de femelles réceptives qui ont eu un effet négatif sur la longévité. Du côté des conditions d'applications de la régression, on note une certaine hétéroscédasticité, *i.e.* que la variance change selon les valeurs prédites. Ceci est possiblement un problème, mais nous assumerons que les conditions ne dévient pas trop de l'homoscédasticité. Par contre, on peut voir que les résidus ont une distribution approximativement normale comme en témoigne le *QQ-plot*.
 
 ```{r,fig.width=7,fig.height=5}
 par(mfrow=c(2,2))
@@ -1075,19 +1065,19 @@ plot(m)
 Pour mieux illustrer les prédictions de notre modèle, utilisons un graphique à bande avec des intervalles de confiance sur les prédictions. Je vais vous laisser étudier le code. Notez l'utilisation d'une boucle à la fin du code. Ici, *i* prendra toute les valeurs correspondant aux lignes du tableau de prédictions.
 
 ```{r,fig.width=7,fig.height=4.5}
-# on produit un tableau de valeurs à prédire
-dat<-with(d,data.frame(Treatment=unique(Treatment),Thorax=mean(Thorax),Sleep=mean(Sleep)))
+# On produit un tableau de valeurs avec lequel on veut générer des prédictions
+dat<-data.frame(Treatment=unique(d$Treatment),Thorax=mean(d$Thorax),Sleep=mean(d$Sleep))
 
-# on organise nos valeurs dans un ordre logique
+# On organise nos valeurs selon un ordre logique
 dat<-dat[c(2,3,4,1,5),]
 
-# on prédit nos valeurs avec un intervalle de confiance
+# On prédit nos valeurs avec un intervalle de confiance
 p<-predict(m,newdata=dat,interval="confidence")
 
-# on produit un barplot
+# On produit un barplot
 b<-barplot(p[,1],names.arg=dat$Treatment,col="green4",border=NA,ylim=c(0,max(p)),ylab="Longevity",xlab="Treatment")
 
-# on ajoute les bornes inférieures et supérieurs des intervalles de confiance
+# On ajoute les bornes inférieures et supérieurs des intervalles de confiance
 for(i in 1:nrow(dat)){
   lines(rep(b[i,1],2),c(p[i,2],p[i,3]))
 }
@@ -1097,9 +1087,9 @@ for(i in 1:nrow(dat)){
 
 ### Tendances dans la phénologie de nidification
 
-Pour ce deuxième exercice, on veut savoir s'il y a des changements dans les dates de pontes chez une espèce d'oiseau (la Paruline jaune). Voici la base de données [warblers.csv](https://github.com/frousseu/ECL749/tree/master/data). Est-ce que ces changements sont les mêmes d'une province à l'autre? La colonne *jul* donne le jour julien de la date de ponte du premier oeuf (nb de jour depuis le 1er janvier. Dans cet exercice, vous devez:
+Pour ce deuxième exercice, on veut savoir s'il y a des changements dans les dates de pontes à travers les années chez une espèce d'oiseau (la Paruline jaune). Avec les changements climatiques, on pourrait s'attendre à ce que les oiseaux nichent de plus en plus tôt à chaque saison. Voici la base de données [warblers.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/warblers.csv). Est-ce que ces changements sont les mêmes d'une province à l'autre? La colonne *jul* donne le jour julien de la date de ponte du premier oeuf (nb de jour depuis le 1er janvier). Dans cet exercice, vous devez:
 
-1) Explorez les données
+1) Explorez les données (i.e., familiarisez-vous avec la base de données).
 
 2) Déterminer s'il y a des changements dans les dates de ponte au cours des dernières années et si ces changements sont différents d'une province à l'autre.
 
@@ -1107,11 +1097,22 @@ Pour ce deuxième exercice, on veut savoir s'il y a des changements dans les dat
 
 4) Est-ce que les suppositions de base sont respectées? Est-ce que vous voyez des choses à améliorer avec cette analyse?
 
+
 #### Solution
 
-Chargeons d'abord les données et explorons les données à l'aide d'un graphique.
+Chargeons d'abord les données et déterminons d'abord combien il y a d'observations par province et par année.
+
 ```{r}
 d<-read.csv("https://raw.githubusercontent.com/frousseu/ECL749/master/data/warblers.csv")
+
+table(d$prov)
+hist(d$year)
+
+```
+
+Illustrons les données en lien avec notre question.
+
+```{r}
 plot(d$year,d$jul,type="n")
 points(d$year[d$prov=="ON"],d$jul[d$prov=="ON"],col="darkred")
 points(d$year[d$prov=="QC"],d$jul[d$prov=="QC"],col="darkblue")
@@ -1119,6 +1120,7 @@ points(d$year[d$prov=="NB"],d$jul[d$prov=="NB"],col="green4")
 legend("topright",pch=1,col=c("darkred","darkblue","green4"),legend=c("ON","QC","NB"),bty="n")
 
 ```
+
 
 Pour déterminer si les changements dans la date de ponte dépendent de la province, il faut utiliser une interaction entre l'année et la province. Pour ce faire, on peut écrire notre modèle de cette façon.
 
@@ -1129,7 +1131,7 @@ summary(m)
 
 ```
 
-On a effectivement une interaction significative entre la province et l'année ce qui nous indique que les changements dans la date de ponte ne sont pas les mêmes d'une province à l'autre. Cependant, pour bien interpréter cette interaction, nous utiliserons un graphique de prédictions afin d'éviter la gymnastique difficile du calcul avec les coefficients du modèle.
+On a effectivement une interaction significative entre la province et l'année ce qui nous indique que les changements dans la date de ponte ne sont pas les mêmes d'une province à l'autre. Cependant, pour bien interpréter cette interaction, il est préférable d'utiliser un graphique illustrant les prédictions afin d'éviter la gymnastique difficile du calcul avec les coefficients du modèle.
 
 ```{r}
 
@@ -1151,6 +1153,7 @@ lines(p~year,data=dat[dat$prov=="NB",],col="green4",lwd=2)
 
 Du côté des conditions d'applications, les résidus ne suivent clairement pas une distribution normale. Il n'est toutefois pas évident de déterminer ce qui devrait être fait pour corriger la situation. Une option serait peut être d'utiliser la régression quantile, qui comporte moins de conditions et qui permet d'étudier la réponse à des quantiles spécifiques au lieu de la régression qui permet d'étudier la réponse moyenne. Un autre problème évident est que nous ne prenons pas en compte la possible corrélation temporelle entre les observations. Il faudrait également ajouter des intervalles de confiance à nos courbes de prédictions. 
 
+<!--
 
 # Atelier 4
 
