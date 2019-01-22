@@ -1026,6 +1026,7 @@ Le premier exercice consiste à étudier l'effet de la reproduction sur la long�
 
 3) Vérifiez les conditions d'applications avec la fonction `plot` appliquée sur votre modèle.
 
+<!--
 
 #### Solution
 
@@ -1084,6 +1085,7 @@ for(i in 1:nrow(dat)){
   
 ```
 
+-->
 
 ### Tendances dans la phénologie de nidification
 
@@ -1097,6 +1099,7 @@ Pour ce deuxième exercice, on veut savoir s'il y a des changements dans les dat
 
 4) Est-ce que les suppositions de base sont respectées? Est-ce que vous voyez des choses à améliorer avec cette analyse?
 
+<!--
 
 #### Solution
 
@@ -1152,6 +1155,8 @@ lines(p~year,data=dat[dat$prov=="NB",],col="green4",lwd=2)
 ```
 
 Du côté des conditions d'applications, les résidus ne suivent clairement pas une distribution normale. Il n'est toutefois pas évident de déterminer ce qui devrait être fait pour corriger la situation. Une option serait peut être d'utiliser la régression quantile, qui comporte moins de conditions et qui permet d'étudier la réponse à des quantiles spécifiques au lieu de la régression qui permet d'étudier la réponse moyenne. Un autre problème évident est que nous ne prenons pas en compte la possible corrélation temporelle entre les observations. Il faudrait également ajouter des intervalles de confiance à nos courbes de prédictions. 
+
+-->
 
 <!--
 
