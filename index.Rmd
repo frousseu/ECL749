@@ -1151,10 +1151,8 @@ lines(p~year,data=dat[dat$prov=="NB",],col="green4",lwd=2)
 
 ```
 
-Du côté des conditions d'applications, les résidus ne suivent clairement pas une distribution normale. Il n'est toutefois pas évident de déterminer ce qui devrait être fait pour corriger la situation. Une option serait peut être d'utiliser la régression quantile, qui comporte moins de conditions et qui permet d'étudier la réponse à des quantiles spécifiques au lieu de la régression qui permet d'étudier la réponse moyenne. Un autre problème évident est que nous ne prenons pas en compte la possible corrélation temporelle entre les observations. Il faudrait également ajouter des intervalles de confiance à nos courbes de prédictions. 
+Du côté des conditions d'applications, les résidus ne suivent clairement pas une distribution normale. Il n'est toutefois pas évident de déterminer ce qui devrait être fait pour corriger la situation. Une option serait peut être d'utiliser la [régression quantile](https://esajournals.onlinelibrary.wiley.com/doi/10.1890/1540-9295(2003)001[0412%3AAGITQR]2.0.CO%3B2), qui comporte moins de conditions et qui permet d'étudier la réponse à des quantiles spécifiques au lieu de la régression qui permet d'étudier la réponse moyenne. Un autre problème évident est que nous ne prenons pas en compte la possible corrélation temporelle entre les observations. Il faudrait également ajouter des intervalles de confiance à nos courbes de prédictions. 
 
-
-<!--
 
 # Atelier 4
 
@@ -1169,6 +1167,8 @@ Pour cet atelier, nous nous intéresserons aux variables affectant la présence 
 - **avrain**: quantité de pluie moyenne pendant le printemps
 - **meanmin**: température moyenne minimale pendant le printemps
 - **meanmax**: température moyenne maximale pendant le printemps
+
+<!--
 
 ## Solution
 
