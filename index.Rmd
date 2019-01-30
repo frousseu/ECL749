@@ -1168,6 +1168,17 @@ Pour cet atelier, nous nous intéresserons aux variables affectant la présence 
 - **meanmin**: température moyenne minimale pendant le printemps
 - **meanmax**: température moyenne maximale pendant le printemps
 
+<br><br><br>
+
+1) Étudiez la distribution et les relations entre vos variables
+
+2) Illustrez spatialement les présences/absences
+
+3) Construisez et interprétez votre un modèle permettant d'expliquer la présence de l'espèce
+
+4) Utilisez la fonction `predict` ou le package **visreg** pour illustrez les prédictions de votre modèle
+
+
 <!--
 
 ## Solution
@@ -1255,7 +1266,7 @@ visreg(m,scale="response",ylim=0:1)
 
 Certains ont utilisé les coordonnées comme variables explicatives dans leur modèle. Ceci n'est pas nécessairement mauvais, mais cela mérite une bonne réflexion. Est-ce que la relation entre la présence et les coordonnées est linéaire ou est-elle plus complexe? Est-ce que la relation entre les coordonnées et la probabilité de présence pourrait servir à prédire la présence de l'espèce dans d'autres régions? Probablement pas. Si le but est de prédire la présence de l'espèce seulement à l'intérieur de la zone étudiée, les coordonnées pourraient être utilisées. Cependant, il faudrait s'assurer que la relation est linéaire, ce qui serait assez suprenant. Si c'est le cas, il faudrait plutôt se demander s'il n'y a pas une ou des variables non prises en compte qui pourraient créer un tel gradient de probabilité de présence dans l'aire d'étude. Si on s'intéresse à comprendre l'influence des variables environnementales sur l'occurence des grenouilles à l'extérieur de la zone étudiée, la relation observée avec les coordonnées devient probablement inutile. 
 
-Malheureusement, ou plutôt heureusement, il n'y a pas nécessairment une meilleure ou une unique réponse à ce défi d'analyse de données. La mienne n'est qu'une suggestion et vous avez peut être de meilleures suggestions. L'important est de justifier nos choix et de prendre en considération les éléments les plus importants. Un élément important que j'ai ignoré est la potentielle corrélation spatiale entre les observations. Par exemple, est-ce que les observations près les unes des autres peuvent être considérées comme étant indépendantes? Aussi, est-ce qu'il y aurait d'autres variables à prendre en compte dans cette analyse? Comment les inventaires ont été réalisés? Est-ce qu'il faudrait tenir compte de la probabilité de détection de l'espèce? 
+Malheureusement, ou plutôt heureusement, il n'y a pas nécessairement une meilleure ou une unique réponse à ce défi d'analyse de données. La mienne n'est qu'une suggestion et vous avez peut être de meilleures suggestions. L'important est de justifier nos choix et de prendre en considération les éléments les plus importants. Un élément important que j'ai ignoré est la potentielle corrélation spatiale entre les observations. Par exemple, est-ce que les observations près les unes des autres peuvent être considérées comme étant indépendantes? Aussi, est-ce qu'il y aurait d'autres variables à prendre en compte dans cette analyse? Comment les inventaires ont été réalisés? Est-ce qu'il faudrait tenir compte de la probabilité de détection de l'espèce? 
 
 # Atelier 5
 
