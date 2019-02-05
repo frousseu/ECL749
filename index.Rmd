@@ -1158,6 +1158,8 @@ Du côté des conditions d'applications, les résidus ne suivent clairement pas 
 
 Pour cet atelier, nous nous intéresserons aux variables affectant la présence d'une espèce de grenouilles ([Southern Corroboree frog](https://en.wikipedia.org/wiki/Corroboree_frog)) retrouvée en Australie. Pour ce faire, nous avons une base de données [frogs.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/frogs.csv) avec différentes variables explicatives. Pour cet exercice, vous devrez déterminer quelles sont les variables pertinentes à utiliser pour comprendre ou prédire l'occurence de l'espèce et vous devrez illustrer les prédictions de votre modèle à l'aide de la fonction `predict` et de graphiques ou encore en utilisant le package [visreg](http://pbreheny.github.io/visreg/). Pour mieux comprendre l'utilisation de ce package, le plus simple est de se référer à la vignette expliquant comment le package est utilisé. N'oubliez pas de faire un peu d'explorations de données avant de sélectionner vos variables explicatives. 
 
+<br>
+
 - **pres.abs**: 0 = espèce absente, 1 = espèce présente
 - **northing**: coordoonées nord
 - **easting**: coordonnées est
@@ -1168,18 +1170,18 @@ Pour cet atelier, nous nous intéresserons aux variables affectant la présence 
 - **meanmin**: température moyenne minimale pendant le printemps
 - **meanmax**: température moyenne maximale pendant le printemps
 
-<br><br><br>
+<br>
 
 1) Étudiez la distribution et les relations entre vos variables
 
 2) Illustrez spatialement les présences/absences
 
-3) Construisez et interprétez votre un modèle permettant d'expliquer la présence de l'espèce
+3) Construisez et interprétez votre modèle permettant d'expliquer la présence de l'espèce
 
 4) Utilisez la fonction `predict` ou le package **visreg** pour illustrez les prédictions de votre modèle
 
 
-<!--
+
 
 ## Solution
 
@@ -1192,7 +1194,7 @@ summary(d)
 
 ```
 
-Par la suite, il serait préférable d'inspecter les liens entre les différentes variables explicatives potentielles. On peut s'attendre à ce que certaines soient fortement corrélées (*i.e.* **meanmin** et **meanmax**). Pour illustrer toutes les paires de variables, on peut utiliser les fonctions `plot` ou `pairs` appliquées à notre jeu de données. On peut également éliminer la variable réponse et les coordonnées puisque celles-ci ne feront pas partie de nos variables explicatives. Ces trois variables se trouvent dans les 3 premières colonnes de notre tableau et on peut les éliminer en utilisant l'indexage négatif. 
+Par la suite, il serait préférable d'inspecter les liens entre les différentes variables explicatives potentielles. On peut s'attendre à ce que certaines soient fortement corrélées (*i.e.* **meanmin** et **meanmax**). Pour illustrer toutes les paires de variables, on peut utiliser les fonctions `plot` ou `pairs` appliquées à notre jeu de données. On peut également éliminer la variable réponse et les coordonnées puisque celles-ci ne feront pas partie de nos variables explicatives. Ces trois variables se trouvent dans les 3 premières colonnes de notre tableau et on peut les éliminer en utilisant l'indexage négatif. Les coordonnées pourraient également être utilisées dans notre modèle, mais cela impliquerait que nous pensons qu'il devrait y avoir des gradients (linéaires) de probabilité de présence est-ouest ou nord-sud.
 
 ```{r,fig.width=8,fig.height=7}
 
@@ -1251,10 +1253,10 @@ lines(alt,p)
 
 ```
 
-La probabilité de présence semble atteindre un pic aux alentours de 1400m. Il faut toutefois rester prudent dans l'interprétation précise de ces valeurs, car nous n'avons pas d'intervalles de confiance autour de ces courbes. On pourrait les ajouter en utilisant l'argument `se.fit` de `predict`, mais cela demanderait un peu plus de travail. Nous n'avons d'ailleurs pas encore visualisé l'effet de nos autres variables. Il faudrait produire ces graphiques pour chacune des variables. Il serait possible d'optimiser cette tâche en généralisant le code de prédictions, mais pour l'instant ceci donnerait un code un un peu plus difficile à suivre. 
+La probabilité de présence semble atteindre un pic aux alentours de 1400m. Il faut toutefois rester prudent dans l'interprétation précise de ces valeurs, car nous n'avons pas d'intervalles de confiance autour de ces courbes. On pourrait les ajouter en utilisant l'argument `se.fit` de `predict`, mais cela demanderait un peu plus de travail. Nous n'avons d'ailleurs pas encore visualisé l'effet de nos autres variables. Il faudrait produire ces graphiques pour chacune des variables. Il serait possible d'optimiser cette tâche en généralisant le code de prédictions, mais pour l'instant ceci donnerait un code un peu plus difficile à suivre. 
 
 
-Pour faciliter la visualisation des résultats, nous pouvons faire appel au package [visreg](https://cran.r-project.org/web/packages/visreg/index.html) qui s'occupe de la majeure partie du travail. Pour comprendre son utilisation, lisez attentivement la [vignette](https://cran.r-project.org/web/packages/visreg/vignettes/quick-start.pdf) du package. Les deux premières pages vous indiquent de façon assez simple comment créer des graphiques de visualisation d'un modèle linéaire et même comment visualiser une interaction! Le package a même un [site web](http://pbreheny.github.io/visreg/index.html) pour décrire les fonctionnalités. Il y a notamment une section sur les [GLM](http://pbreheny.github.io/visreg/glm.html). Pour ce package, l'argument qui permet de spécifier que l'on veut notre prédiction sous l'échelle de la réponse s'appelle `scale` contrairement à `type` pour la fonction `predict`.
+Pour faciliter la visualisation des résultats, nous pouvons faire appel au package *visreg* qui s'occupe de la majeure partie du travail. Les deux premières pages vous indiquent de façon assez simple comment créer des graphiques de visualisation d'un modèle linéaire et même comment visualiser une interaction! Le package a même un [site web](http://pbreheny.github.io/visreg/index.html) pour décrire les fonctionnalités. Il y a notamment une section sur les [GLM](http://pbreheny.github.io/visreg/glm.html). Pour ce package, l'argument qui permet de spécifier que l'on veut notre prédiction sous l'échelle de la réponse s'appelle `scale` contrairement à `type` pour la fonction `predict`.
 
 ```{r,fig.width=8,fig.height=6}
 library(visreg)
@@ -1268,12 +1270,15 @@ Certains ont utilisé les coordonnées comme variables explicatives dans leur mo
 
 Malheureusement, ou plutôt heureusement, il n'y a pas nécessairement une meilleure ou une unique réponse à ce défi d'analyse de données. La mienne n'est qu'une suggestion et vous avez peut être de meilleures suggestions. L'important est de justifier nos choix et de prendre en considération les éléments les plus importants. Un élément important que j'ai ignoré est la potentielle corrélation spatiale entre les observations. Par exemple, est-ce que les observations près les unes des autres peuvent être considérées comme étant indépendantes? Aussi, est-ce qu'il y aurait d'autres variables à prendre en compte dans cette analyse? Comment les inventaires ont été réalisés? Est-ce qu'il faudrait tenir compte de la probabilité de détection de l'espèce? 
 
+
+
 # Atelier 5
 
 ## Les parasites chez le Colibri à gorge rubis
 
-Pour cet exercice, vous étudierez ce qui influence la charge parasitaire chez le Colibri à gorge rubis (*Archilochus colubris*), une espèce retrouvée au Québec. Dans la base de données [colibris.csv](https://github.com/frousseu/ECL749/tree/master/data), vous retrouverez différentes variables comme le sexe (4 = mâle, 5 = femelle) et l'âge (1 = adulte, 2 = jeune). L'exercice consiste à déterminer quelles sont les variables qui affectent la quantité de parasites. Pour interpréter vos résultats, illustrez graphiquement votre modèle. 
+Pour cet exercice, vous étudierez ce qui influence la charge parasitaire chez le Colibri à gorge rubis (*Archilochus colubris*), une espèce retrouvée au Québec. Dans la base de données [colibris.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/colibris.csv), vous retrouverez différentes variables comme le sexe (4 = mâle, 5 = femelle) et l'âge (1 = adulte, 2 = jeune). L'exercice consiste à déterminer quelles sont les variables qui affectent la quantité de parasites. Pour interpréter vos résultats, illustrez graphiquement votre modèle. 
 
+<!--
 
 ### Solution
 
@@ -1381,10 +1386,13 @@ visreg(m1sub,scale="response",ylim=c(0,8))
 
 ```
 
+-->
 
 ## La richesse spécifique le long du littoral
 
-Ici, on s'intéresse aux variables influençant le nb d'espèces rencontrées le long du littoral. On a la hauteur de la station d'échantillonnage par rapport à la hauteur moyenne de la marée ainsi que l'exposition qui est quantifiée à l'aide d'un index construit à partir de la "sévérité" des conditions de la station (force des vagues, longueur de la zone d'impact, pente, substrat allant de fin à grossier). La base de données se trouve à cet endroit [plages.csv](https://github.com/frousseu/ECL749/tree/master/data). Illustrez vos résultats. 
+Ici, on s'intéresse aux variables influençant le nb d'espèces rencontrées le long du littoral. On a la hauteur de la station d'échantillonnage par rapport à la hauteur moyenne de la marée ainsi que l'exposition qui est quantifiée à l'aide d'un index construit à partir de la "sévérité" des conditions de la station (force des vagues, longueur de la zone d'impact, pente, substrat allant de fin à grossier). La base de données se trouve à cet endroit [plages.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/plages.csv). Illustrez les résultats de votre modèle. 
+
+<!--
 
 ### Solution
 
