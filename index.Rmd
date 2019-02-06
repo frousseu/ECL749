@@ -1584,19 +1584,19 @@ Articles à lire pour le cours du 20 mars.
 
 [Predictors of malaria infection in a wild bird population: landscape-level analyses reveal climatic and anthropogenic factors](http://onlinelibrary.wiley.com/doi/10.1111/1365-2656.12214/full)
 
+-->
+
 # Travail de session
 
 Le travail de session se déroulera en deux temps. La première partie (20%) consistera en l'établissement d'une méthodologie afin de répondre à une mise en situation et la seconde partie (80%) consistera en la rédaction d'un rapport sous forme d'article scientifique à partir d'une base de données en lien avec la première partie. Dans la plupart des cas, il y aura des différences entre la méthodologie proposée pour la mise en situation et la méthodologie utilisée pour récolter les données fournies. Dans ce cas, il faudra adapter votre méthodologie décrite dans la partie 2 du travail afin de refléter la méthodologie utilisée. 
 
 ## Partie I
 
-La première partie (20%) devra comprendre la méthodologie proposée pour récolter et analyser les données. Plus spécifiquement, vous devrez présenter un plan d’échantillonnage en plus d’indiquer quelles mesures seront
-prises sur le terrain. Une ou des méthodes d'analyses statistiques devront également être proposées. Cette partie
-du travail devra être remise par courriel au plus tard le **vendredi 23 mars à 16h**. Pour ceux désirant utiliser leur propre jeu de données, vous devrez énoncer vous même votre propre mise en situation et m'en faire part d'ici vendredi le 16 mars à 16h en me montrant également la base de données qui sera utilisée (ou un extrait).
+La première partie (20%) devra comprendre la méthodologie proposée pour récolter et analyser les données. Plus spécifiquement, vous devrez présenter un plan d’échantillonnage en plus d’indiquer quelles mesures seront prises sur le terrain. Une ou des méthodes d'analyses statistiques devront également être proposées. Cette partie du travail devra être remise par courriel au plus tard le **mardi 19 février à 17h**. Pour ceux désirant utiliser leur propre jeu de données, vous devrez énoncer vous même votre propre mise en situation et m'en faire part d'ici mardi le 12 février à 17h par courriel ou en personne en me montrant également la base de données qui sera utilisée (ou un extrait).
 
 Comment-allez vous répondre à cette mise en situation? Quel sera votre plan d'échantillonnage? Quelles seront les variables que vous utiliserez? Quelles méthodes envisagez-vous utiliser pour analyser les données récoltées? La méthodologie proposée devrait pouvoir être exposée en un maximum de **2 pages**. Puisque certains éléments sont inconnus, il sera bien sûr impossible de détailler tous les aspects de votre méthodologie. Le travail proposé ici a surtout pour objectif de vous faire réfléchir à un design d'étude vous permettant de répondre à une question de nature écologique. 
 
-Vous devrez probablement vous inspirer de la littérature scientifique afin d'identifier les variables à utiliser et établir votre plan d'échantillonnage. Afin de limiter l'éventail des possibilités, il serait préférable de vous limiter à identifier un maximum de 4 ou 5 variables à utiliser. En effet, de multiples variables pourraient être mesurées, mais il s'agit surtout ici d'identifier quelques variables pertinentes et surtout d'être capable de développer et d'exposer un plan d'échantillonnage pour répondre à une question donnée. De la même façon, il n'est pas nécessaire de mentionner que vous allez inventorier des milliers de sites pour répondre à la question. Il s'agit d'utiliser un nombre de stations ou un échantillonnage suffisant en fonction de la question ou du nombre de variables étudiées. Ceci n'est pas toujours évident à évaluer et vous devrez vous fier à votre jugement pour déterminer l'étendue de votre échantillonnage. 
+Vous devrez probablement vous inspirer de la littérature scientifique afin d'identifier les variables à utiliser et établir votre plan d'échantillonnage. Afin de limiter l'éventail des possibilités, il serait préférable de vous limiter à identifier un maximum de 4 ou 5 variables à utiliser. En effet, de multiples variables pourraient être mesurées, mais il s'agit surtout ici d'identifier quelques variables pertinentes et surtout d'être capable de développer et d'exposer un plan d'échantillonnage pour répondre à une question donnée. De la même façon, il n'est pas nécessaire de mentionner que vous allez inventorier des milliers de sites pour répondre à la question. Il s'agit d'utiliser un nombre de stations ou un échantillonnage suffisant en fonction de la question ou du nombre de variables étudiées. Ceci n'est pas toujours évident à évaluer et vous devrez vous fier à votre jugement pour déterminer l'étendue de votre échantillonnage. Vous devrez également choisir un endroit où réaliser votre plan d'échantillonnage en fonction de votre question. 
 
 L'important dans cette section n'est pas de remplir les 2 pages, mais plutôt de décrire suffisament les différents aspects votre méthodologie pour qu'un lecteur potentiel puisse reproduire votre étude.
 
@@ -1616,9 +1616,7 @@ biologique.
 mettre en contexte la problématique et/ou interpréter les résultats.
 - **Annexe** : Code R (propre!) utilisé pour effectuer les manipulations de données, les analyses statistiques et les graphiques. Ce code devrait contenir toutes les lignes de programmation permettant de reproduire votre travail à partir de votre base de données jusqu'aux graphiques présentés. Les lignes de codes inutiles, exploratoires ou générant des erreurs devraient être éliminées. Les parties plus compliquées de votre code devraient inclure des commentaires expliquant ce qui est effectué.
 
-Votre travail au complet ne devrait pas prendre plus de **10 pages**. Ce travail est à remettre au plus tard le **vendredi 20 avril à 16h**.
-
--->
+Votre travail au complet ne devrait pas prendre plus de **10 pages**. Ce travail est à remettre au plus tard le **vendredi 22 mars à 17h**.
 
 <!-- 
 
@@ -1636,7 +1634,6 @@ Toujours se demander, est-ce que nos variables varient? Est-ce que l'échelle à
 
 -->
 
-<!--
 
 ## Mises en situation
 
@@ -1647,6 +1644,8 @@ Voici les différentes mises en situation. Si vous utilisez vos propres données
 **1. Composition du paysage, Grand-duc d'Amérique et occurrence de la Chouette rayée**
 
 Quelles sont les caractéristiques du paysage affectant la présence de la Chouette rayée (*i.e.* une espèce de hibou, *Strix varia*) dans le sud du Québec? Est-ce que le Grand-duc d'Amérique (*Bubo virginianus*) a une influence sur sa présence?
+
+<!--
 
 Les données ont été récoltées en Montérégie et en Estrie. À chaque site, trois stations d'écoute d'une durée de 10 minutes ont été effectuées au courant de la saison propice à la détection. L'espèce était considérée présente lorsqu'il y avait au moins une détection. Voici la base de données [chouette](https://raw.githubusercontent.com/frousseu/ECL749/master/data/chouette.csv) et une description des variables. 
 
@@ -1664,9 +1663,13 @@ Les données ont été récoltées en Montérégie et en Estrie. À chaque site,
 
 <br>
 
+-->
+
 **2. Richesse ichtyologique dans les récif coraliens**
 
 Quelles sont les variables influençant la richesse en poissons dans les récifs coraliens?
+
+<!--
 
 Ces données ont été récoltées dans différentes sections de sites dans les Caraïbes. Le nombre d'espèces de poissons a été évalué à partir de 5 heures d'observations à chaque endroit dans des moments propices. Voici la base de données [poissons_coraux](https://raw.githubusercontent.com/frousseu/ECL749/master/data/poissons_coraux.csv) et une description des variables:
 
@@ -1680,9 +1683,13 @@ Ces données ont été récoltées dans différentes sections de sites dans les 
 
 <br>
 
+-->
+
 **3. Diversité aviaire, forêt et fragmentation en milieu tropical**
 
 Quel est l'effet de la fragmentation forestière sur la richesse aviaire en milieu tropical?
+
+<!--
 
 Ces données ont été récoltées dans différents sites fragmentés d'une région du Costa Rica. Le nombre d'espèces d'oiseaux à l'intérieur de chaque fragment a été évalué en visitant chaque parcelle pour un minimum de 4h chacune et jusqu'à ce que le nb de nouvelles espèces rencontrées n'augmente pas pendant une période de deux heures. Les visites ont été effectuées pendant la période de reproduction et à des moments propices (*i.e.* tôt le matin, conditions climatiques clémentes) pour l'observation. Voici la base de données [fragmentation_aviaire](https://raw.githubusercontent.com/frousseu/ECL749/master/data/fragmentation_aviaire.csv) et une description des variables:
 
@@ -1696,9 +1703,13 @@ Ces données ont été récoltées dans différents sites fragmentés d'une rég
 
 <br>
 
+-->
+
 **4. L'abondance des moineaux dans un contexte agricole**
 
 Quels sont les éléments du paysage affectant l'abondance du Moineau domestique (*Passer domesticus*) en milieu agricole dans le sud du Québec?
+
+<!--
 
 Ces données ont été récoltées à diverses fermes de la Montérégie et de l'Estrie. Des stations d'écoute d'une durée de 10 minutes ont effectuées à chaque ferme tôt le matin pendant les mois de mai et juin. Voici la base de données [moineaux](https://raw.githubusercontent.com/frousseu/ECL749/master/data/moineaux.csv) et une description des variables:
 
@@ -1715,9 +1726,13 @@ Ces données ont été récoltées à diverses fermes de la Montérégie et de l
 
 <br>
 
+-->
+
 **5. La diversité des papillons dans les prairies naturelles**
 
 Quelles sont les caractéristiques de la végétation affectant la diversité en espèces de papillons dans les prairies naturelles?
+
+<!--
 
 Ces données ont été récoltées à divers sites dans les prairies américaines. À chaque site, 5 transects de 100 m de récolte active (avec un filet) et 2 nuitée de récolte passive (avec un drap et de la lumière) ont été effectuées pendant les mois de juin et juillet. Voici la base de données [papillons](https://raw.githubusercontent.com/frousseu/ECL749/master/data/papillons.csv) et une description des variables:
 
@@ -1728,7 +1743,6 @@ Ces données ont été récoltées à divers sites dans les prairies américaine
 - **year**: année
 - **julien**: jour julien
 - **nbsp**: nb d'espèces de papillons
-
 
 -->
 
