@@ -1276,7 +1276,7 @@ Malheureusement, ou plutôt heureusement, il n'y a pas nécessairement une meill
 
 ## Les parasites chez le Colibri à gorge rubis
 
-Pour cet exercice, vous étudierez ce qui influence la charge parasitaire chez le Colibri à gorge rubis (*Archilochus colubris*), une espèce retrouvée au Québec. Dans la base de données [colibris.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/colibris.csv), vous retrouverez différentes variables comme le sexe (4 = mâle, 5 = femelle) et l'âge (1 = adulte, 2 = jeune). L'exercice consiste à déterminer quelles sont les variables qui affectent la quantité de parasites. Pour interpréter vos résultats, illustrez graphiquement votre modèle. 
+Pour cet exercice, vous étudierez ce qui influence la charge parasitaire chez le Colibri à gorge rubis (*Archilochus colubris*), une espèce retrouvée au Québec. Dans la base de données [colibris.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/colibris.csv), vous retrouverez différentes variables comme le sexe (4 = mâle, 5 = femelle) et l'âge (1 = adulte, 2 = jeune). L'exercice consiste à déterminer quelles sont les variables qui affectent la quantité de parasites. Pour interpréter vos résultats, illustrez graphiquement votre modèle. Obtenez-vous des conclusions semblables si vous faites l'analyse en présence/absence? Pour transformer les valeurs en présence/absence, vous pouvez utiliser la fonction `ifelse`.
 
 <!--
 
@@ -1390,7 +1390,7 @@ visreg(m1sub,scale="response",ylim=c(0,8))
 
 ## La richesse spécifique le long du littoral
 
-Ici, on s'intéresse aux variables influençant le nb d'espèces rencontrées le long du littoral. On a la hauteur de la station d'échantillonnage par rapport à la hauteur moyenne de la marée ainsi que l'exposition qui est quantifiée à l'aide d'un index construit à partir de la "sévérité" des conditions de la station (force des vagues, longueur de la zone d'impact, pente, substrat allant de fin à grossier). La base de données se trouve à cet endroit [plages.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/plages.csv). Illustrez les résultats de votre modèle. 
+Ici, on s'intéresse aux variables influençant le nb d'espèces rencontrées le long du littoral. On a la hauteur de la station d'échantillonnage par rapport à la hauteur moyenne de la marée ainsi que l'exposition qui est quantifiée à l'aide d'un index construit à partir de la "sévérité" des conditions de la station (force des vagues, longueur de la zone d'impact, pente, substrat allant de fin à grossier). La base de données se trouve à cet endroit [plages.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/plages.csv). Une autre base de données [plages_type.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/plages_type.csv) est également disponible où le type de plage (roches ou sable) est donnée. Vous devrez fusionner ces deux bases de données pour mettre l'information dans une même base de données. Pour ce faire, vous devrez utiliser la fonction `merge`. Illustrez les résultats de votre modèle. 
 
 <!--
 
@@ -1401,6 +1401,13 @@ Importons d'abord les données.
 
 d <- read.csv("https://raw.githubusercontent.com/frousseu/ECL749/master/data/plages.csv")
 head(d)
+
+set.seed(123)
+s<-sample(c("roches","sable"),9,replace=TRUE)
+x<-data.frame(Plage=1:9,Type=s)
+write.csv(x,"plage_type.csv",row.names=FALSE)
+
+merge(d,x,by.x="plage",by.y="Plage")
 
 ```
 
