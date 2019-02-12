@@ -1466,8 +1466,7 @@ Pour cet atelier, vous apprendrez à utiliser différentes fonctions pour explor
 
 <br>
 
-(**cell_oiseaux**)[]
-
+[**cell_oiseaux**](https://raw.githubusercontent.com/frousseu/ECL749/master/data/cell_oiseaux.csv)
 - **cell**: identifiant de la cellule
 - **Latitude**: latitude
 - **Longitude**: longitude
@@ -1480,7 +1479,7 @@ Pour cet atelier, vous apprendrez à utiliser différentes fonctions pour explor
 
 <br>
 
-(**cell_milieux**)[]
+[**cell_milieux**](https://raw.githubusercontent.com/frousseu/ECL749/master/data/cell_milieux.csv)
 
 - **cell**: identifiant de la cellule
 - **%MilieuNaturel**: % de milieus naturels (forêt, milieux humides, etc.)
