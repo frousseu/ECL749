@@ -1278,8 +1278,6 @@ Malheureusement, ou plutôt heureusement, il n'y a pas nécessairement une meill
 
 Pour cet exercice, vous étudierez ce qui influence la charge parasitaire chez le Colibri à gorge rubis (*Archilochus colubris*), une espèce retrouvée au Québec. Dans la base de données [colibris.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/colibris.csv), vous retrouverez différentes variables comme le sexe (4 = mâle, 5 = femelle) et l'âge (1 = adulte, 2 = jeune). L'exercice consiste à déterminer quelles sont les variables qui affectent la quantité de parasites. Pour interpréter vos résultats, illustrez graphiquement votre modèle. Obtenez-vous des conclusions semblables si vous faites l'analyse en présence/absence? Pour transformer les valeurs en présence/absence, vous pouvez utiliser la fonction `ifelse`.
 
-<!--
-
 ### Solution
 
 On importe d'abord les données et on affiche notre `data.frame` et un petit résumé de ce qu'il contient.
@@ -1298,7 +1296,7 @@ hist(d$parasites)
 
 ```
 
-On a ici un nombre d'individus, avec des valeurs allant de 0 à environ 40. Il faudra donc probablement modéliser l'abondance de parasites avec une distribution de poisson. On a également plusieurs colibris dans la base de données. Une deuxième question à se poser est est-ce qu'on a plusieurs comptes de parasites pour un même individus? On peut vérifier ceci en utilisant la fonction `table` qui va comptabiliser le nombre de fois que chaque numéro de bague apparaît dans la base de données. En utilisant une seconde fois la fonction `table`, on compte le nombre de fois où chacune de ces valeurs est observée.
+On a ici un nombre d'individus, avec des valeurs allant de 0 à environ 40. Il faudra donc probablement modéliser l'abondance de parasites avec une distribution de Poisson. On a également plusieurs colibris dans la base de données. Une deuxième question à se poser est est-ce qu'on a plusieurs comptes de parasites pour un même individus? On peut vérifier ceci en utilisant la fonction `table` qui va comptabiliser le nombre de fois que chaque numéro de bague apparaît dans la base de données. En utilisant une seconde fois la fonction `table`, on compte le nombre de fois où chacune de ces valeurs est observée.
 
 ```{r}
 
@@ -1386,13 +1384,10 @@ visreg(m1sub,scale="response",ylim=c(0,8))
 
 ```
 
--->
 
 ## La richesse spécifique le long du littoral
 
 Ici, on s'intéresse aux variables influençant le nb d'espèces rencontrées le long du littoral. On a la hauteur de la station d'échantillonnage par rapport à la hauteur moyenne de la marée ainsi que l'exposition qui est quantifiée à l'aide d'un index construit à partir de la "sévérité" des conditions de la station (force des vagues, longueur de la zone d'impact, pente, substrat allant de fin à grossier). La base de données se trouve à cet endroit [plages.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/plages.csv). Une autre base de données [plage_type.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/plage_type.csv) est également disponible où le type de plage (roches ou sable) est donnée. Vous devrez fusionner ces deux bases de données pour mettre l'information dans une même base de données. Pour ce faire, vous devrez utiliser la fonction `merge`. Illustrez les résultats de votre modèle. 
-
-<!--
 
 ### Solution
 
@@ -1445,7 +1440,7 @@ summary(m)
 
 ```
 
-On a des effets négatifs significatifs des deux variables ce qui signifie que la hauteur et l'exposition sont toutes deux associées à un moins grand nombre d'espèces. On peut visualiser l'effet de ces deux variables avec visreg. 
+On a des effets négatifs significatifs des deux variables ce qui signifie que la hauteur et l'exposition sont toutes deux associées à un moins grand nombre d'espèces. On peut visualiser l'effet de ces deux variables avec `visreg`. 
 
 ```{r}
 
@@ -1457,6 +1452,138 @@ visreg(m,scale="response")
 
 La série du haut représente les prédictions du modèle sous l'échelle de la fonction de lien *log* et la série du bas représente les prédictions du modèle à l'échelle de la réponse. Contrairement aux GLMS, il n'y a pas d'intervalles de confiance puisque la meilleure façon de les calculer est incertaine. Ceci est expliqué dans la [GLMM FAQ](https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html#testing-hypotheses). 
 
+
+# Atelier 6
+
+Pour cet atelier, vous apprendrez à utiliser différentes fonctions pour explorer, manipuler et mettre en forme une base données. Cette base de données contient des observations de nombres d'individus pour 3 espèces d'oiseaux (Paruline couronnée (PACO), Carouge à épaulettes (CAEP) et Moineau domestique (MODO)) soumises lors de sorties sur le terrain. À chaque fois qu'un observateur va sur le terrain, un feuillet est soumis où le nombre d'individus de chaque espèce est noté. Nous avons ces informations pour les trois espèces d'oiseaux. Ces feuillets sont rattachées à différentes cellules ayant chacune un identifiant et des coordonnées. Vous devrez également intégrer des données d'habitat associées à chacune de ces cellules. Voici le contenu de ces deux bases de données ainsi que les tâches à accomplir.
+
+<!--
+
+# h<-read.csv("https://raw.githubusercontent.com/frousseu/ECL749/master/data/cell_milieux.csv",sep=";")
+# d<-read.csv("https://raw.githubusercontent.com/frousseu/ECL749/master/data/cell_oiseaux.csv",sep=";")
+
+-->
+
+<br>
+
+(**cell_oiseaux**)[]
+
+- **cell**: identifiant de la cellule
+- **Latitude**: latitude
+- **Longitude**: longitude
+- **PACO**: nb d'individus pour la Paruline couronnée
+- **CAEP**: nb d'individus pour le Carouge à épaulettes
+- **MODO**: nb d'individus pour Moineau domestique
+- **day**: date
+- **month**: mois
+- **year**: année
+
+<br>
+
+(**cell_milieux**)[]
+
+- **cell**: identifiant de la cellule
+- **%MilieuNaturel**: % de milieus naturels (forêt, milieux humides, etc.)
+- **%BatiCommercial**: % de milieux commerciaux
+- **%BatiResidentiel**: % de milieux résidentiels
+- **%Agricole**: % de milieux agricoles
+
+<br>
+
+1) Importez les bases de données.
+
+2) Créez une colonne nommée "date" avec le format "2019-02-13" en utilisant la fonction `as.Date`. Vous aurez préalablement à assembler vos valeurs pour obtenir le format voulu à l'aide de la fonction `paste` qui permet de coller ensemble des chaînes de caractères. Voici des exemples d'utilisation de ces deux fonctions. 
+
+```{r}
+
+paste(1:5,c("a","b","c","d","e"),sep="_")
+x<-as.Date(c("2019-02-12","2019-02-13"))
+x
+class(x)
+
+```
+
+De façon interne, le format `Date` est stocké comme un entier représentant le nombre de jours depuis 1970-01-01.
+
+```{r}
+as.integer(as.Date(c("1970-01-01","1971-01-01")))
+```
+
+3) Ordonnez votre tableau de données par date à l'aide de la fonction `order`. Cette fonction permet de réorganiser les lignes en fonction de l'ordre des éléments choisis. Voici un exemple avec le jeu de données `iris` inclus dans R.
+
+```{r,results="hold"}
+
+x<-iris[order(iris$Species,iris$Petal.Length),]
+head(x,5)
+tail(x,5)
+
+```
+
+4) Par erreur, des valeurs de NA ont été utilisées dans certains cas lorsque le nombre d'individus rencontrés était de 0. Remplacez ces valeurs de `NA` par des 0 dans les nombres d'individus. Ici, vous aurez besoin des fonctions `ifelse` et `is.na`.
+
+5) Illustrez pour une espèce donnée le nb d'individus vu à chaque jour. Pour ce faire, vous devrez utiliser votre date comme l'élément variant selon l'axe des X (sous le format `Date`). La date sera convertie en valeur numérique et les étiquettes s'ajusteront au format `Date`.
+
+6) Illustrez la localisation des différentes cellules dans un graphique. Vous remarquerez que les coordonnées contiennent des virgules au lieu des points. Il vous faudra donc transformer ces virgules en points avec la fonction `gsub` et ensuite transformer ce dernier résultat en valeur numérique avec la fonction `as.numeric`. Voici un exemple d'utilisation de la fonction `gsub`. Cette fonction permet de remplacer un caractère par un autre dans un vecteur de caractères.
+
+```{r}
+
+x<-as.Date(c("2019-02-12","2019-02-13"))
+y<-gsub("-","_",x)
+y
+
+```
+
+Puisqu'il y a plusieurs lignes de données pour chaque cellule, il serait préférable de ne conserver qu'une seule ligne par cellule pour illustrer la localisation de chaque cellule afin d'éviter de tracer trop de points inutilement. Pour ne conserver qu'une seule ligne par cellule, vous pouvez utiliser la fonction `unique` qui permet de conserver les valeurs qui ne sont pas des doublons. Voici un exemple d'utilisation de la fonction `unique` appliquée sur un vecteur et sur un `data.frame`. Avec cette fonction, vous pourriez vous créer un `data.frame` ne contenant que les coordonnées des différentes cellules.
+
+
+```{r}
+
+x<-c("a","a","a","b","b","c")
+unique(x)
+y<-c(1,2,1,3,3,3)
+d<-data.frame(x,y)
+d
+unique(d)
+
+```
+
+
+7) À l'aide de vos coordonées, illustrez les abondances soumises d'une de vos espèces d'oiseaux en faisant varier la taille de vos points.
+
+8) Pour chaque espèce, quelle est la proportion de feuillets contenant au moins un individu? 
+
+9) Votre graphique précédent illustre chacune des mentions ce qui peut rendre difficile l'appréciation de l'abondance de l'espèce à travers les différentes régions. Afin de résumer cette information par cellule, calculez le nombre moyen d'individus mentionnés par cellule et illustrez plutôt ces valeurs. Il y a plusieurs façons de faire ce calcul dans R. La façon de base est probablement d'employer la fonction `aggregate` avec sa version utilisant les formules. Voici un exemple d'utilisation de cette fonction avec le jeu de données `iris`.
+
+```{r}
+
+head(iris)
+aggregate(Petal.Length~Species,data=iris,FUN=mean)
+aggregate(.~Species,data=iris,FUN=mean)
+
+```
+
+10) Quel est le nombre moyen de Parulines couronnées mentionné par feuillet à chaque mois? Illustrez ces valeurs à l'aide de la fonction `barplot`.
+
+11) Des données de types de milieux ont été extraites pour chaque cellule, mais ces données se trouvent dans une autre base de données. Ajoutez ces données de types de milieux à vos données d'observations. Pour ce faire, vous devrez utiliser la fonction `merge`. Au préalable, changez les noms de colonnes des types de milieux pour éliminer les "%" qui risqueraient de causer des difficultés lors de la création d'éventuels modèles. Pour ce faire, vous pouvez utiliser la fonction `names`  avec l'indexage et la fonction `which`. En voici un exemple. La fonction `which` identifie les positions dans le vecteur où une ou des conditions sont rencontrées.
+
+```{r}
+
+x<-iris
+head(x)
+names(x)
+w<-which(names(x)=="Species") 
+w
+names(x)[w]<-"espèces"
+head(x)
+
+```
+
+12) Ajoutez un nouveau type de milieu (urbain) en additionnant les superficies occupées par les milieux résidentiels et les milieux commerciaux.
+
+13) Illustrez dans une même fenêtre graphique les valeurs de % de types de milieux pour chaque type. Cela correspond à la création de 5 cartes pour illustrer chaque type de milieu.
+
+
+<!--
 
 # Atelier 6
 
