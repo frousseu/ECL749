@@ -1467,6 +1467,7 @@ Pour cet atelier, vous apprendrez à utiliser différentes fonctions pour explor
 <br>
 
 [**cell_oiseaux**](https://raw.githubusercontent.com/frousseu/ECL749/master/data/cell_oiseaux.csv)
+
 - **cell**: identifiant de la cellule
 - **Latitude**: latitude
 - **Longitude**: longitude
