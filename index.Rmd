@@ -36,7 +36,7 @@ pre.r {
 }
 
 pre code {
-  font-size: 14pt;
+  font-size: 11pt;
 }
 
 body {
@@ -1580,8 +1580,202 @@ head(x)
 
 12) Ajoutez un nouveau type de milieu (urbain) en additionnant les superficies occupées par les milieux résidentiels et les milieux commerciaux.
 
-13) Illustrez dans une même fenêtre graphique les valeurs de % de types de milieux pour chaque type. Cela correspond à la création de 5 cartes pour illustrer chaque type de milieu.
+13) Illustrez dans une même fenêtre graphique les valeurs de % de types de milieux pour chaque type. Cela correspond à la création de 4 cartes pour illustrer chaque type de milieu.
 
+### Solution
+
+1)
+
+```{r}
+
+o<-read.csv("https://raw.githubusercontent.com/frousseu/ECL749/master/data/cell_oiseaux.csv",sep=";",header=TRUE)
+h<-read.csv("https://raw.githubusercontent.com/frousseu/ECL749/master/data/cell_milieux.csv",sep=";",header=TRUE)
+
+```
+
+2)
+
+```{r}
+
+o$date<-as.Date(paste(o$year,o$month,o$day,sep="-"))
+
+```
+
+
+3)
+
+```{r}
+
+o<-o[order(o$date),]
+
+```
+
+4)
+
+Vous pouvez vérifier s'il y a des `NA` dans les différentes colonnes avec la fonction `summary` ou en utilisant `table(is.na(d$PACO))` pour une colonne en particulier. Il semble y avoir des `NA` uniquement dans la colonne `PACO`.
+
+```{r}
+o$PACO<-ifelse(is.na(o$PACO),0,o$PACO)
+
+```
+
+5)
+
+Ce graphique nous permet de voir qu'il y a qqch qui cloche avec les abondances de CAEP et PACO... En bonus, je rajoute sur l'axe des X du dernier graphique un peu plus de précision
+```{r, fig.height=7,fig.width=9}
+
+par(mfrow=c(3,1))
+plot(o$date,o$PACO)
+plot(o$date,o$CAEP)
+plot(o$date,o$MODO,xaxt="n")
+x<-seq.Date(as.Date("2005-01-01"),as.Date("2011-01-01"),by="2 month")
+axis.Date(side=1,x,at=x,format="%Y-%b",las=2)
+
+```
+
+6)
+
+```{r}
+
+o$Longitude<-as.numeric(gsub(",",".",o$Longitude))
+o$Latitude<-as.numeric(gsub(",",".",o$Latitude))
+
+cells<-unique(o[,c("cell","Longitude","Latitude")])
+            
+par(mfrow=c(1,1))  
+plot(cells$Longitude,cells$Latitude)
+
+```
+
+7)
+
+Pour ce faire, le plus simple est d'utiliser l'argument `cex` de la fonction `plot` avec les abondances d'oiseaux transformées ou divisées par une certaine valeurs. Ces valeurs indiqueront la surface occupée par chaque point et par défaut, cette surface est de 1. Il faut donc réduire certaines valeurs pour éviter d'avoir des points trop grands. Une transformation `log` permettrait d'écraser les valeurs très grandes. Vous pourriez aussi divisier vos valeurs par un facteur approprié. Il est également possible d'utiliser des points pleins avec l'argument `pch` et la fonction `gray` avec laquelle on peu spécifier un gris plus ou moins transparent. 
+
+```{r, fig.height=7,fig.width=9}
+
+par(mfrow=c(2,2))
+plot(o$Longitude,o$Latitude,cex=log(o$PACO),pch=16,col=gray(level=0,alpha=0.1))
+plot(o$Longitude,o$Latitude,cex=log(o$CAEP),pch=16,col=gray(level=0,alpha=0.1))
+plot(o$Longitude,o$Latitude,cex=log(o$MODO),pch=16,col=gray(level=0,alpha=0.1))
+
+```
+
+8)
+
+Pour obtenir ceci, il n'y a qu'à utiliser `table` sur chaque colonne d'abondance pour calculer le nombre de fois où les valeurs sont supérieures ou inférieures à 0 et ensuite faire les calculs "à la mitaine" ou avec R.
+
+```{r}
+
+table(o$PACO>0)
+
+```
+
+Une autre façon encore plus efficace serait de convertir les colonnes d'espèces en matrice et d'additionner le nombre de valeurs répondant à notre critère. Les `TRUE` seront convertis en 1 et les `FALSE` en 0 lors de l'addition des colonnes.
+
+```{r}
+
+m<-as.matrix(o[,c("PACO","CAEP","MODO")])
+colSums(m>0)/nrow(o)
+
+```
+
+9)
+
+La façon la plus efficace ici est probablement de tout calculer d'un coup en utilisant le `.` dans une formule et de regrouper ces valeurs par coordonnées et par cellules. Par la suite on peut utiliser les mêmes graphiques que ceux utilisés précédemment. Les abondances seront toutefois beaucoup moins extrêmes et une autre transformation des valeurs seraient pertinentes, par exemple une transformation racine-carrée (`sqrt`).
+
+```{r, fig.height=7,fig.width=9}
+
+v<-aggregate(.~cell+Longitude+Latitude,data=o[,c("cell","Longitude","Latitude","PACO","CAEP","MODO")],FUN=mean)
+
+par(mfrow=c(2,2))
+plot(v$Longitude,v$Latitude,cex=sqrt(v$PACO),pch=16,col=gray(level=0,alpha=0.1))
+plot(v$Longitude,v$Latitude,cex=sqrt(v$CAEP),pch=16,col=gray(level=0,alpha=0.1))
+plot(v$Longitude,v$Latitude,cex=sqrt(v$MODO),pch=16,col=gray(level=0,alpha=0.1))
+
+```
+
+
+10)
+
+Pour ce faire, on peut utiliser un `aggregate` approprié. On voit que cette espèce est surtout présente du mois de mai au mois de septembre.
+
+```{r}
+
+v<-aggregate(PACO~month,data=o,mean)
+
+par(mfrow=c(1,1))
+barplot(v$PACO,names.arg=v$month,ylab="Nb moyen de PACO",xlab="Mois")
+
+```
+
+
+11)
+
+Dans mon cas, les "%" ont été transformés en "X.". Il faut donc utiliser ces mêmes noms. Le code suivant peut se traduire comme voulant dire "trouve la position de ce nom et change le nom en cette position par cet autre nom". 
+
+```{r}
+
+names(h)[which(names(h)=="X.MilieuNaturel")]<-"naturel"
+names(h)[which(names(h)=="X.Agricole")]<-"agricole"
+names(h)[which(names(h)=="X.BatiResidentiel")]<-"residentiel"
+names(h)[which(names(h)=="X.BatiCommercial")]<-"commercial"
+
+```
+
+Une autre façon de faire pourrait être de remplacer tous les "X." par qqch d'autres (dans notre cas, par rien)
+
+```{r,eval=FALSE}
+
+names(h)<-gsub("X.","",names(h))
+
+```
+
+Par la suite, on utilise `merge` pour ajouter les données d'habitats aux données d'abondances.
+
+```{r}
+
+o<-merge(o,h)
+head(o)
+
+```
+
+12)
+
+```{r}
+
+o$urbain<-o$residentiel+o$commercial
+
+```
+
+13)
+
+Encore une fois, ici on pourrait éviter de tracer beaucoup de points en ne prenant que les valeurs uniques pour chaque cellule. Pour ce faire, on pourrait aussi fusionner les données d'habitats avec l'objets `cells` crée plus haut.
+
+```{r, fig.height=7,fig.width=9}
+
+cells<-merge(cells,h)
+
+par(mfrow=c(2,2))
+plot(cells$Longitude,cells$Latitude,cex=3*cells$naturel/100,pch=16)
+plot(cells$Longitude,cells$Latitude,cex=3*cells$agricole/100,pch=16)
+plot(cells$Longitude,cells$Latitude,cex=2*cells$residentiel/100,pch=16)
+plot(cells$Longitude,cells$Latitude,cex=2*cells$commercial/100,pch=16)
+
+```
+
+Si vous voulez visualiser où se trouvent ces cellules, vous pouvez le faire en faisant appel à deux packages, soit **sp** et **mapview**. Voici comment faire.
+
+```{r,out.width="100%"}
+
+library(sp)
+library(mapview)
+
+coordinates(cells)<- ~ Longitude + Latitude # on indique quelles sont les coordonnées
+proj4string(cells)<-"+init=epsg:4326" # on spécifie le type de projection (WGS84 en lat/lon)
+
+mapview(cells) # on trace les points avec différents fond de carte et on ouvre dans le navigateur
+
+```
 
 <!--
 
