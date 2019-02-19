@@ -1156,6 +1156,8 @@ Du côté des conditions d'applications, les résidus ne suivent clairement pas 
 
 # Atelier 4
 
+<!-- data is frogs from the DAAG package -->
+
 Pour cet atelier, nous nous intéresserons aux variables affectant la présence d'une espèce de grenouilles ([Southern Corroboree frog](https://en.wikipedia.org/wiki/Corroboree_frog)) retrouvée en Australie. Pour ce faire, nous avons une base de données [frogs.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/frogs.csv) avec différentes variables explicatives. Pour cet exercice, vous devrez déterminer quelles sont les variables pertinentes à utiliser pour comprendre ou prédire l'occurence de l'espèce et vous devrez illustrer les prédictions de votre modèle à l'aide de la fonction `predict` et de graphiques ou encore en utilisant le package [visreg](http://pbreheny.github.io/visreg/). Pour mieux comprendre l'utilisation de ce package, le plus simple est de se référer à la vignette expliquant comment le package est utilisé. N'oubliez pas de faire un peu d'explorations de données avant de sélectionner vos variables explicatives. 
 
 <br>
@@ -1771,23 +1773,24 @@ library(sp)
 library(mapview)
 
 coordinates(cells)<- ~ Longitude + Latitude # on indique quelles sont les coordonnées
-proj4string(cells)<-"+init=epsg:4326" # on spécifie le type de projection (WGS84 en lat/lon)
+proj4string(cells)<-"+init=epsg:4326" # on spécifie le type de projection utilisé (WGS84 en lat/lon)
 
 mapview(cells) # on trace les points avec différents fond de carte et on ouvre dans le navigateur
 
 ```
 
-<!--
 
-# Atelier 6
+# Atelier 7
 
-Pour cet exercice, nous allons développer la débrouillardise sur les internets. Nous allons utiliser le jeu de données [iris](https://github.com/frousseu/ECL749/tree/master/data) pour effectuer différentes tâches. Cette base de données contient des mesures morphométriques pour trois espèces d'iris.
+Pour cet exercice, nous allons développer la débrouillardise sur les internets. Nous allons utiliser le jeu de données [iris](https://raw.githubusercontent.com/frousseu/ECL749/master/data/iris.csv) pour effectuer différentes tâches. Cette base de données contient des mesures morphométriques pour trois espèces d'iris.
 
 1. Ordonnez la base de données selon l'espèce et puis selon la longueur des pétales.
 
 2. Trouvez une fonction permettant de faire du *clustering* et tentez d'effectuer un groupement permettant de classifier les individus sur la base de leurs caractéristiques morphologiques. Est-ce que vous êtes capable d'identifier les trois espèces dans les groupes établis?
 
 3. Effectuez une analyse en composantes principales afin de représenter la variation dans ce jeu de données et illustrez les résultats dans un graphique.
+
+<!--
 
 ### Solution
 
@@ -1900,9 +1903,13 @@ legend("bottomright",col=col,pch=1,legend=levels(d$Species))
 
 L'axe 1 est surtout déterminé par les dimensions des pétales et dans une moindre mesure par la longueur des sépales. Quant au second axe, il est surtout déterminé par la largeur des sépales. En consultant le premier graphique, le groupe *setosa* semble se distinguer de façon assez marquée par rapport aux deux autres espèces. Avec le second graphique, on constate que les dimensions des pétales sont très corrélées, alors que ce n'est pas du tout le cas pour les dimensions des sépales.
 
-# Atelier 7
+<!--
+
+# Atelier 8
 
 Quelles questions pouvez-vous vous poser avec le jeu de données *aravo* du package **ade4**? Est-ce que des variables environnementales permettent d'expliquer les variations en composition de plantes alpines (CCA)? Réalisez et illustrer quelques analyses multivariées afin d'explorer ce jeu de données. Vous pouvez vous inspirer du site [GUSTA ME](https://sites.google.com/site/mb3gustame/) (donné en référence dans les liens utiles plus bas) et de son *wizard* sur les analyses contraintes ou encore de l'information contenue dans ce site [Analysis of community ecology data in R](https://www.davidzeleny.net/anadat-r/doku.php/en:ordination).
+
+-->
 
 # Méthodes / résultats
 
@@ -1912,7 +1919,6 @@ Articles à lire pour le cours du 20 mars.
 
 [Predictors of malaria infection in a wild bird population: landscape-level analyses reveal climatic and anthropogenic factors](http://onlinelibrary.wiley.com/doi/10.1111/1365-2656.12214/full)
 
--->
 
 # Travail de session
 
@@ -1973,8 +1979,6 @@ Voici les différentes mises en situation. Si vous utilisez vos propres données
 
 Quelles sont les caractéristiques du paysage affectant la présence de la Chouette rayée (*i.e.* une espèce de hibou, *Strix varia*) dans le sud du Québec? Est-ce que le Grand-duc d'Amérique (*Bubo virginianus*) a une influence sur sa présence?
 
-<!--
-
 Les données ont été récoltées en Montérégie et en Estrie. À chaque site, trois stations d'écoute d'une durée de 10 minutes ont été effectuées au courant de la saison propice à la détection. L'espèce était considérée présente lorsqu'il y avait au moins une détection. Voici la base de données [chouette](https://raw.githubusercontent.com/frousseu/ECL749/master/data/chouette.csv) et une description des variables. 
 
 - **site**: station d'écoute
@@ -1991,13 +1995,9 @@ Les données ont été récoltées en Montérégie et en Estrie. À chaque site,
 
 <br>
 
--->
-
 **2. Richesse ichtyologique dans les récif coraliens**
 
 Quelles sont les variables influençant la richesse en poissons dans les récifs coraliens?
-
-<!--
 
 Ces données ont été récoltées dans différentes sections de sites dans les Caraïbes. Le nombre d'espèces de poissons a été évalué à partir de 5 heures d'observations à chaque endroit dans des moments propices. Voici la base de données [poissons_coraux](https://raw.githubusercontent.com/frousseu/ECL749/master/data/poissons_coraux.csv) et une description des variables:
 
@@ -2008,16 +2008,11 @@ Ces données ont été récoltées dans différentes sections de sites dans les 
 - **pente**: pente générale de la section de récif échantillonnée (degrés)
 - **site**: site d'échantillonnage
 
-
 <br>
-
--->
 
 **3. Diversité aviaire, forêt et fragmentation en milieu tropical**
 
 Quel est l'effet de la fragmentation forestière sur la richesse aviaire en milieu tropical?
-
-<!--
 
 Ces données ont été récoltées dans différents sites fragmentés d'une région du Costa Rica. Le nombre d'espèces d'oiseaux à l'intérieur de chaque fragment a été évalué en visitant chaque parcelle pour un minimum de 4h chacune et jusqu'à ce que le nb de nouvelles espèces rencontrées n'augmente pas pendant une période de deux heures. Les visites ont été effectuées pendant la période de reproduction et à des moments propices (*i.e.* tôt le matin, conditions climatiques clémentes) pour l'observation. Voici la base de données [fragmentation_aviaire](https://raw.githubusercontent.com/frousseu/ECL749/master/data/fragmentation_aviaire.csv) et une description des variables:
 
@@ -2031,13 +2026,9 @@ Ces données ont été récoltées dans différents sites fragmentés d'une rég
 
 <br>
 
--->
-
 **4. L'abondance des moineaux dans un contexte agricole**
 
 Quels sont les éléments du paysage affectant l'abondance du Moineau domestique (*Passer domesticus*) en milieu agricole dans le sud du Québec?
-
-<!--
 
 Ces données ont été récoltées à diverses fermes de la Montérégie et de l'Estrie. Des stations d'écoute d'une durée de 10 minutes ont effectuées à chaque ferme tôt le matin pendant les mois de mai et juin. Voici la base de données [moineaux](https://raw.githubusercontent.com/frousseu/ECL749/master/data/moineaux.csv) et une description des variables:
 
@@ -2054,13 +2045,9 @@ Ces données ont été récoltées à diverses fermes de la Montérégie et de l
 
 <br>
 
--->
-
 **5. La diversité des papillons dans les prairies naturelles**
 
 Quelles sont les caractéristiques de la végétation affectant la diversité en espèces de papillons dans les prairies naturelles?
-
-<!--
 
 Ces données ont été récoltées à divers sites dans les prairies américaines. À chaque site, 5 transects de 100 m de récolte active (avec un filet) et 2 nuitée de récolte passive (avec un drap et de la lumière) ont été effectuées pendant les mois de juin et juillet. Voici la base de données [papillons](https://raw.githubusercontent.com/frousseu/ECL749/master/data/papillons.csv) et une description des variables:
 
@@ -2072,7 +2059,7 @@ Ces données ont été récoltées à divers sites dans les prairies américaine
 - **julien**: jour julien
 - **nbsp**: nb d'espèces de papillons
 
--->
+<br><br>
 
 # Liens utiles
 
