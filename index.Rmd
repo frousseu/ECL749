@@ -1788,7 +1788,7 @@ Pour cet exercice, nous allons développer la débrouillardise sur les internets
 
 2. Trouvez une fonction permettant de faire du *clustering* et tentez d'effectuer un groupement permettant de classifier les individus sur la base de leurs caractéristiques morphologiques. Est-ce que vous êtes capable d'identifier les trois espèces dans les groupes établis?
 
-3. Effectuez une analyse en composantes principales afin de représenter la variation dans ce jeu de données et illustrez les résultats dans un graphique.
+3. Effectuez une analyse en composantes principales afin de représenter la variation dans ce jeu de données et illustrez les résultats dans un graphique. Pour ce faire, vous pouvez utiliser la fonction `rda` du package **vegan** et les fonctions `plot` ou `ordiplot`. Vous pouvez également vous inspirer de ce blog [https://www.fromthebottomoftheheap.net/2012/04/11/customising-vegans-ordination-plots/](https://www.fromthebottomoftheheap.net/2012/04/11/customising-vegans-ordination-plots/).
 
 <!--
 
