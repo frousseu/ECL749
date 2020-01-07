@@ -1,7 +1,7 @@
 ---
 title: "ECL749 Ateliers R"
 author: "François Rousseu"
-date: "Hiver 2019"
+date: "Hiver 2020"
 output:
   html_document:
     depth: 4
@@ -121,7 +121,7 @@ h5 {
 knitr::opts_chunk$set(echo=TRUE, tidy=TRUE, error=TRUE)
 ```
 
-<br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 # Atelier 1
 
@@ -131,6 +131,8 @@ knitr::opts_chunk$set(echo=TRUE, tidy=TRUE, error=TRUE)
 
 
 [RStudio](https://www.rstudio.com/) est en quelque sorte un éditeur de texte avancé facilitant l'utilisation et la communication avec R. À l'intérieur de cette interface, vous pouvez créer un script avec vos lignes de commande qui pourront être envoyées dans la console R. Il y a beaucoup de fonctionnalités dans RStudio et ces dernières sont décrites dans cette *cheat sheet*: [RStudio IDE Cheat Sheet](https://www.rstudio.com/resources/cheatsheets/#ide) 
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 ## Opérations et objets de base 
 
@@ -144,6 +146,8 @@ R peut être utilisé comme une simple calculatrice!
 
 ```
 
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
 On peut également assigner des objets à des symboles avec l'opérateur `<-` et concaténer des nombres ensemble avec la fonction `c` pour créer un vecteur, un objet à **1 dimension**. Par la suite, on peut effectuer des opérations vectorisées, i.e. à chaque élément du vecteur. 
 
 ```{r}
@@ -154,6 +158,8 @@ v1+v2
 v1*v2+1
 ```
 
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
 On peut aussi coller ces deux vecteurs ensembles pour créer une matrice (`matrix`), un objet à **2 dimension**. 
 
 ```{r}
@@ -161,6 +167,8 @@ On peut aussi coller ces deux vecteurs ensembles pour créer une matrice (`matri
 m<-cbind(v1,v2)  #! Colle deux vecteurs ensemble
 m
 ```
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 Une matrice est composée d'un même type de valeurs, soit numérique, caractère ou logique. Plus général, un `data.frame` peut contenir plusieurs types de valeurs. C'est l'équivalent d'un tableau de données dans Excel. 
 
@@ -171,6 +179,8 @@ d
 
 ```
 
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
 Les listes peuvent contenir tout type d'objets et sont des objets à une dimension.
 
 ```{r}
@@ -180,6 +190,7 @@ l
 
 ```
 
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 ### Type de données
 
@@ -216,6 +227,8 @@ x
 
 Les *factors* sont des vecteurs de catégories ayant chacune une étiquette et représentées de façon interne par des entiers. Par défaut, les étiquettes sont numérotées par ordre alphabétique. 
 
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
 ### Objets de données
 
 - `vector` (1 dimension, 1 type de données)
@@ -223,6 +236,8 @@ Les *factors* sont des vecteurs de catégories ayant chacune une étiquette et r
 - `data.frame` (2 dimensions, tout type de données)
 - `list` (1 dimension, tout type d'objets)
 - `array` (3 dimension, un type de données)
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 ### Objets et assignation
 
@@ -253,11 +268,13 @@ v1
 
 Tout ce qui est contenu dans une session R est un **objet** qui porte un nom.
 
-<br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 ## Accéder aux données
 
 L'accès aux données se fait par l'intermédiaire de l'indexation qui est le processus par lequel on accède aux données à l'intérieur d'un objet. Pour ce faire, on utilise généralement les opérateurs `[` et `$` avec différentes conditions pour établir notre sélection.
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 ### Avec un vecteur
 
@@ -282,6 +299,8 @@ On accède à tous les éléments supérieurs à 105 et inférieurs ou égal à 
 ```{r}
 v1[v1>105 & v1<=108]
 ```
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 ### Avec un `data.frame`
 
@@ -315,6 +334,8 @@ On sélectionne toutes les lignes où `v1` est supérieur à 7.
 d[d$v1>7,]
 ```
 
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
 ### Avec une liste
 
 Avec les "`[`" simples, on accède aux éléments de la liste qui sont aussi retournés sous forme de liste.
@@ -341,6 +362,7 @@ names(l)<-c("allo","bonjour","bye")
 l$bye
 ```
 
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 ## Fonctions
 
@@ -365,6 +387,10 @@ rep(1:3,times=5)
 
 ```
 
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+### Arguments
+
 Ceci permet d'introduire les *arguments* qui composent les fonctions. On pourrait aussi utiliser l'argument `length.out` ou `each` pour modfifier la façon dont les valeurs sont répétées.
 
 ```{r,results="hold"}
@@ -384,6 +410,8 @@ rep(1:3)
 
 Par défaut, le premier élément listé à l'intérieur d'une fonction est l'objet auquel on veut l'appliquer et correspond au premier argument de la fonction. Cet argument n'a généralement par besoin d'être nommé. Par contre, il est souvent préférable ou nécessaire de nommer les éléments suivants. Si ceux-ci ne sont pas nommés, l'ordre dans lequel ils sont donnés sera utilisé pour les associer aux arguments correspondant.
 
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
 ### Opérateurs
 
 Certaines fonctions sont représentées par des opérateurs. En voici quelques exemples.
@@ -400,6 +428,8 @@ c(3,4)%in%c(4,5,6,7) # élément du vecteur 1 contenule vecteur 2
 3:10 # crée un vecteur avec tous les entiers de 3 à 10
 
 ```
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 ## Importation des données
 
@@ -421,15 +451,17 @@ list.files()
 
 ```
 
-### Les données manquantes
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+### Les données manquantes (NA)
 
 Avant d'importer des données, il est nécessaire d'aborder la gestion des données manquantes par R. Les données manquantes sont toujours représentées par des `NA`, que ce soit dans les vecteurs ou dans les tableaux de données. Lorsqu'on veut importer des données avec des cellules vides, il est souvent nécessaire de remplacer les cellules vides par des `NA`. Parfois, il est possible de dire à une éventuelle fonction que les cellules vides correspondent à des `NA`.
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 ### Les fonctions d'importation
 
 Il existe plusieurs méthodes pour importer des données dans R. La façon classique est par l'intermédiaire de la fonction `read.table`. Cette fonction prend des fichiers textes (*.txt*) qui doivent répondre à plusieurs critères:
-
-<br><br><br>
 
 - Il ne doit y avoir aucun espace dans les noms des différentes variables et dans les éléments de la base de données. Par exemple, «bon à modéré» va créer des problèmes. On devrait plutôt écrire "bon.à.modéré" ou "bon_à_modéré". Encore mieux serait d'éviter les accents ou d'utiliser un code.
 
@@ -439,11 +471,9 @@ Il existe plusieurs méthodes pour importer des données dans R. La façon class
 
 - Par défaut, les colonnes contenant du texte ou tout caractère ne pouvant pas être interprétés comme un chiffre seront considérées comme étant des colonnes contenant du texte (*character*) et seront automatiquement converties en *factor* par les fonctions d'importation de base comme `read.table`. Pour éviter ceci, il est possible de spécifier l'argument `stringsAsFactors = FALSE`.
 
-<br><br><br>
-
 Les messages d'erreurs sont très très fréquents lors de l'importation d'une nouvelle base de données. Il s'agit d'être en mesure de bien les interpréter et d'observer ces quelques règles de base.
 
-<br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 Plusieurs autres fonctions sont disponibles selon le format des données (`read.delim`, `read.csv`, etc.). Le format *.csv* est souvent le plus pratique, car il réduit les risques de problèmes lors de l'importation en raison de la délimitation des cellules. Il est également possible d'utiliser le package **readxl** pour lire directement des fichiers `.xlsx`. Bien qu'étant la façon classique d'importer des données, la fonction `read.table` est assez capricieuse... On peut également exporter des données avec les fonctions `write.table` ou `write.csv`.
 
@@ -454,6 +484,8 @@ Voici les fonctions de base les plus souvent utilisées pour importer des donné
 - `read.csv` : pour des fichiers *.csv* (c'est la meilleure façon)
 
 - `read_excel` : fonction du package **readxl** pour des fichiers *.xlsx*
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 Voici un exemple:
 ```{r, results="hold"} 
@@ -466,6 +498,8 @@ Le code précédent se base sur le fait que le fichier de données est dans le r
 ```{r} 
 d<-read.table("C:/Users/rouf1703/Documents/UdeS/GitHub/ECL749/lab/data.txt",header=TRUE)
 ```
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 ### Inspection des données
 
@@ -483,11 +517,15 @@ La fonction `head` permet d'observer les 6 premières lignes.
 head(d)
 ```
 
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
 La fonction `str` permet d'inspecter le type de données dans chacune des colonnes.
 
 ```{r} 
 str(d)
 ```
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 La fonction `summary` permet de résumer les données dans chacune des colonnes.
 
@@ -495,11 +533,15 @@ La fonction `summary` permet de résumer les données dans chacune des colonnes.
 summary(d)
 ```
 
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
 ## Sauvegarde du travail
 
 Suite à une session de travail dans R, il est généralement possible de sauvegarder deux types d'éléments soit un fichier de commande (ou un script R, *nomdufichier.R*) ou l'environnement de travail (un *workspace*, *nomdufichier.RData*). 
 
 Le premier sert à conserver les lignes de commandes et le second à conserver les objets générés dans la session de travail. En général, le plus important est de sauvegarder les lignes de commandes utilisées. Pour ce faire, il faut cliquer sur le bouton disquette en haut à gauche du panneau des scripts. Par la suite, il est possible d'envoyer à nouveau nos lignes de commande pour produire la tâche désirée.
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 ### Script .R
 
@@ -514,6 +556,8 @@ Le premier sert à conserver les lignes de commandes et le second à conserver l
 rep(1:5,2)
 ```
 
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
 ### .RData
 
 - Environnement de travail avec les objets de la console R au moment de la sauvegarde (mais ne contient pas les lignes de commandes!)
@@ -521,6 +565,8 @@ rep(1:5,2)
 - On peut le conserver au besoin en utilisant la fonction `save` ou en suivant dans le menu de RStudio  *Session > Save Workspace As*
 
 - On peut ouvrir un environnement de travail avec la fonction `load` ou en faisant *Session > Load Workspace*
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 ## Aide
 
@@ -554,6 +600,8 @@ Cette section donne des suggestions concernant d'autres fonctions jouant un rôl
 
 Cette section très utile donne des exemples d'utilisation de la fonction. Ces exemples peuvent être copiés et collés directement dans votre session R afin d'étudier l'utilisation de la fonction. Pour bien comprendre l'utilisation d'une fonction, cette section n'est pas à négliger! 
 
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
 ## Packages
 
 Les packages sont des banques de fonctions destinées à des tâches spécifiques. Plusieurs packages de bases sont installés avec R, mais il existe plusieurs milliers de packages de toutes sortes. Pour installer un package donné sur son ordinateur (par exemple le package **spatstat**, pour les statistiques spatiales), on utilise la fonction `install.packages` de cette façon :
@@ -572,22 +620,27 @@ Remarquez que l'utilisation des guillemets "" est optionnelle dans la fonction l
 
 Il est fréquent d'utiliser une fonction dans R sans avoir préalablement chargé le package la contenant. Dans ce cas, un message d'erreur nous dit que la fonction utilisée n'existe pas. Ceci peut également résulter d'une mauvaise orthographe de la fonction.
 
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 ## Exercice
 
-Ce premier exercice consiste à importer une base de données en format *.txt*. Cette base de données contient des mesures morphométriques d'une espèce de bruant (un oiseau). Vous pouvez la télécharger à l'adresse suivante: [https://raw.githubusercontent.com/frousseu/ECL749/master/data/sparrows.txt](https://raw.githubusercontent.com/frousseu/ECL749/master/data/sparrows.txt). Vous devez utiliser le bouton droit de la souris pour sauvegarder le contenu de la page dans un fichier *.txt*.
+Ce premier exercice consiste à importer une base de données en format *.txt*. Cette base de données contient des mesures morphométriques d'une espèce de bruant (un oiseau). Vous pouvez la télécharger à l'adresse suivante:
 
-Par la suite, vous devez calculer la longueur moyenne de la corde de l'aile (wingcrd) et de la masse (wt) et effectuez un graphique mettant en relation les deux mesures. La fonction `plot` devrait vous être utile. 
+[https://raw.githubusercontent.com/frousseu/ECL749/master/data/sparrows.txt](https://raw.githubusercontent.com/frousseu/ECL749/master/data/sparrows.txt)
+
+Vous devez utiliser le bouton droit de la souris pour sauvegarder le contenu de la page dans un fichier *.txt*.
+
+Par la suite, vous devez calculer la longueur moyenne de la corde de l'aile (**wingcrd**) et de la masse (**wt**) et effectuez un graphique mettant en relation les deux mesures. La fonction `plot` devrait vous être utile. 
 
 Vous devez également utiliser la fonction `table` pour compter le nb d'observations de mâles et de femelles et apprendre le fonctionnement de la fonction `boxplot` pour comparer la variabilité de la masse chez les deux sexes.
 
-Finalement, effectuez et interprétez un test de t pour comparer la masse chez les deux sexes. Ici, la fonction subset pourrait être utile, mais il est possible de s'en sortir en utilisant seulement l'indexage.
+Finalement, effectuez et interprétez un test de t pour comparer la masse chez les deux sexes. Ici, la fonction `subset` pourrait être utile, mais il est possible de s'en sortir en utilisant seulement l'indexage (les `[ ]`).
 
 Il y a peut-être quelques petits problèmes avec la base de données...
 
-<br><br><br><br><br><br><br><br>
+<br><br><br>
 
-
+<!--
 
 ### Solution 
 
@@ -1153,10 +1206,9 @@ lines(p~year,data=dat[dat$prov=="NB",],col="green4",lwd=2)
 
 Du côté des conditions d'applications, les résidus ne suivent clairement pas une distribution normale. Il n'est toutefois pas évident de déterminer ce qui devrait être fait pour corriger la situation. Une option serait peut être d'utiliser la [régression quantile](https://esajournals.onlinelibrary.wiley.com/doi/10.1890/1540-9295(2003)001[0412%3AAGITQR]2.0.CO%3B2), qui comporte moins de conditions et qui permet d'étudier la réponse à des quantiles spécifiques au lieu de la régression qui permet d'étudier la réponse moyenne. Un autre problème évident est que nous ne prenons pas en compte la possible corrélation temporelle entre les observations. Il faudrait également ajouter des intervalles de confiance à nos courbes de prédictions. 
 
-
 # Atelier 4
 
-<!-- data is frogs from the DAAG package -->
+data is frogs from the DAAG package
 
 Pour cet atelier, nous nous intéresserons aux variables affectant la présence d'une espèce de grenouilles ([Southern Corroboree frog](https://en.wikipedia.org/wiki/Corroboree_frog)) retrouvée en Australie. Pour ce faire, nous avons une base de données [frogs.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/frogs.csv) avec différentes variables explicatives. Pour cet exercice, vous devrez déterminer quelles sont les variables pertinentes à utiliser pour comprendre ou prédire l'occurence de l'espèce et vous devrez illustrer les prédictions de votre modèle à l'aide de la fonction `predict` et de graphiques ou encore en utilisant le package [visreg](http://pbreheny.github.io/visreg/). Pour mieux comprendre l'utilisation de ce package, le plus simple est de se référer à la vignette expliquant comment le package est utilisé. N'oubliez pas de faire un peu d'explorations de données avant de sélectionner vos variables explicatives. 
 
@@ -1454,17 +1506,18 @@ visreg(m,scale="response")
 
 La série du haut représente les prédictions du modèle sous l'échelle de la fonction de lien *log* et la série du bas représente les prédictions du modèle à l'échelle de la réponse. Contrairement aux GLMS, il n'y a pas d'intervalles de confiance puisque la meilleure façon de les calculer est incertaine. Ceci est expliqué dans la [GLMM FAQ](https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html#testing-hypotheses). 
 
+-->
+
+<!--
 
 # Atelier 6
 
 Pour cet atelier, vous apprendrez à utiliser différentes fonctions pour explorer, manipuler et mettre en forme une base données. Cette base de données contient des observations de nombres d'individus pour 3 espèces d'oiseaux (Paruline couronnée (PACO), Carouge à épaulettes (CAEP) et Moineau domestique (MODO)) soumises lors de sorties sur le terrain. À chaque fois qu'un observateur va sur le terrain, un feuillet est soumis où le nombre d'individus de chaque espèce est noté. Nous avons ces informations pour les trois espèces d'oiseaux. Ces feuillets sont rattachées à différentes cellules ayant chacune un identifiant et des coordonnées. Vous devrez également intégrer des données d'habitat associées à chacune de ces cellules. Voici le contenu de ces deux bases de données ainsi que les tâches à accomplir.
 
-<!--
-
 # h<-read.csv("https://raw.githubusercontent.com/frousseu/ECL749/master/data/cell_milieux.csv",sep=";")
 # d<-read.csv("https://raw.githubusercontent.com/frousseu/ECL749/master/data/cell_oiseaux.csv",sep=";")
 
--->
+
 
 <br>
 
@@ -1790,7 +1843,6 @@ Pour cet exercice, nous allons développer la débrouillardise sur les internets
 
 3. Effectuez une analyse en composantes principales afin de représenter la variation dans ce jeu de données et illustrez les résultats dans un graphique. Pour ce faire, vous pouvez utiliser la fonction `rda` du package **vegan** et les fonctions `plot` ou `ordiplot`. Vous pouvez également vous inspirer de ce blog [https://www.fromthebottomoftheheap.net/2012/04/11/customising-vegans-ordination-plots/](https://www.fromthebottomoftheheap.net/2012/04/11/customising-vegans-ordination-plots/).
 
-<!--
 
 ### Solution
 
@@ -1804,22 +1856,6 @@ head(d)
 
 ```
 
-Pour ordonner les données, on peut utiliser la fonction `order`. Pour illustrer son fonctionnement, on peut d'abord présenter un cas simple. Pour ce faire, créons un vecteur de trois éléments et appliquons la fonction.
-
-```{r}
-
-x<-c("bonjour","salut","allo")
-order(x)
-
-```
-
-Pour chaque valeur, la fonction nous retourne à la position appropriée l'index de l'élément dans `x` qui devrait se retrouver à cette position. On peut donc utiliser le vecteur résultant de `order` pour réorganiser `x` avec ce nouvel indexage.
-```{r}
-
-x<-x[order(x)]
-x
-
-```
 
 Pour un `data.frame`, `order` permet de trier en fonction de plusieurs colonnes successives. Il s'agit par la suite d'utiliser le résultat en indexant les lignes de notre `data.frame`.
 ```{r}
@@ -1911,13 +1947,15 @@ Quelles questions pouvez-vous vous poser avec le jeu de données *aravo* du pack
 
 -->
 
+<!--
+
 # Méthodes / résultats
 
 Articles à lire pour le cours du 20 mars.
 
-[Latitudinal and altitudinal patterns of plant community diversity on mountain summits across the tropical Andes](http://onlinelibrary.wiley.com/doi/10.1111/ecog.02567/abstract)
-
 [Predictors of malaria infection in a wild bird population: landscape-level analyses reveal climatic and anthropogenic factors](http://onlinelibrary.wiley.com/doi/10.1111/1365-2656.12214/full)
+
+[Latitudinal and altitudinal patterns of plant community diversity on mountain summits across the tropical Andes](http://onlinelibrary.wiley.com/doi/10.1111/ecog.02567/abstract)
 
 
 # Travail de session
@@ -1926,7 +1964,7 @@ Le travail de session se déroulera en deux temps. La première partie (20%) con
 
 ## Partie I
 
-La première partie (20%) devra comprendre la méthodologie proposée pour récolter et analyser les données. Plus spécifiquement, vous devrez présenter un plan d’échantillonnage en plus d’indiquer quelles mesures seront prises sur le terrain. Une ou des méthodes d'analyses statistiques devront également être proposées. Cette partie du travail devra être remise par courriel au plus tard le **mardi 19 février à 17h**. Pour ceux désirant utiliser leur propre jeu de données, vous devrez énoncer vous même votre propre mise en situation et m'en faire part d'ici mardi le 12 février à 17h par courriel ou en personne en me montrant également la base de données qui sera utilisée (ou un extrait).
+La première partie (20%) devra comprendre la méthodologie proposée pour récolter et analyser les données. Plus spécifiquement, vous devrez présenter un plan d’échantillonnage en plus d’indiquer quelles mesures seront prises sur le terrain. Une ou des méthodes d'analyses statistiques devront également être proposées. Cette partie du travail devra être remise par courriel au plus tard le **vendredi 21 février à 17h**. Pour ceux désirant utiliser leur propre jeu de données, vous devrez énoncer vous même votre propre mise en situation et m'en faire part d'ici mardi le 12 février à 17h par courriel ou en personne en me montrant également la base de données qui sera utilisée (ou un extrait).
 
 Comment-allez vous répondre à cette mise en situation? Quel sera votre plan d'échantillonnage? Quelles seront les variables que vous utiliserez? Quelles méthodes envisagez-vous utiliser pour analyser les données récoltées? La méthodologie proposée devrait pouvoir être exposée en un maximum de **2 pages**. Puisque certains éléments sont inconnus, il sera bien sûr impossible de détailler tous les aspects de votre méthodologie. Le travail proposé ici a surtout pour objectif de vous faire réfléchir à un design d'étude vous permettant de répondre à une question de nature écologique. 
 
@@ -1950,7 +1988,7 @@ biologique.
 mettre en contexte la problématique et/ou interpréter les résultats.
 - **Annexe** : Code R (propre!) utilisé pour effectuer les manipulations de données, les analyses statistiques et les graphiques. Ce code devrait contenir toutes les lignes de programmation permettant de reproduire votre travail à partir de votre base de données jusqu'aux graphiques présentés. Les lignes de codes inutiles, exploratoires ou générant des erreurs devraient être éliminées. Les parties plus compliquées de votre code devraient inclure des commentaires expliquant ce qui est effectué.
 
-Votre travail au complet ne devrait pas prendre plus de **10 pages**. Ce travail est à remettre au plus tard le **vendredi 22 mars à 17h**.
+Votre travail au complet ne devrait pas prendre plus de **10 pages**. Ce travail est à remettre au plus tard le **vendredi 20 mars à 17h**.
 
 <!-- 
 
@@ -1968,6 +2006,7 @@ Toujours se demander, est-ce que nos variables varient? Est-ce que l'échelle à
 
 -->
 
+<!--
 
 ## Mises en situation
 
@@ -2061,6 +2100,8 @@ Ces données ont été récoltées à divers sites dans les prairies américaine
 
 <br><br>
 
+-->
+
 # Liens utiles
 
 Ici, je tente de regrouper différentes ressources qui vous seront presque assurément utiles lors de la réalisation de vos projets. Si vous découvrez des éléments qui seraient pertinents à ajouter, vous pouvez m'en faire part. Afin de ne pas "noyer le poisson", j'essaie de ne mentionner que les ressources les plus importantes.
@@ -2093,15 +2134,19 @@ Ici, je tente de regrouper différentes ressources qui vous seront presque assur
 
 ### Articles 
 
+[A protocol for data exploration to avoid common statistical problems](https://doi.org/10.1111/j.2041-210X.2009.00001.x)
+
+[A protocol for conducting and presenting results of regression-type analyses](https://doi.org/10.1111/2041-210X.12577)
+
+[Applied statistics in ecology: common pitfalls and simple solutions](https://doi.org/10.1890/ES13-00160.1)
+
 [Generalized linear mixed models: a practical guide for ecology and evolution](https://doi.org/10.1016/j.tree.2008.10.008)
 
-[A protocol for conducting and presenting results of regression-type analyses](http://onlinelibrary.wiley.com/doi/10.1111/2041-210X.12577/abstract)
+[A brief introduction to mixed effects modelling and multi-model inference in ecology](https://doi.org/10.7717/peerj.4794)
 
-[A protocol for data exploration to avoid common statistical problems](http://onlinelibrary.wiley.com/doi/10.1111/j.2041-210X.2009.00001.x/full)
+[Application of multivariate statistical techniques in microbial ecology](https://doi.org/10.1111/mec.13536)
 
-[Application of multivariate statistical techniques in microbial ecology](http://onlinelibrary.wiley.com/doi/10.1111/mec.13536/epdf)
-
-[Multivariate analyses in microbial ecology](http://onlinelibrary.wiley.com/doi/10.1111/j.1574-6941.2007.00375.x/full)
+[Multivariate analyses in microbial ecology](https://doi.org/10.1111/j.1574-6941.2007.00375.x)
 
 ### Livres
 
