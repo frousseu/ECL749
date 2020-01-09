@@ -6563,14 +6563,14 @@ h5 {
 }
 
 </style>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p><br></p>
 <div id="atelier-1" class="section level1">
 <h1>Atelier 1</h1>
 <div id="r-et-rstudio" class="section level2">
 <h2>R et RStudio</h2>
 <p><a href="https://cran.r-project.org/">R</a> est un langage et un environnement pour le calcul scientifique et les graphiques. Il peut cependant être utilisé pour bien d’autres choses puisqu’il s’agit avant tout d’un langage de programmation.</p>
 <p><a href="https://www.rstudio.com/">RStudio</a> est en quelque sorte un éditeur de texte avancé facilitant l’utilisation et la communication avec R. À l’intérieur de cette interface, vous pouvez créer un script avec vos lignes de commande qui pourront être envoyées dans la console R. Il y a beaucoup de fonctionnalités dans RStudio et ces dernières sont décrites dans cette <em>cheat sheet</em>: <a href="https://www.rstudio.com/resources/cheatsheets/#ide">RStudio IDE Cheat Sheet</a></p>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p><br></p>
 </div>
 <div id="opérations-et-objets-de-base" class="section level2">
 <h2>Opérations et objets de base</h2>
@@ -6581,7 +6581,7 @@ h5 {
 <pre><code>## [1] 4.333333</code></pre>
 <pre class="r"><code>3^3</code></pre>
 <pre><code>## [1] 27</code></pre>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p><br></p>
 <p>On peut également assigner des objets à des symboles avec l’opérateur <code>&lt;-</code> et concaténer des nombres ensemble avec la fonction <code>c</code> pour créer un vecteur, un objet à <strong>1 dimension</strong>. Par la suite, on peut effectuer des opérations vectorisées, i.e. à chaque élément du vecteur.</p>
 <pre class="r"><code>v1&lt;-c(1,2,3,4,5,6,7,8,9)  
 v1</code></pre>
@@ -6591,7 +6591,7 @@ v1+v2</code></pre>
 <pre><code>## [1] 11 12 13 14 15 16 17 18 19</code></pre>
 <pre class="r"><code>v1*v2+1</code></pre>
 <pre><code>## [1] 11 21 31 41 51 61 71 81 91</code></pre>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p><br></p>
 <p>On peut aussi coller ces deux vecteurs ensembles pour créer une matrice (<code>matrix</code>), un objet à <strong>2 dimension</strong>.</p>
 <pre class="r"><code>m&lt;-cbind(v1,v2)  #! Colle deux vecteurs ensemble
 m</code></pre>
@@ -6605,7 +6605,7 @@ m</code></pre>
 ##  [7,]  7 10
 ##  [8,]  8 10
 ##  [9,]  9 10</code></pre>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p><br></p>
 <p>Une matrice est composée d’un même type de valeurs, soit numérique, caractère ou logique. Plus général, un <code>data.frame</code> peut contenir plusieurs types de valeurs. C’est l’équivalent d’un tableau de données dans Excel.</p>
 <pre class="r"><code>d&lt;-data.frame(v1,v2,z=c(&quot;a&quot;,&quot;b&quot;,&quot;c&quot;,&quot;d&quot;,&quot;e&quot;,&quot;f&quot;,&quot;g&quot;,&quot;h&quot;,&quot;i&quot;))
 d</code></pre>
@@ -6619,7 +6619,7 @@ d</code></pre>
 ## 7  7 10 g
 ## 8  8 10 h
 ## 9  9 10 i</code></pre>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p><br></p>
 <p>Les listes peuvent contenir tout type d’objets et sont des objets à une dimension.</p>
 <pre class="r"><code>l&lt;-list(v1,m,d)
 l</code></pre>
@@ -6649,7 +6649,7 @@ l</code></pre>
 ## 7  7 10 g
 ## 8  8 10 h
 ## 9  9 10 i</code></pre>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p><br></p>
 <div id="type-de-données" class="section level3">
 <h3>Type de données</h3>
 <p>Les principaux types de données ou de valeurs dans R sont:</p>
@@ -6672,7 +6672,7 @@ class(x)</code></pre>
 <pre><code>## [1] bonjour allo    bye     allo    bye    
 ## Levels: allo bonjour bye</code></pre>
 <p>Les <em>factors</em> sont des vecteurs de catégories ayant chacune une étiquette et représentées de façon interne par des entiers. Par défaut, les étiquettes sont numérotées par ordre alphabétique.</p>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p><br></p>
 </div>
 <div id="objets-de-données" class="section level3">
 <h3>Objets de données</h3>
@@ -6683,7 +6683,7 @@ class(x)</code></pre>
 <li><code>list</code> (1 dimension, tout type d’objets)</li>
 <li><code>array</code> (3 dimension, un type de données)</li>
 </ul>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p><br></p>
 </div>
 <div id="objets-et-assignation" class="section level3">
 <h3>Objets et assignation</h3>
@@ -6701,13 +6701,13 @@ class(x)</code></pre>
 v1</code></pre>
 <pre><code>## [1] 101 102 103 104 105 106 107 108 109</code></pre>
 <p>Tout ce qui est contenu dans une session R est un <strong>objet</strong> qui porte un nom.</p>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p><br></p>
 </div>
 </div>
 <div id="accéder-aux-données" class="section level2">
 <h2>Accéder aux données</h2>
 <p>L’accès aux données se fait par l’intermédiaire de l’indexation qui est le processus par lequel on accède aux données à l’intérieur d’un objet. Pour ce faire, on utilise généralement les opérateurs <code>[</code> et <code>$</code> avec différentes conditions pour établir notre sélection.</p>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p><br></p>
 <div id="avec-un-vecteur" class="section level3">
 <h3>Avec un vecteur</h3>
 <pre class="r"><code>v1</code></pre>
@@ -6721,7 +6721,7 @@ v1</code></pre>
 <p>On accède à tous les éléments supérieurs à 105 et inférieurs ou égal à 108.</p>
 <pre class="r"><code>v1[v1&gt;105 &amp; v1&lt;=108]</code></pre>
 <pre><code>## [1] 106 107 108</code></pre>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p><br></p>
 </div>
 <div id="avec-un-data.frame" class="section level3">
 <h3>Avec un <code>data.frame</code></h3>
@@ -6764,7 +6764,7 @@ v1</code></pre>
 <pre><code>##   v1 v2 z
 ## 8  8 10 h
 ## 9  9 10 i</code></pre>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p><br></p>
 </div>
 <div id="avec-une-liste" class="section level3">
 <h3>Avec une liste</h3>
@@ -6791,7 +6791,7 @@ l$bye</code></pre>
 ## 7  7 10 g
 ## 8  8 10 h
 ## 9  9 10 i</code></pre>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p><br></p>
 </div>
 </div>
 <div id="fonctions" class="section level2">
@@ -6806,7 +6806,7 @@ sd(temp)</code></pre>
 <p>La fonction <code>rep</code> permet de répéter des valeurs. Ici, on répète le vecteur <code>1:2</code> 5 fois.</p>
 <pre class="r"><code>rep(1:3,times=5)</code></pre>
 <pre><code>##  [1] 1 2 3 1 2 3 1 2 3 1 2 3 1 2 3</code></pre>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p><br></p>
 <div id="arguments" class="section level3">
 <h3>Arguments</h3>
 <p>Ceci permet d’introduire les <em>arguments</em> qui composent les fonctions. On pourrait aussi utiliser l’argument <code>length.out</code> ou <code>each</code> pour modfifier la façon dont les valeurs sont répétées.</p>
@@ -6818,7 +6818,7 @@ rep(1:3,length.out=5)</code></pre>
 <pre class="r"><code>rep(1:3)</code></pre>
 <pre><code>## [1] 1 2 3</code></pre>
 <p>Par défaut, le premier élément listé à l’intérieur d’une fonction est l’objet auquel on veut l’appliquer et correspond au premier argument de la fonction. Cet argument n’a généralement par besoin d’être nommé. Par contre, il est souvent préférable ou nécessaire de nommer les éléments suivants. Si ceux-ci ne sont pas nommés, l’ordre dans lequel ils sont donnés sera utilisé pour les associer aux arguments correspondant.</p>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p><br></p>
 </div>
 <div id="opérateurs" class="section level3">
 <h3>Opérateurs</h3>
@@ -6837,7 +6837,7 @@ rep(1:3,length.out=5)</code></pre>
 <pre><code>## [1] FALSE  TRUE</code></pre>
 <pre class="r"><code>3:10 # crée un vecteur avec tous les entiers de 3 à 10</code></pre>
 <pre><code>## [1]  3  4  5  6  7  8  9 10</code></pre>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p><br></p>
 </div>
 </div>
 <div id="importation-des-données" class="section level2">
@@ -6852,12 +6852,12 @@ rep(1:3,length.out=5)</code></pre>
 <pre><code>##  [1] &quot;aravo.R&quot;        &quot;data&quot;           &quot;ECL749.Rproj&quot;   &quot;index.html&quot;    
 ##  [5] &quot;index.Rmd&quot;      &quot;lab&quot;            &quot;nbpoissons.R&quot;   &quot;pines.R&quot;       
 ##  [9] &quot;plage_type&quot;     &quot;plage_type.csv&quot; &quot;README.md&quot;      &quot;Rplots.pdf&quot;</code></pre>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p><br></p>
 </div>
 <div id="les-données-manquantes-na" class="section level3">
 <h3>Les données manquantes (NA)</h3>
 <p>Avant d’importer des données, il est nécessaire d’aborder la gestion des données manquantes par R. Les données manquantes sont toujours représentées par des <code>NA</code>, que ce soit dans les vecteurs ou dans les tableaux de données. Lorsqu’on veut importer des données avec des cellules vides, il est souvent nécessaire de remplacer les cellules vides par des <code>NA</code>. Parfois, il est possible de dire à une éventuelle fonction que les cellules vides correspondent à des <code>NA</code>.</p>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p><br></p>
 </div>
 <div id="les-fonctions-dimportation" class="section level3">
 <h3>Les fonctions d’importation</h3>
@@ -6869,7 +6869,7 @@ rep(1:3,length.out=5)</code></pre>
 <li><p>Par défaut, les colonnes contenant du texte ou tout caractère ne pouvant pas être interprétés comme un chiffre seront considérées comme étant des colonnes contenant du texte (<em>character</em>) et seront automatiquement converties en <em>factor</em> par les fonctions d’importation de base comme <code>read.table</code>. Pour éviter ceci, il est possible de spécifier l’argument <code>stringsAsFactors = FALSE</code>.</p></li>
 </ul>
 <p>Les messages d’erreurs sont très très fréquents lors de l’importation d’une nouvelle base de données. Il s’agit d’être en mesure de bien les interpréter et d’observer ces quelques règles de base.</p>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p><br></p>
 <p>Plusieurs autres fonctions sont disponibles selon le format des données (<code>read.delim</code>, <code>read.csv</code>, etc.). Le format <em>.csv</em> est souvent le plus pratique, car il réduit les risques de problèmes lors de l’importation en raison de la délimitation des cellules. Il est également possible d’utiliser le package <strong>readxl</strong> pour lire directement des fichiers <code>.xlsx</code>. Bien qu’étant la façon classique d’importer des données, la fonction <code>read.table</code> est assez capricieuse… On peut également exporter des données avec les fonctions <code>write.table</code> ou <code>write.csv</code>.</p>
 <p>Voici les fonctions de base les plus souvent utilisées pour importer des données:</p>
 <ul>
@@ -6877,7 +6877,7 @@ rep(1:3,length.out=5)</code></pre>
 <li><p><code>read.csv</code> : pour des fichiers <em>.csv</em> (c’est la meilleure façon)</p></li>
 <li><p><code>read_excel</code> : fonction du package <strong>readxl</strong> pour des fichiers <em>.xlsx</em></p></li>
 </ul>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p><br></p>
 <p>Voici un exemple:</p>
 <pre class="r"><code>getwd()
 d&lt;-read.table(&quot;data.txt&quot;,header=TRUE)</code></pre>
@@ -6887,7 +6887,7 @@ d&lt;-read.table(&quot;data.txt&quot;,header=TRUE)</code></pre>
 <pre><code>## [1] &quot;C:/Users/rouf1703/Documents/UdeS/GitHub/ECL749&quot;</code></pre>
 <p>Le code précédent se base sur le fait que le fichier de données est dans le répertoire courant. Si ce n’était pas le cas, il serait aussi possible de spécifier l’emplacement exact du fichier à charger en indiquant le chemin au complet. De cette façon, il est possible d’aller chercher des bases de données ailleurs que dans le répertoire courant.</p>
 <pre class="r"><code>d&lt;-read.table(&quot;C:/Users/rouf1703/Documents/UdeS/GitHub/ECL749/lab/data.txt&quot;,header=TRUE)</code></pre>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p><br></p>
 </div>
 <div id="inspection-des-données" class="section level3">
 <h3>Inspection des données</h3>
@@ -6904,7 +6904,7 @@ d&lt;-read.table(&quot;data.txt&quot;,header=TRUE)</code></pre>
 ## 4        4    A calidris 201.2
 ## 5        5    A calidris  45.0
 ## 6        6    B     bufo 119.2</code></pre>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p><br></p>
 <p>La fonction <code>str</code> permet d’inspecter le type de données dans chacune des colonnes.</p>
 <pre class="r"><code>str(d)</code></pre>
 <pre><code>## &#39;data.frame&#39;:    10 obs. of  4 variables:
@@ -6912,7 +6912,7 @@ d&lt;-read.table(&quot;data.txt&quot;,header=TRUE)</code></pre>
 ##  $ bloc    : Factor w/ 2 levels &quot;A&quot;,&quot;B&quot;: 1 1 1 1 1 2 2 2 2 2
 ##  $ sp      : Factor w/ 2 levels &quot;bufo&quot;,&quot;calidris&quot;: 1 1 2 2 2 1 2 1 2 2
 ##  $ masse   : num  124 135 145 201 45 ...</code></pre>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p><br></p>
 <p>La fonction <code>summary</code> permet de résumer les données dans chacune des colonnes.</p>
 <pre class="r"><code>summary(d)</code></pre>
 <pre><code>##     parcelle     bloc         sp        masse      
@@ -6922,14 +6922,14 @@ d&lt;-read.table(&quot;data.txt&quot;,header=TRUE)</code></pre>
 ##  Mean   : 5.50                      Mean   :135.8  
 ##  3rd Qu.: 7.75                      3rd Qu.:142.4  
 ##  Max.   :10.00                      Max.   :270.1</code></pre>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p><br></p>
 </div>
 </div>
 <div id="sauvegarde-du-travail" class="section level2">
 <h2>Sauvegarde du travail</h2>
 <p>Suite à une session de travail dans R, il est généralement possible de sauvegarder deux types d’éléments soit un fichier de commande (ou un script R, <em>nomdufichier.R</em>) ou l’environnement de travail (un <em>workspace</em>, <em>nomdufichier.RData</em>).</p>
 <p>Le premier sert à conserver les lignes de commandes et le second à conserver les objets générés dans la session de travail. En général, le plus important est de sauvegarder les lignes de commandes utilisées. Pour ce faire, il faut cliquer sur le bouton disquette en haut à gauche du panneau des scripts. Par la suite, il est possible d’envoyer à nouveau nos lignes de commande pour produire la tâche désirée.</p>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p><br></p>
 <div id="script-.r" class="section level3">
 <h3>Script .R</h3>
 <ul>
@@ -6940,7 +6940,7 @@ d&lt;-read.table(&quot;data.txt&quot;,header=TRUE)</code></pre>
 <pre class="r"><code># permet de répéter 2 fois le vecteur allant de 1 à 5
 rep(1:5,2)</code></pre>
 <pre><code>##  [1] 1 2 3 4 5 1 2 3 4 5</code></pre>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p><br></p>
 </div>
 <div id="rdata" class="section level3">
 <h3>.RData</h3>
@@ -6949,7 +6949,7 @@ rep(1:5,2)</code></pre>
 <li><p>On peut le conserver au besoin en utilisant la fonction <code>save</code> ou en suivant dans le menu de RStudio <em>Session &gt; Save Workspace As</em></p></li>
 <li><p>On peut ouvrir un environnement de travail avec la fonction <code>load</code> ou en faisant <em>Session &gt; Load Workspace</em></p></li>
 </ul>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p><br></p>
 </div>
 </div>
 <div id="aide" class="section level2">
@@ -6982,7 +6982,7 @@ rep(1:5,2)</code></pre>
 <div id="section-examples" class="section level5">
 <h5>Section <em>Examples</em></h5>
 <p>Cette section très utile donne des exemples d’utilisation de la fonction. Ces exemples peuvent être copiés et collés directement dans votre session R afin d’étudier l’utilisation de la fonction. Pour bien comprendre l’utilisation d’une fonction, cette section n’est pas à négliger!</p>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p><br></p>
 </div>
 </div>
 <div id="packages" class="section level2">
@@ -6993,7 +6993,7 @@ rep(1:5,2)</code></pre>
 <pre class="r"><code>library(spatstat)</code></pre>
 <p>Remarquez que l’utilisation des guillemets &quot;&quot; est optionnelle dans la fonction library, mais c’est rarement le cas dans les autres fonction lorsque l’on réfère à un nom.</p>
 <p>Il est fréquent d’utiliser une fonction dans R sans avoir préalablement chargé le package la contenant. Dans ce cas, un message d’erreur nous dit que la fonction utilisée n’existe pas. Ceci peut également résulter d’une mauvaise orthographe de la fonction.</p>
-<p><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
+<p><br></p>
 </div>
 <div id="exercice" class="section level2">
 <h2>Exercice</h2>
@@ -7005,163 +7005,61 @@ rep(1:5,2)</code></pre>
 <p>Finalement, effectuez et interprétez un test de t pour comparer la masse chez les deux sexes. Ici, la fonction <code>subset</code> pourrait être utile, mais il est possible de s’en sortir en utilisant seulement l’indexage (les <code>[ ]</code>).</p>
 <p>Il y a peut-être quelques petits problèmes avec la base de données…</p>
 <p><br><br><br></p>
-<!--
-
-### Solution 
-
-On télécharge le fichier *sparrows.txt* avec le bouton de droit en appuyant sur le bouton *raw*. On met ce fichier à un endroit correspondant au répertoire courant ou on change le répertoire courant pour celui de l'emplacementr du fichier. Vous pouvez aussi utiliser le menu de RStudio *Session > Set Working Directory > Choose Directory*. Remarquez que la ligne `setwd("chemin/vers/le/fichier.txt")` va s'écrire dans la console. Le mieux serait d'inclure cette ligne dans votre script. Remarquez qu'il serait aussi possible d'écrire le chemin vers le fichier au long au lieu de seulement inscrire le nom du fichier (entre guillemets) pour la fonction `read.table`.
-
-
-```r
-setwd("C:/Users/rouf1703/Desktop")
-d<-read.table("sparrows.txt",header=TRUE)
-```
-
-```
-## Error in scan(file = file, what = what, sep = sep, quote = quote, dec = dec, : line 83 did not have 3 elements
-```
-
-Le message d'erreur retourné nous dit qu'il manque un élément à la ligne 83 du tableau de données. Il est important de bien lire les messages d'erreur, car la plupart du temps, ils nous donnent une indication du problème. Le plus simple est probablement d'aller dans le tableau de données et de remplacer manuellement la cellule manquante par un `NA`. 
-
-
-
-Maintenant qu'on a les données, on peut calculer les moyennes des deux variables *wingcrd* et *wt*.
-
-
-```r
-mean(d$wingcrd)
-```
-
-```
-## [1] NA
-```
-
-```r
-mean(d$wt)
-```
-
-```
-## Warning in mean.default(d$wt): argument is not numeric or logical: returning NA
-```
-
-```
-## [1] NA
-```
-
-On obtient un `NA` pour la première moyenne et un message d'avertissement pour la seconde. Inspectons ce que contient le vecteur `d$wingcrd` pour comprendre pourquoi un `NA` est retourné. On voit que le vecteur contient une valeur de `NA` et par défaut, la fonction `mean` retourne un `NA` (`?mean`). Pour ignorer le `NA`, on doit utiliser l'argument `na.rm = TRUE` de la fonction `mean`.
-
-
-```r
-mean(d$wingcrd,na.rm=TRUE)
-```
-
-```
-## [1] 57.63953
-```
-
-```r
-mean(d$wt,na.rm=TRUE)
-```
-
-```
-## Warning in mean.default(d$wt, na.rm = TRUE): argument is not numeric or logical:
-## returning NA
-```
-
-```
-## [1] NA
-```
-
-On obtient une valeur pour la longueur de l'aile, mais on obtient toujours un message d'erreur pour la masse. Inspectons le contenu de *d$wt* pour comprendre un peu mieux.
-
-
-```r
-d$wt
-```
-
-```
-##  [1] 20.4 21.5 20.2 21.3 16.4 19.5 16.1 22   19   19.9 20.5 19.2 19.8 20.5 20.8
+<div id="solution" class="section level3">
+<h3>Solution</h3>
+<p>On télécharge le fichier <em>sparrows.txt</em> avec le bouton de droit en appuyant sur le bouton <em>raw</em>. On met ce fichier à un endroit correspondant au répertoire courant ou on change le répertoire courant pour celui de l’emplacementr du fichier. Vous pouvez aussi utiliser le menu de RStudio <em>Session &gt; Set Working Directory &gt; Choose Directory</em>. Remarquez que la ligne <code>setwd(&quot;chemin/vers/le/fichier.txt&quot;)</code> va s’écrire dans la console. Le mieux serait d’inclure cette ligne dans votre script. Remarquez qu’il serait aussi possible d’écrire le chemin vers le fichier au long au lieu de seulement inscrire le nom du fichier (entre guillemets) pour la fonction <code>read.table</code>.</p>
+<pre class="r"><code>setwd(&quot;C:/Users/rouf1703/Desktop&quot;)
+d&lt;-read.table(&quot;sparrows.txt&quot;,header=TRUE)</code></pre>
+<pre><code>## Error in scan(file = file, what = what, sep = sep, quote = quote, dec = dec, : line 83 did not have 3 elements</code></pre>
+<p>Le message d’erreur retourné nous dit qu’il manque un élément à la ligne 83 du tableau de données. Il est important de bien lire les messages d’erreur, car la plupart du temps, ils nous donnent une indication du problème. Le plus simple est probablement d’aller dans le tableau de données et de remplacer manuellement la cellule manquante par un <code>NA</code>.</p>
+<p>Maintenant qu’on a les données, on peut calculer les moyennes des deux variables <em>wingcrd</em> et <em>wt</em>.</p>
+<pre class="r"><code>mean(d$wingcrd)</code></pre>
+<pre><code>## [1] NA</code></pre>
+<pre class="r"><code>mean(d$wt)</code></pre>
+<pre><code>## Warning in mean.default(d$wt): argument is not numeric or logical: returning NA</code></pre>
+<pre><code>## [1] NA</code></pre>
+<p>On obtient un <code>NA</code> pour la première moyenne et un message d’avertissement pour la seconde. Inspectons ce que contient le vecteur <code>d$wingcrd</code> pour comprendre pourquoi un <code>NA</code> est retourné. On voit que le vecteur contient une valeur de <code>NA</code> et par défaut, la fonction <code>mean</code> retourne un <code>NA</code> (<code>?mean</code>). Pour ignorer le <code>NA</code>, on doit utiliser l’argument <code>na.rm = TRUE</code> de la fonction <code>mean</code>.</p>
+<pre class="r"><code>mean(d$wingcrd,na.rm=TRUE)</code></pre>
+<pre><code>## [1] 57.63953</code></pre>
+<pre class="r"><code>mean(d$wt,na.rm=TRUE)</code></pre>
+<pre><code>## Warning in mean.default(d$wt, na.rm = TRUE): argument is not numeric or logical:
+## returning NA</code></pre>
+<pre><code>## [1] NA</code></pre>
+<p>On obtient une valeur pour la longueur de l’aile, mais on obtient toujours un message d’erreur pour la masse. Inspectons le contenu de <em>d$wt</em> pour comprendre un peu mieux.</p>
+<pre class="r"><code>d$wt</code></pre>
+<pre><code>##  [1] 20.4 21.5 20.2 21.3 16.4 19.5 16.1 22   19   19.9 20.5 19.2 19.8 20.5 20.8
 ## [16] 21.2 19.5 18.8 20.3 18.8 25   19.5 21.3 19.8 20.2 19.5 20.5 21   20.4 24.2
 ## [31] 17.2 21.2 20.8 17   16.5 22.5 16.4 19,1 18.1 18.6 21.9 17.2 17.9 18.1 20.6
 ## [46] 21   19.8 17.1 19.2 23.2 18.4 16.5 25.5 20.2 20   18   18.8 21.1 25.4 20.6
 ## [61] 17.6 16   16.2 21.8 20   20   20.9 19.4 18.5 19.8 20   18.8 18   20.6 20  
 ## [76] 18.5 21.6 16.9 16.7 17   21   20   18.1 21.2 17.6 21.2 19  
-## 48 Levels: 16 16.1 16.2 16.4 16.5 16.7 16.9 17 17.1 17.2 17.6 17.9 18 ... 25.5
-```
-
-
-
-On semble avoir des valeurs, mais on voit également que le résultat indique qu'il y a `48 Levels` dans notre vecteur. Ceci indique que R a transformé la colonne en **facteur**. Par défaut, la fonction `read.table` convertit en facteur toute colonne qui ne semble pas être composée de données numériques ou logiques. Ceci est le cas pour les données de type `character`. Puisqu'une virgule se trouve quelque part dans notre série de valeurs, R a considéré que ces données étaient des facteurs et a convertit le tout en conséquence. Pour comprendre un peu mieux l'utilisation des facteurs avec R, consultez la section d'aide sur la fonction `?factor`. En bref, les `factor` sont des valeurs comportant une étiquette (la plupart du temps un caractère) et étant représentées par un entier allant de 1 au nombre d'étiquettes différentes. Pour éviter ce problème, le plus simple serait de retourner dans le tableau de données initiales et de changer la virgule pour un point pour que la colonne soit interprétée comme une colonne de valeurs numériques. 
-
-Maintenant que nous avons toutes nos valeurs, nous pouvons calculer les deux moyennes et effectuer un graphique représentant le lien entre ces deux mesures avec la fonction `plot`.
-
-
-```r
-mean(d$wingcrd,na.rm=TRUE)
-```
-
-```
-## [1] 57.63953
-```
-
-```r
-mean(d$wt,na.rm=TRUE)
-```
-
-```
-## [1] 19.67126
-```
-
-```r
-plot(d$wingcrd,d$wt)
-```
-
-<img src="index_files/figure-html/unnamed-chunk-51-1.png" width="576" />
-
-Sans surprise, les deux variables semblent positivement corrélées. Par la suite, on utilise la fonction `table` pour compter le nombre d'observations des deux sexes. 
-
-
-```r
-table(d$Sex)
-```
-
-```
-## 
+## 48 Levels: 16 16.1 16.2 16.4 16.5 16.7 16.9 17 17.1 17.2 17.6 17.9 18 ... 25.5</code></pre>
+<p>On semble avoir des valeurs, mais on voit également que le résultat indique qu’il y a <code>48 Levels</code> dans notre vecteur. Ceci indique que R a transformé la colonne en <strong>facteur</strong>. Par défaut, la fonction <code>read.table</code> convertit en facteur toute colonne qui ne semble pas être composée de données numériques ou logiques. Ceci est le cas pour les données de type <code>character</code>. Puisqu’une virgule se trouve quelque part dans notre série de valeurs, R a considéré que ces données étaient des facteurs et a convertit le tout en conséquence. Pour comprendre un peu mieux l’utilisation des facteurs avec R, consultez la section d’aide sur la fonction <code>?factor</code>. En bref, les <code>factor</code> sont des valeurs comportant une étiquette (la plupart du temps un caractère) et étant représentées par un entier allant de 1 au nombre d’étiquettes différentes. Pour éviter ce problème, le plus simple serait de retourner dans le tableau de données initiales et de changer la virgule pour un point pour que la colonne soit interprétée comme une colonne de valeurs numériques.</p>
+<p>Maintenant que nous avons toutes nos valeurs, nous pouvons calculer les deux moyennes et effectuer un graphique représentant le lien entre ces deux mesures avec la fonction <code>plot</code>.</p>
+<pre class="r"><code>mean(d$wingcrd,na.rm=TRUE)</code></pre>
+<pre><code>## [1] 57.63953</code></pre>
+<pre class="r"><code>mean(d$wt,na.rm=TRUE)</code></pre>
+<pre><code>## [1] 19.67126</code></pre>
+<pre class="r"><code>plot(d$wingcrd,d$wt)</code></pre>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABIAAAAPACAMAAAB6ifKKAAAA5FBMVEUAAAAAADoAAGYAOjoAOmYAOpAAZmYAZrY6AAA6AGY6OgA6Ojo6OmY6Zjo6ZmY6ZpA6ZrY6kJA6kLY6kNtmAABmOgBmOjpmOmZmZjpmZmZmZpBmkJBmkLZmkNtmtttmtv+QOgCQZjqQZmaQkDqQkGaQkLaQtraQttuQtv+Q29uQ2/+2ZgC2Zjq2kDq2kGa2kJC2tpC2tra2ttu225C227a229u22/+2/9u2///bkDrbkGbbtmbbtpDbtrbb25Db27bb29vb2//b/7bb/9vb////tmb/25D/27b/29v//7b//9v////ozo3tAAAACXBIWXMAAB2HAAAdhwGP5fFlAAAgAElEQVR4nO3dbWMcxZqY4ZExsYIJJmsgx2e92JzsgQ3yOvhkcRCGYBJkY+n//59Mz5tGmhf1SNX1VFVf1wcsCblVM91ze7qruzW5AAgyiR4AMF4CBIQRICCMAAFhBAgII0BAGAECwggQEEaAgDACBIQRICCMAAFhBAgII0BAGAECwggQEEaAgDACBIQRICCMAAFhBAgII0BAGAECwggQEEaAgDACBIQRICCMAAFhBAgII0BAGAECwggQEEaAgDACBIQRICCMAAFhBAgII0BAGAECwggQEEaAgDACBIQRICCMAAFhBAgII0BAGAECwggQEEaAgDACBIQRICCMAAFhBAgII0BAGAECwggQEEaAgDACBIQRICCMAAFhBAgII0BAGAECwggQEEaAgDACBIQRICCMAAFhBAgII0BAGAECwggQEEaAgDACBIQRICCMAAFhBAgII0BAGAECwggQEEaAgDACBIQRICCMAAFhBAgII0BAGAECwggQEEaAgDACBIQRICCMAAFhBAgII0BAGAECwggQEEaAgDACBIQRICCMAAFhBAgII0BAGAECwggQEEaAgDACBIQRICCMAAFhBAgII0BAGAECwggQEEaAgDACBIQRICCMAAFhBAgII0BAGAECwggQEEaAgDACBIQRICCMAAFhBAgII0BAGAECwggQEEaAgDACBIQRICCMAAFhBAgII0BAGAECwggQEEaAgDACBIQRICCMAAFhBAgII0BAGAECwggQEEaAgDACBIQRICCMAAFhBAgII0BAGAECwggQEEaAgDACBIQRICBM2QGaAAVJ/xJPvsSEop9t4Krkr/HUC0xpgOACtyZAQBgBAsIIEBBGgIAwAgSEESAgjAABYQQICCNAQBgBAsIIEBBGgIAwAgSEESCow1D3rwglQFCF4e6gE0mAoAar8LRVIAGCCqxlp6mNWICgAutbbktbsQBBBQSo9xJTLzClllYdtUhx8FiAei8x9QJTamnVUYkk01cC1HuJqReYUkurjjqkmb4SoN5LTL3AlFpadVQh0fSVAPVeYuoFptTSqqMKicphGr73ElMvMKWm1h01SPXWxYmIfZeYeoEpNbXuqEGyfSeXYvRcYuoFptTWyqMC6Q7etNgfAYJBtXr0OBEBgiEJ0F4CBENqdfoqEQGCQTU6fZWIAMGw2py+SkSAYGD6s5sAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQDAwl2LsJkAwLBej7iFAMCi349hHgGBIbki2lwDBkNySdS8BgiEJ0F4CBEMSoL0ECIYkQHsJEAxJgPYSIBiSAO0lQDAk0/B7CRAMyomI+wgQDMulGHsIEAxMf3YTICCMAAFhBAgII0BAGAECwggQEEaAgDACBIQRICCMAAFhBAgII0BAGAECwggQEEaAgDACBIQRICCMAAFhBAgII0BAGAECwggQEEaAgDACBIQRICCMAAFhBAgII0BAGAECwggQEEaAgDACBIQRICCMAAFDmCzc8E3Jf2zqBaYkQJDHZNKnQPUG6PzXV//449C/JECQxSo8+wtUb4A+fDG599Ohf0mAIIe17AjQJQGCHNZfaftedTUF6M+3636bBujH6Z+/H7IIAYIcGgzQ9C3PNge9DRIgyEGAtg9OgCCDBgN08eZ4Mjl6svSX48nRZ9M//3rIVJgAQQ4tBuji/fPJ5P7rxScOQkOxmgzQxcXP07c9/zL/UICgWK1Ow7//cjL5ePYmSICgXK2eiHj+75PJ0dcXAgRFa/ZSjHfTN0GP/hAgKFqzF6Oev5i+CfpOgKB6NQZoPiH/2bEAQeXqDNBsQv7AcxBnBAhKUmmAZhPyAgSVqzZAF+//duNJ0Nuu3MgzOKCPegPUgwBB2ZoO0CYBgpJUFqDzl189/Ozvl3teh87FCxCUpK4AdUeep46eLhMkQFCzqgJ0ujqS8/GiQAIENaspQO+m73/uf/f27Yvuz3l2BAhqVlOATpfvfLpL4ucFEiCoWUUBOn8+mTy7/HDWIgGCmlUUoPXYdAV6cCFAULdKAzS7Q/1jAYK61Rqg7oj00fcCBFWrKEBrx4A6Z5PJvdcCBDWrKEDdLNiDq5/e+w8BgorVFKDuPKBHa7+J+cQvJoS61RSg2ZnQ6715IUBQtaoC1N2K9Upv3hx6VzIBgpLUFaCL81+u3oTs/MWxAEG1KgvQXQkQlESAgDACBIQRICCMAAFhBAgII0BAGAECwggQEEaAgDACBIQRICCMAAFhBAgII0BAGAECwggQEEaAgDACBIQRICCMAAFhBAgII0BAGAGCOkwWoseRlABBFSaTFgskQFCDVXjaKpAAQQXWstPURixAUIH1LbelrViAoAIC1HuJqReYUkurjjERoN5LTL3AlFpadYyJAPVeYuoFptTSqmNMBKj3ElMvMKWWVh1jIkC9l5h6gSm1tOoYE9PwvZeYeoEpNbXuGBMnIvZdYuoFptTUumNUXIrRc4mpF5hSWyuPUWmxPwIExBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQMAQJgs3fFPyH5t6gSkJEOQxmfQpkAAB6a3Cs79AAgQkt5YdAbokQJDD+itt36tOgIDkBGgrAYIcBGgrAYIcBGgrAYIcBGgrAYIcBGgrAYIcTMNvJUCQhRMRtxEgyMOlGFsIEGTiYtRNAgQlESAgjAABYQQICCNAQBgBAsJUFqDzl189/Ozvf6w+//DF5N5PB/x9AYKS1BWgn49nJxYcPV0mSICgZlUF6HR1buXHiwIJENSspgC9m77/uf/d27cvuj/n2REgqFlNATpdvvN5/+WyQAIENasoQOfPJ5Nnlx/OWiRAULOKArQem65ADy4ECOpWaYC6TyaPBQjqVmuAuiPSR98LEFStogCtHQPqnE0m914LEEPqdUsb7qCiAHWzYA+ufnrvPwSI4fS7qR93UFOAuvOAHv1++fnJbNMQIAbS87bG3EFNAZqdCb3emxcCxHD6/mIH7qCqAF28Ob7am+nnAsRA+v5qK+6grgBdnP/y1z+ufP7iWIAYhgBlUFmADjPZInpMVCNZgGx7uwkQbJcqQDa+PZoO0CbbAL0lCpC5tH0qC5A7IpJNmgCZS9urrgC5IyL5pEmHQ9l7VRUgd0QkpyQ7TwK0V00BckdE8upz+Pim7xCgvWoKkDsikln//uz8HgHaq6IAuSMixbl5L02A9qooQO6ISGl6HKcWoL0qDZA7IlKCHnUxDb9XrQFyR0QK0OftjRMR96koQO6ISGl67V+5FGOPigLkjoiUpt8BHv3ZraYAuSMihXGE+a5qCpA7IlIYAbqrqgLkjoiUxRTXXdUVIHdEpCymuO6osgDdla1kOOM81GqK624EiDTG+koc56NORoBIwr4ItyFApOBoLLciQKRgPppbESBSECBuRYBIQYDuZrSHsgWIFAToTsY6hShApCFAdzHiKUQBIgUBuoMxTyEKECmM+TV0Z2OutwCRxIj3Iu5MgJIuMfUCUxrb6s1ovMdR70yAki4x9QJTGtvqzUl/bkuAki4x9QJTGtvqpQYClHSJqReY0thWLzUQoKRLTL3AlMa2eqnBmKcQBQiijXgKUYBoUWVHxHtNIVb2mPoRIBpU3TkBB/SnmsfUiwDRnhZ3aVp8TBcCRINaPKjb4mPqCBDNaXFau8XH1MkRoPNfX/1j7bd5/fry6R8b35NJS6uOXVp8sbb4mDo5AvThi/VfX3r1s8xaWnXptHZws9+LNd+jTvGTBKj3Eje+IkBla256pdeLNd+jTvKTBKj3Etc/+fnJ1F+OJ0efPVn68sBf5552cA2tulTam17p82LN96jT/CQB6r3E9U/eHU+2eJD6Z/bW0qpLpMHplR4v1nyPOtFPEqDeS7zy2cmW/twPewPU1KpLpMEtu8drPt+jTvSTGvx3YmboAJ2/evXqh+ku2LevVt6m/okHaGrdpdFggHrs9VQXoAb3lGfyH4QO1dS6S6O0ACU5NHzjcd/6AtTeXMFMwHlAkdpaeUkUFqBEL7ObFlJhgJo7W2Imyzugr+LOPLymsbWXQlkByrWjUWOAmpRpF2xy9M+vU/+g27AFbCjqBZLtUKsAFSJXgKaOHv2Y+mcdzBawoajplWyv1uqm4VuVI0AXF+//dXE+0Kffpf5xh7EJbCppeiXnG5O6TkRsVZ4ATZ3/8NXiLKC/Bx4QsglsUdD0ynQIq7EM/84k06Mu6PktT7YAdX77Zv5G6GOXYhSlnNfH1TNWM/2oQX/M+o8a/AdVKGuApt5/M3EtGLtcvkyHfsHaMSpD1gD9+T/nu2ECxHZXjti2cRCavbIFaBmfbjYs7ki0ja1sGQO0/WMyyxKgK/EJPSfRtla2bLtgpQVotIeJcp4H9FlsfDojXMNVyXYQurAAjXeiLNuZ0I9+T/2DbmN8K7gu2abhywrQiI+IZz0T2jsg9st4JnSmH9THmI+IZzoT+uWX83/WPvpr7OUYo1u/lRlrgLZ/PAb5puF/+9dPFhH657gIjW311ibbe4Gi3nQIUNIl7vl/iwg5D6hFSQ6jZjsakvOwy03PjAAlXeLe/3v+8liAmpRoIifbfFC+iacbf5IAJV3i7v/16+JaMAFqT7J3FNnmozP259oHm9+x/eMxyBag98tDQEeBh4BGt3qzKeqYSlF6PDMClHSJm186X50JHXovjovxrd5sxvwa2q/HMzPmemc8D2gSeA3Y0ujWby4CtEufZ8aJiCmXuPEV94RunwDt0uuZcSlGwiVufOXDfwve8bo0vhWciQDt0u+ZGWt/sk/DBxvhGs5DgHbxzOyVNUC/vXr1ykHoJnmZ7eKZ2Wv4AL3/5j/PT/t5Mz8J6FFkgmwBAxnzRM5+npm9hg7Q+YvleYeny93ce4GHo20CQxnxRM4NPDP7DB2gk+WJz++m73/uf/tDd0/6j+PeA9kEBlPWRE6isdR1dUmNBg7Q2fRZ/6dZb6YletD92YXoWeqf2ZttYDglvcoSvebTLEaA9hg4QNPsPJ598OGL5RVgp5FvgWwDo5BoryfNYuyC7TNsgM6fT46+n300fePz4GL5kYtRGVKi475pFuMg9F6DBuhDdx/Ejx52pjteR7MPHn4y+9qnMQ2yCYxBopnvNIsxDb9XrgCtPhAghiZA9Rh2F+zDF4tdsOkHywM/010wx4BaVM7EU2kBWj0km9+GTAehT5cHo2cfPkj9M3uzBQymoImnwgK07taDadXAAZrWpnsLtHbg2TR8m0qaeCouQNc/YmXgAM1uBfRRd9hn/gbot+5ExLhJMAEaSmETT9s/DlnMlYdk87tu6DOh380vAFsc9pn1aDExH8IWMJByX/O3HssQ0/A2v+sGvxj1fXc31qPP54eduwA9irwzmS1gIEUFqLD9Qbtgewx/NfzFxdvVr4U//9vfY39FvC1gIP3KceOh2FRz1kUdEXcQeo8cASqILWAgvcpx8+uwsAAlOifANPxuAkQKfcrRY4+mrF2wJJyIuJcAkUKPl1mfY7pFHYROQ4D2GjZA57++2uYfzoRuTY/X/EFvkko4lJ1GUTUsz+CXYmzjavj23LzX0/cw0Q2L6TWWHj8pm5L2B8sjQKRx43HfwybK7nYIuqjjvubA9si0C/bNZHL06NtXr/71eHL01C5YkxLNcCWZeFp3hwUlUs5IypPnIPTp8sasVy5LDWAjiJNvx+jyxe5lX7osATpbvwD+xMWo45Q1QFs+pEQ5AnT+fP36L/cDGql800ECVI8cAbq8If3mZ5nZHANlmw6yC1YPASKbXgeGizoInebwsYPQu2XaBVs77HPm1/KM1gH9KWIaPm3FbHxbZDkIfbp26s/7L+46DXb+tpvc/8fb21TMNlC4JLtpCS9pvftgnIi4V5YAdecj3v+u++j8zfHdzkOc3VJx6dGPBw/OJlC0NAeqU1/SWsBSmpXnPKCzeTAezv57hzsivv/y6u795P6By7IJlK2oi1FTDSbFUpqV6Wr4d5fluH/7OyKeze7v+vDJ3Cezmh12TpEtoGyp37vc9VBSgsEI0F6ZAtTtO81+I+Hhe02Xuj25o+/WvvDLwftztoCyJTx6k2IyLcVgBGivbAFK4HQjNx8OPaJtCyhbsldrmtmrFIMRoL0qCtDV2fy5Q+f0bQFlK+rVKkAZVBSgbWcwHnpWoy2gbEW9WgUoAwGiIEXNWZuGz6CiAF29pnXOLlhjijprz4mIw6soQN2NPK7Vpjss9GDHd29lEwiV6FKMbFc2pBmMSzH2qClA3a95/nj9LKL3zw89rdE2EOmQ1/Oe78n3gk40GP3ZraYAdfPw0+I8+XZ2l9cf5mciHnZdmY0gUJ99kR7fk2+XpqjBNKqqAF28OZ5cdfT1YQuwlcTpczS2x/fkO6hb1GBaVVeALs5frifo6OmhV8TbSuL0mY/u8T35prWLGkyrKgvQ1Plvr14+efLk6asfb3E/DhtJHAFiU30BOsBki+gxjVeNAVptNeGDaZUAkUmFAbpxwxGgu2o6QJtsJHGqDND1j8IG06rKAnT+8quHn/398uCPSzHqUWOAtnwYNJhW1RWgn4+vzX4JUD3qnobfFSDT8HdTVYBOVzvky0syBKgiPU9EvOlwXa9z/1Ic8utz8LDXYNitpgB1l2Lc/+7t2xfdn/PsCFBN+kwF9PieNN9yyHD359D0xh3UFKDT5Tuf7t708wIJUFUO6c9d3t6keV/SK0BJ3muNWEUBOn++uiNi9+GsRQLUlkmSYyppltLnGBB3VVGA1mPTFejBhQC1Js2sUqK5KVNcGVQaoOXt6AWoLYUFyDugwdUaoO6I9NH3AtSY0gJ004mI3FVFAVo7BtQ5m0zuvRagthQXIJNcA6soQN0s2IOrn977DwFqSmEBupzisuEMpKYAdecBPfr98vOT2bYhQA0pLUApFsM+NQVodib0em9eCFBjyp2Gv/1i2KeqAHW3ZL3SmzeH/nJ4G1Lhkp1CmGAprrPIoK4AXZz/8tcr90E8f3EsQE1Jc9Q30bFjh6AHV1mA7sqWVLw0L/lE4dCfoQkQEEaAgDACBIQRICCMAFGWHsd903wLJRAgitJj5jvNt1AEAaIkPc79S/MtlEGAKEiPqx/SfAuFECAK0uP6zzTfQiEEiIII0NgIEAVJFiA38qmEAFGQVAFal3J8pCZAFCRdgK5/RJkEiIIkC9CWDymRAFGQAabhrfGiCRAlSXKWoV2weggQRUlxnYWD0PUQIMqS4EpT0/D1ECCa40TEeggQzRGgeggQzXExaj0EiPa4HUc1BIiyJJm8MgdWCwGiKGnSIUC1ECBKkmbnyS5YNQSIgqQ5fOwgdD0EiIKkmUA3DV8PAaIgAjQ2AkRB0lxEIUD1ECAKkuYyUgGqhwBRkDQ30hCgeggQBUlzKzEBqocAUZBUATINXwsBoiCJ7mXoRMRqCFDNmrveINW9DF2KUQsBqlh7L7Nk9zJs7YlplgDVq8EdDYePx0aAqtXioVYBGhsBqlaLL9YWo8o+AlStFgPU4m4l+whQtZoMUIMH1tlHgKrVZoDMX42LAFWr0QAxKgJULQGifgJULTNG1E+A6mXGiOoJUMXKmjEqaSypBlPUY2qSAFWsqAC1OJiiHlObBKheRe2CtTiYoh5TowSoWkUdhG5xMEU9plYJULWKmoZvcTBFPaZWCVC1inp9tDiYoh5TqwSoWkW9PlocTFGPqVUCVK2iXh8tDqaox9QqAapWUa+PFgdT1GNqlQBVq6jXR4uDKeoxtUqAqlXULHGLgynqMbVKgOpV1HlypQ0mxTnMRT2mRglQxYq6UqDFwRT1mNokQDUr6uVR0GASvQMq6jE1SoBojoM39RAgmmP6qh4CRHMEqB4CRFmSzF5t/3gQDhPdiQBRlBRHj3MGyETZ3QgQJUly6k3GADlV6I4EiIKkmb/KFyDzbXclQBQkTTryZcHh7rsSIAqS7DLSTDtGAnRXAkRBEzmpXtC5Dg0L0F0JEAVN5CR7QWd6RAJ0VwI0eiVN5NT2gq5tvOURoLEraiKnthd0beMtjwCNXVGvoaJq2ENt4y2PAI1dUQEqan+wj9rGWxwBGruyAlTSEfFeahtvaQRo7AoLUEHnBPRT23gLI0BjV1qAGBUBGjsBIpAAjZ2JHAIJ0OiZyCGOAGEihzAChIkcwtQboPPf/vH7wX/JiwxKUluAfn316nX35/svu3+yj/7lwL8uQFCSugL05rjLzsd/XJwdL/Yaph8fQoCgJFUF6HRRnQcfvpi++3ny5JPu44OWIEBQkpoC9G76tuf+tz9Md77+Mpk87r7SFenZIYsQoOH0OJTtaDfX1BSgk/ke1/nzyzc+Jwe+BbLtD6bHZL75fq6rKEBdeGZvd86m+1/fz782fVN00FEgm/5QepzO6IxHNlQUoA9fTO79dOWDKx/2YssfSI8LOlzzwSYBIoUel7S66pVNFQVougs23/Oa7nfZBSuMAHErFQVodcR5+ud8Emw2DeYgdA43HT2uMEAOiJegpgCdTbeWz9++fTGZPLx8L2QaPocb56/qC5ApuSLUFKDZW5/Z6c//ZxqeR69efXPwqdC2tlu5ef6qugCZkitDVQE6fzHrz/Tdz/Kc6MMOQZew4deo1xTX9o8P+5Z8TMkVoqoAXVz89reHnz7t3vP8PL8Y7NFhl4LZ2G6lV13qmoYvqoZjVlmALp3/+rcn3x58Pw7b2m30ebVWdiKiABWi2gD1Mdkiekw16vVqretSDAEqhABxo36v1puf4YLWggAVoukAbbKt3UaiV6tdMDYIEDdK82p1EJpNAsSN0qSjqNd8UTUcMwHiZkl2nooKUFH7g2MmQPSQ4vBxWQEq6Yj4mFUUoO5G0Fu4HUcOCV6shQXIxahFECAyKS1AlKCiAC1+F5gAVUqA2FRTgC7On69uBHRLNvw4Jp7YVFWAZgU66P4/19nyA5l4YkNdATr4HtDX2fIjmXjiusoC1N0V8S47YTb9UPrDNbUFaLoTdpe3QLZ9KEltAbp49+TJv93+bwsQlKS6AN2NAEFJBAgII0A1S3RQ17FhoghQxRJNa5sdJ4wA1SvRiX3ODySOAFUr0aUNrpAgkABVK9mdmpMsBm5DgKolQNRPgKolQNRPgKolQNRPgKolQNRPgKolQNRPgKplGp76CVC9nIhI9QSoYi7FoHYCVDMXo1I5AQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBBlafC07AYfUjICRFEavDCtwYeUjgBRkgYvzW/wISUkQBSkwZsTNfiQUhIgCtLg7RkbfEgpCRAFafDV2uBDSkmAKMh0/awO2DayrgRoLwGiIJMrokeThADtJUAUZLI+ZdTGuhKgvQSIglyZMmpjXQnQXgJEQZoMkGn4PQSIgjS4C+ZExL0EqGZFHa1NMZgGD0K7FGMvAapYUVt2ksE0OA1/Udi/E4URoHoV9d4+zWAcsR0bAapWUUc3Ew1GgMZGgKpV1Is10WCKiioZCFC1WgxQWbuVDE+AqlXUAdtkNSzqwDqDE6BqFTVlne7tWCEPiDwEqFpFnbRX1P4g9RCgahV12YIAcSsCVK3CAmT6ilsQoGoVtQtm+opbEaBqFXUQ2vQVtyJA1SpqGv7C9BW3IUDVctyX+glQtQSI+glQtUw8UT8BqpeJJ6onQBVLNfHk8DFRBKhmafvT2JNDDQRo9OzJEUeAxs6xbAIJ0NiZzSeQAI2dABFIgMZOgAgkQGMnQAQSoLETIAIJ0NgJEIEEaOxMwxNIgEbPiYjEESDKuhSjpLEwOAGiqAAVNRgGJ0CjV9QuWFGDYXgCNHZFHYQuajBkIEBjV9Q0fFGDIQMBGruiXvNFDYYMBGjs+v12n0xHhgVobARo7Hr9fsNcc1MCNDYCNHaXVdndl2xzUwI0NgI0dlcmnrY/PfnmpgRobARo7HoFaPvHAw9myB9EIQRo7HrsgmV8X+JExJERoLHrcRA6546RSzHGRYDGrsc0fNYjM/ozKgI0dj3q4tAwQxGgsRMgAgnQ2PWYeDI3xVAEaPR6TDzVNzflSFIlBIgeE0+1zU3VNt7xqjZAf/766sc/Dv5bNshterxY63o91/eObbQqC9BvX937afrH+cvj2cvh/ncH/n3b4xg4ZlWPqgJ0/s1k0gXo/PnqHfbnh70Lsj2OgVm7etQUoFl3pgGa/Xn05MmT7m3Qg4MWYXMcAwGqR00BOpv25p/+mP/5uPvC+b9PQ/T9IYu44eHWdaSDHQSoHjUF6GTRnZPL9z0nB74F2v9wzZ20QYDqUVGAPnwxf7uz/LPz7njy8SFHgW6a6bn2AVUSoHrUFaDZFNjyz4trH/ex7+GaO2mFANWjwgCdPx8qQP2+j9L5p6QeFQWom/x61n1wcrkLdjZJtwsmQM2wM12NigJ0cTo/C6g78LM48tw16fEhixCgUNmO8ZtOqEVNAZrub03uv76YlWg+Df8i5TS8AA0tYxb0pxI1BejirDvz8NNv377992mJnv7wzfHkwDdAAhTJjhEbqgpQt/N1zWH9EaBADg2zqa4Ara5CXUh6MaoXyLAEnk2VBWjqzx+efPVw6tO/fpv4dhx2EQYlQGyqL0AHuL6/dtNRSXMnQxIgNgnQtr+QaXzjIkBsajpAm2z4cQSITQJEJgLEJgEiE7OMbBIgcjHLyAYBIhuzjFxXUYC6S8G2SHY7DganP1wjQECYigJ08f5LAYKm1BSgw2//s0GAoCRVBejypoi3JUBQkroCdPA9oK8TIChJZQHqbgJ9l50wAYKS1Bag9V+JcQsCBCWpLUAX7548+bfb/20BgpJUF6C7ESAoiQABYQQICCNAQBgBAsIIEBBGgIAwowsQUJLkr/HUC0wp+skGrkr+Gv/kxKcAAAv4SURBVE+9wOIUtR9nMLsYzC5FDSa5ph/cTFHrz2B2MZhdihpMck0/uJmi1p/B7GIwuxQ1mOSafnAzRa0/g9nFYHYpajDJNf3gZopafwazi8HsUtRgkmv6wc0Utf4MZheD2aWowSTX9IObKWr9GcwuBrNLUYNJrukHN1PU+jOYXQxml6IGk1zTD26mqPVnMLsYzC5FDSa5ph/cTFHrz2B2MZhdihpMck0/uJmi1p/B7GIwuxQ1mOSafnAzRa0/g9nFYHYpajDJNf3gZopafwazi8HsUtRgkmv6wc0Utf4MZheD2aWowSTX9IObKWr9GcwuBrNLUYNJrukHN1PU+jOYXQxml6IGk1zTD26mqPVnMLsYzC5FDSa5ph/cTFHrz2B2MZhdihpMck0/uJmi1p/B7GIwuxQ1mOSafnBA2QQICCNAQBgBAsIIEBBGgIAwAgSEESAgjAABYQQICCNAQBgBAsIIEBBGgIAwAgSEESAgjAABYQQICCNAQBgBAsIIEBBGgIAwAgSEESAgjAABYQQICCNAQJgWA3T+fLLybPGllw+nn3z06HUJg5l7d3z186jBnL/pnpqHX/9RwmB+++Z4MjkKWE3bnof3BQ0mbgMeWIsB+vDF9S37zfHy88/jB3P59ewB2jKYd8un5v5P4YM5f7H8/HHmsWx7HpYbzdG/xA8mcAMeWIsBOrvcsOdb9voXHkQPZuHk+juimMGsNvXJ5OPM74E2B3Ny+YXcBdp8Hs6ujy5wMJEb8MBaDNDptU2m+6f2/o/TD377cvrv2fexg1k4i9iwNwfTPTVHX3fv8I+zv+g3BtO97rp9jPfPs6+mzedhttG8nm8z9/K+OdwYTOgGPLAWA3RybYs5W/2z0R12yPwvyPXBzM13P7IHaGMwp6tX11n2t0DbBvNg+b8y13DzeThdPh/dNhM8mNANeGANBmi6kq6+lE4uX+rTf2Tzvsw2BrP86r3/nj9AG4OZfmH5D+rah0GDma6n5QjOMr/MNp+Hta/k3mY2BxO5AQ+twQBN313s3Hqn/y/v+ts+mG7vY8e+WdbBTDfnsH9PN5+ZuABtPg9rG0ruNO9dKdk34KE1GKDp1vvs/VfTPZxPv9v4f9nX39bBTDexx7sODmUdzFnEfNOuwVzdBcv63Gw+D+sJzDyavStFgMp3Ojn6y2LG4NH1dZX7n9atg5nvfAQEaGMwszHMTnf56OvMY9nyzHQHxmYHob/JfTxq83lYr0DmNbV3pWTfgIfWYIDWJnOvb8fTTTzzJMK2wcx3NQICtDGYbiSniy/kPg9oyzPz/stJzGA2n4f1tZP5feK+lZJ/Ax5aewHqJgqOnv4x/4f06pZzfpL7349tg1lsz/kDtDmYk8t3Ibknm7eupm4Cfus714FtPg+xAdq1UvJvwINrL0Br/0icXl2B3erLf0rH9cEs9+LzB2hjMPOLIbq9nj9f5D7FbdtqOl297o6y7hFueR7iArRnpQRswINrL0BrunX57Mpnge9fl4M5uXy1ZT8P6NpgZtv64rV1FvfkLJ+Zrj+f/7544eV8brY8D8EB2rpSgjfgYTQdoG4zWm0676PPIp0PZrVlhwZoMZiTtaNkuWeeNgazdnXcm8z/0m8+D6G7YNtXSvgGPIi2A7S26XSX82W/3nJzMJcnecQG6GwZoMdXvxI4mMCZ783nIXAWbMdKid+ABzGWAM3e3seeQDEbzOVhjrnY1/xpSQFaf52f5h3M5vMQWMPtK6WADXgQbQdotU2/CHytXxlMKQGaPzPrL7PMr/nNwQTu9Ww+D4FnQm9dKSVswINoL0BrL6TVTMtp1N7zxmAiA7T5zEx3CFfHWuL+nV8MJvBNx+bzEHgt2LaVErYBD669AF2uv9VZE9NN+17MreS2DGYp/zGgLYPp/py/uHIf990cTHc3jsUzkn1KbvN5CLwafnMwcRvw4NoL0GyysruX5ermKYGnj24OZiXoRMSrg+le9N2dZv7M/hZ/y2BO1qfh855vt/k8LO/BE3A/oI3BtHf+86X2ArR+P7n5tnR1tyfvqtwYzErALNiWwaw9N5kvctwczPo9WnPP92w+D4F3RLw+mMgNeGgNBuji3fKSovndfNdvfp5//V0bzKWIafgtg/l52YHclz9sGczlmsp/xffm8/Bz3D2hrw4mdgMeWIsBujj/pbvNw0dPf599tv4Pa8D6uzqYSyHnAW0ZzJ8vP5k+KZ/+mH0s2wbz21ezX0QRMJgtz0Pgb8W4MpjgDXhYTQYIqIMAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBC3cP783k/RY6AFAkQ/H76YfPzH7KPzX76aTH363d7vP38+SRmpyx9PSwSIflYFePflZGFvEQSIHgSIfpYFeHc8mfQpkADRgwDRz7IAJ5PJ0dP/9/ze/345LdGz7D+etggQ/SwKMP3j6Pv5QeizG3bChvjxNEaA6GdRgOke2PSPWYAS72T1+vE0RoC4wftvpjtdn/+xGaC5k+4dUWf+3mjx0YNlnmZ/nL/8ZLqMR69Xi+ym0T59vTax9mb9G06mX/7lk+47Nn48jREg9jtdHG/+vxu7YKv//3j2wXSP7PKjZ+sB+l/L49bPrixy8l+vT6wdzb9hGqA3s0+/3/jxNEaA2GsZi8l/WhTgdHEQehmg6VuiB6vvnH90MrncQZv+cWn+Duls7SuzRU6jduUbTiYfzZL1YMuPpy0CxD5dG+5P94TeHC9rsSjK0f9YfMfySNDs68uezPbSLgN09PX08xeLd0ibi+wm1r6e7mx9uSjYSfc/Xm//8bRFgNjndPm6707/mX90/nKxR/Xp68W3zN63TFvxZP7R9FsfX6wHaPFu6XTel41Frg4eLT84WcVmy4+nKQLEHtN8LA4sX7Zgcci483n32bw30x2r7ljPs4tlkdYCND8ytDh+3eXl2ZVFni133bovdP/rZPlXtv94GiJA7DF9T7I82LPIx9z586P/Mrncper+x+nsQPGDWTW6zy8DtGzIfAmbizy9fkLjKlG7fjzNECD2WJv8vjIP3s2CdQd1FntM82POj2fz58t3RHsCdG2Rq4n8pfWZ/a0/nmYIEHusve/YCNBqV2k26z7938/mO19n83zsCtDmIncHaNePpxkCxB773gGtZuCn/+dxdwjop+4Lz+Zvg7wDohcBYo/NgzDz4zNXAjQ76HOyiMuD2WnQF3c8BnQZIMeA2iZA7NHNYV2dsprPpc8DtDwJerrn9T+ezz6cn8P8bPFXtwZoc5GXs2CLoq0CtPm9NEaA2Gf1uu9OCVxcC7a8FOPd8n4c0w/+eTUD/5fFm5ZdAdq1yM7ioNLJ5uT78ntpjACxz+xU5B8vLn65ctry7H5Aby5PTezOdp5lZ3a3svnbmZ0BWp7d/Mv1M6G7abXZUi4DtPnjaYsAsdfqwq3llaOXF25NVp04uXJV13ynaWeA9l0LNt+lWzsqvfHjaYsAsd+b42uXo79f3RP6Sibm5y6frC682B2gzavhV4tcLuRyWmzjx9MUAeIG7785vnZDnl/+0lXh4dNVELq3MPP3PaerA8p7ArS8H9DqQvrFxR2fru4HtDYvv/njaYgAcQtpfi/YZYAYKwHiFu4SoMuLUVcXnTJaAsQt3DFAR93vNPzzxep4EaMlQGS2/ovFvAEaOwEitzfH+sOCAJHdn90vyZh89PT36IEQToCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIIwAAWEECAgjQEAYAQLCCBAQRoCAMAIEhBEgIMz/B/IHjvp/KG6dAAAAAElFTkSuQmCC" width="576" /></p>
+<p>Sans surprise, les deux variables semblent positivement corrélées. Par la suite, on utilise la fonction <code>table</code> pour compter le nombre d’observations des deux sexes.</p>
+<pre class="r"><code>table(d$Sex)</code></pre>
+<pre><code>## 
 ##  f  m 
-## 42 45
-```
+## 42 45</code></pre>
+<p>La fonction <code>boxplot</code> nous permet de comparer la masse chez les deux sexes.</p>
+<pre class="r"><code>boxplot(wt~Sex,data=d)</code></pre>
+<p><img src="data:image/png;base64,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" width="576" /></p>
+<p>Remarquez la forme des arguments de la fonction <code>boxplot</code>. Ceux-ci sont donnés sous forme de formule (<code>?formula</code>) et non sous forme de caractères entre guillemets. Avec l’argument <code>data</code>, la fonction <code>boxplot</code> va chercher dans le <code>data.frame</code> les noms de colonnes correspondants. Cette façon de spécifier les variables sous forme de formule sera beaucoup utilisée lorsque nous ferons des modèles.</p>
+<p>Par la suite, nous devons trouver le moyen de séparer les mâles des femelles afin d’effectuer notre test de t. Pour ce faire, il est possible d’utiliser la fonction <code>subset</code> ou simplement d’utiliser l’indexage. Les 4 lignes suivantes produisent les mêmes objets.</p>
+<pre class="r"><code>m&lt;-subset(d,subset=Sex==&quot;m&quot;)
+f&lt;-subset(d,subset=Sex==&quot;f&quot;)
 
-La fonction `boxplot` nous permet de comparer la masse chez les deux sexes.
-
-
-```r
-boxplot(wt~Sex,data=d)
-```
-
-<img src="index_files/figure-html/unnamed-chunk-53-1.png" width="576" />
-
-Remarquez la forme des arguments de la fonction `boxplot`. Ceux-ci sont donnés sous forme de formule (`?formula`) et non sous forme de caractères entre guillemets. Avec l'argument `data`, la fonction `boxplot` va chercher dans le `data.frame` les noms de colonnes correspondants. Cette façon de spécifier les variables sous forme de formule sera beaucoup utilisée lorsque nous ferons des modèles. 
-
-Par la suite, nous devons trouver le moyen de séparer les mâles des femelles afin d'effectuer notre test de t. Pour ce faire, il est possible d'utiliser la fonction `subset` ou simplement d'utiliser l'indexage. Les 4 lignes suivantes produisent les mêmes objets.
-
-
-```r
-m<-subset(d,subset=Sex=="m")
-f<-subset(d,subset=Sex=="f")
-
-m<-d[d$Sex=="m",]
-f<-d[d$Sex=="f",]
-```
-
-Un peu comme dans la fonction `boxplot`, il n'est pas nécessaire d'utiliser les guillemets ou le `$` puisque la fonction `subset` cherchera dans le `data.frame` soumis pour trouver la colonne demandée (ici, *Sex*). Avec l'indexage régulier, il faut toutefois identifé où se trouve la colonne avec `d$Sex`. Par la suite, on effectue notre test de t.
-
-
-```r
-t.test(m$wt,f$wt)
-```
-
-```
-## 
+m&lt;-d[d$Sex==&quot;m&quot;,]
+f&lt;-d[d$Sex==&quot;f&quot;,]</code></pre>
+<p>Un peu comme dans la fonction <code>boxplot</code>, il n’est pas nécessaire d’utiliser les guillemets ou le <code>$</code> puisque la fonction <code>subset</code> cherchera dans le <code>data.frame</code> soumis pour trouver la colonne demandée (ici, <em>Sex</em>). Avec l’indexage régulier, il faut toutefois identifé où se trouve la colonne avec <code>d$Sex</code>. Par la suite, on effectue notre test de t.</p>
+<pre class="r"><code>t.test(m$wt,f$wt)</code></pre>
+<pre><code>## 
 ##  Welch Two Sample t-test
 ## 
 ## data:  m$wt and f$wt
@@ -7171,20 +7069,11 @@ t.test(m$wt,f$wt)
 ##  0.7452093 2.3843145
 ## sample estimates:
 ## mean of x mean of y 
-##  20.42667  18.86190
-```
-
-La valeur de *p* est inférieure à 0.05 et l'intervalle de confiance a des bornes inférieure et supérieures positives, on conclut donc que les mâles ont une masse supérieure aux femelles et que cette différence est de l'ordre de 1 ou 2 grammes.
-
-Plutôt que de séparer les mâles et les femelles en deux `data.frame`, il serait encore plus efficace d'utiliser une formule pour spécifier notre test de t.
-
-
-```r
-t.test(wt~Sex,data=d)
-```
-
-```
-## 
+##  20.42667  18.86190</code></pre>
+<p>La valeur de <em>p</em> est inférieure à 0.05 et l’intervalle de confiance a des bornes inférieure et supérieures positives, on conclut donc que les mâles ont une masse supérieure aux femelles et que cette différence est de l’ordre de 1 ou 2 grammes.</p>
+<p>Plutôt que de séparer les mâles et les femelles en deux <code>data.frame</code>, il serait encore plus efficace d’utiliser une formule pour spécifier notre test de t.</p>
+<pre class="r"><code>t.test(wt~Sex,data=d)</code></pre>
+<pre><code>## 
 ##  Welch Two Sample t-test
 ## 
 ## data:  wt by Sex
@@ -7194,10 +7083,9 @@ t.test(wt~Sex,data=d)
 ##  -2.3843145 -0.7452093
 ## sample estimates:
 ## mean in group f mean in group m 
-##        18.86190        20.42667
-```
-
-Les résultats sont identiques. Cependant, le sexe de référence a été inversé entre les deux façons de formuler le test de t.
+##        18.86190        20.42667</code></pre>
+<p>Les résultats sont identiques. Cependant, le sexe de référence a été inversé entre les deux façons de formuler le test de t.</p>
+<!--
 
 # Atelier 2
 
@@ -7668,19 +7556,19 @@ summary(m)
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -45.323 -13.019  -0.914  12.355  49.620 
+## -50.229 -15.516   0.437  14.106  52.084 
 ## 
 ## Coefficients:
-##              Estimate Std. Error t value Pr(>|t|)    
-## (Intercept) 191.36584    4.09821   46.70   <2e-16 ***
-## x             2.11405    0.06453   32.76   <2e-16 ***
-## sexem       -95.66908    3.53998  -27.02   <2e-16 ***
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 199.5143     5.2428   38.05   <2e-16 ***
+## x             1.9811     0.0758   26.14   <2e-16 ***
+## sexem       -98.0045     4.4021  -22.26   <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 17.68 on 97 degrees of freedom
-## Multiple R-squared:  0.9511, Adjusted R-squared:  0.9501 
-## F-statistic: 943.3 on 2 and 97 DF,  p-value: < 2.2e-16
+## Residual standard error: 21.69 on 97 degrees of freedom
+## Multiple R-squared:  0.936,  Adjusted R-squared:  0.9347 
+## F-statistic: 709.2 on 2 and 97 DF,  p-value: < 2.2e-16
 ```
 
 Avec `predict`, on soumet des données à notre modèle pour générer des prédictions. Ici, on demande de faire varier x de 0 à 100 et on fixe le facteur sexe à "m". On met ces valeurs dans un `data.frame` qui sera utilisé par `predict` pour générer les prédictions. Ensuite, on traces ces valeurs prédites à l'aide fonction `lines`. 
@@ -7808,15 +7696,15 @@ summary(glht(m,linfct = mcp(Treatment = "Tukey")))
 ## 
 ## Linear Hypotheses:
 ##                              Estimate Std. Error t value Pr(>|t|)    
-## 1 virgin - 1 pregnant == 0     -9.551      2.969  -3.217 0.014112 *  
-## 8 pregnant - 1 pregnant == 0    1.379      2.976   0.464 0.990401    
+## 1 virgin - 1 pregnant == 0     -9.551      2.969  -3.217  0.01422 *  
+## 8 pregnant - 1 pregnant == 0    1.379      2.976   0.464  0.99040    
 ## 8 virgin - 1 pregnant == 0    -22.835      2.987  -7.646  < 1e-04 ***
-## none - 1 pregnant == 0         -2.858      2.971  -0.962 0.871640    
-## 8 pregnant - 1 virgin == 0     10.931      2.991   3.655 0.003486 ** 
-## 8 virgin - 1 virgin == 0      -13.284      3.013  -4.409 0.000217 ***
-## none - 1 virgin == 0            6.694      2.975   2.250 0.168843    
+## none - 1 pregnant == 0         -2.858      2.971  -0.962  0.87164    
+## 8 pregnant - 1 virgin == 0     10.931      2.991   3.655  0.00349 ** 
+## 8 virgin - 1 virgin == 0      -13.284      3.013  -4.409  0.00023 ***
+## none - 1 virgin == 0            6.694      2.975   2.250  0.16885    
 ## 8 virgin - 8 pregnant == 0    -24.214      2.976  -8.135  < 1e-04 ***
-## none - 8 pregnant == 0         -4.237      2.998  -1.413 0.620277    
+## none - 8 pregnant == 0         -4.237      2.998  -1.413  0.62028    
 ## none - 8 virgin == 0           19.977      2.998   6.664  < 1e-04 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -8363,23 +8251,23 @@ summary(m1sub)
 ## 
 ## Deviance Residuals: 
 ##    Min      1Q  Median      3Q     Max  
-## -3.913  -2.499  -1.341   1.054   8.060  
+## -3.807  -2.465  -1.233   1.063   8.300  
 ## 
 ## Coefficients:
 ##             Estimate Std. Error z value Pr(>|z|)    
-## (Intercept)  3.10019    0.29136  10.641  < 2e-16 ***
-## sexe5       -0.60972    0.08951  -6.812 9.65e-12 ***
-## age2        -0.31049    0.06850  -4.533 5.82e-06 ***
-## masse       -0.40962    0.09890  -4.142 3.45e-05 ***
+## (Intercept)  2.89146    0.29747   9.720  < 2e-16 ***
+## sexe5       -0.62376    0.08957  -6.964 3.30e-12 ***
+## age2        -0.27628    0.06847  -4.035 5.46e-05 ***
+## masse       -0.35040    0.10065  -3.481 0.000499 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for poisson family taken to be 1)
 ## 
-##     Null deviance: 2407.3  on 296  degrees of freedom
-## Residual deviance: 2178.3  on 293  degrees of freedom
-##   (5 observations deleted due to missingness)
-## AIC: 2800.9
+##     Null deviance: 2302.7  on 298  degrees of freedom
+## Residual deviance: 2097.7  on 295  degrees of freedom
+##   (3 observations deleted due to missingness)
+## AIC: 2730
 ## 
 ## Number of Fisher Scoring iterations: 6
 ```
@@ -9567,6 +9455,7 @@ Ces données ont été récoltées à divers sites dans les prairies américaine
 <br><br>
 
 -->
+</div>
 </div>
 </div>
 <div id="liens-utiles" class="section level1">
