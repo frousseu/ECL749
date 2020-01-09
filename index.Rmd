@@ -121,7 +121,7 @@ h5 {
 knitr::opts_chunk$set(echo=TRUE, tidy=TRUE, error=TRUE)
 ```
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br>
 
 # Atelier 1
 
@@ -132,7 +132,7 @@ knitr::opts_chunk$set(echo=TRUE, tidy=TRUE, error=TRUE)
 
 [RStudio](https://www.rstudio.com/) est en quelque sorte un éditeur de texte avancé facilitant l'utilisation et la communication avec R. À l'intérieur de cette interface, vous pouvez créer un script avec vos lignes de commande qui pourront être envoyées dans la console R. Il y a beaucoup de fonctionnalités dans RStudio et ces dernières sont décrites dans cette *cheat sheet*: [RStudio IDE Cheat Sheet](https://www.rstudio.com/resources/cheatsheets/#ide) 
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br>
 
 ## Opérations et objets de base 
 
@@ -146,7 +146,7 @@ R peut être utilisé comme une simple calculatrice!
 
 ```
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br>
 
 On peut également assigner des objets à des symboles avec l'opérateur `<-` et concaténer des nombres ensemble avec la fonction `c` pour créer un vecteur, un objet à **1 dimension**. Par la suite, on peut effectuer des opérations vectorisées, i.e. à chaque élément du vecteur. 
 
@@ -158,7 +158,7 @@ v1+v2
 v1*v2+1
 ```
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br>
 
 On peut aussi coller ces deux vecteurs ensembles pour créer une matrice (`matrix`), un objet à **2 dimension**. 
 
@@ -168,7 +168,7 @@ m<-cbind(v1,v2)  #! Colle deux vecteurs ensemble
 m
 ```
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br>
 
 Une matrice est composée d'un même type de valeurs, soit numérique, caractère ou logique. Plus général, un `data.frame` peut contenir plusieurs types de valeurs. C'est l'équivalent d'un tableau de données dans Excel. 
 
@@ -179,7 +179,7 @@ d
 
 ```
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br>
 
 Les listes peuvent contenir tout type d'objets et sont des objets à une dimension.
 
@@ -190,7 +190,7 @@ l
 
 ```
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br>
 
 ### Type de données
 
@@ -227,7 +227,7 @@ x
 
 Les *factors* sont des vecteurs de catégories ayant chacune une étiquette et représentées de façon interne par des entiers. Par défaut, les étiquettes sont numérotées par ordre alphabétique. 
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br>
 
 ### Objets de données
 
@@ -237,7 +237,7 @@ Les *factors* sont des vecteurs de catégories ayant chacune une étiquette et r
 - `list` (1 dimension, tout type d'objets)
 - `array` (3 dimension, un type de données)
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br>
 
 ### Objets et assignation
 
@@ -268,13 +268,13 @@ v1
 
 Tout ce qui est contenu dans une session R est un **objet** qui porte un nom.
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br>
 
 ## Accéder aux données
 
 L'accès aux données se fait par l'intermédiaire de l'indexation qui est le processus par lequel on accède aux données à l'intérieur d'un objet. Pour ce faire, on utilise généralement les opérateurs `[` et `$` avec différentes conditions pour établir notre sélection.
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br>
 
 ### Avec un vecteur
 
@@ -300,7 +300,7 @@ On accède à tous les éléments supérieurs à 105 et inférieurs ou égal à 
 v1[v1>105 & v1<=108]
 ```
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br>
 
 ### Avec un `data.frame`
 
@@ -334,7 +334,7 @@ On sélectionne toutes les lignes où `v1` est supérieur à 7.
 d[d$v1>7,]
 ```
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br>
 
 ### Avec une liste
 
@@ -362,7 +362,7 @@ names(l)<-c("allo","bonjour","bye")
 l$bye
 ```
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br>
 
 ## Fonctions
 
@@ -387,7 +387,7 @@ rep(1:3,times=5)
 
 ```
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br>
 
 ### Arguments
 
@@ -410,7 +410,7 @@ rep(1:3)
 
 Par défaut, le premier élément listé à l'intérieur d'une fonction est l'objet auquel on veut l'appliquer et correspond au premier argument de la fonction. Cet argument n'a généralement par besoin d'être nommé. Par contre, il est souvent préférable ou nécessaire de nommer les éléments suivants. Si ceux-ci ne sont pas nommés, l'ordre dans lequel ils sont donnés sera utilisé pour les associer aux arguments correspondant.
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br>
 
 ### Opérateurs
 
@@ -429,7 +429,7 @@ c(3,4)%in%c(4,5,6,7) # élément du vecteur 1 contenule vecteur 2
 
 ```
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br>
 
 ## Importation des données
 
@@ -451,13 +451,13 @@ list.files()
 
 ```
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br>
 
 ### Les données manquantes (NA)
 
 Avant d'importer des données, il est nécessaire d'aborder la gestion des données manquantes par R. Les données manquantes sont toujours représentées par des `NA`, que ce soit dans les vecteurs ou dans les tableaux de données. Lorsqu'on veut importer des données avec des cellules vides, il est souvent nécessaire de remplacer les cellules vides par des `NA`. Parfois, il est possible de dire à une éventuelle fonction que les cellules vides correspondent à des `NA`.
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br>
 
 ### Les fonctions d'importation
 
@@ -473,7 +473,7 @@ Il existe plusieurs méthodes pour importer des données dans R. La façon class
 
 Les messages d'erreurs sont très très fréquents lors de l'importation d'une nouvelle base de données. Il s'agit d'être en mesure de bien les interpréter et d'observer ces quelques règles de base.
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br>
 
 Plusieurs autres fonctions sont disponibles selon le format des données (`read.delim`, `read.csv`, etc.). Le format *.csv* est souvent le plus pratique, car il réduit les risques de problèmes lors de l'importation en raison de la délimitation des cellules. Il est également possible d'utiliser le package **readxl** pour lire directement des fichiers `.xlsx`. Bien qu'étant la façon classique d'importer des données, la fonction `read.table` est assez capricieuse... On peut également exporter des données avec les fonctions `write.table` ou `write.csv`.
 
@@ -485,7 +485,7 @@ Voici les fonctions de base les plus souvent utilisées pour importer des donné
 
 - `read_excel` : fonction du package **readxl** pour des fichiers *.xlsx*
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br>
 
 Voici un exemple:
 ```{r, results="hold"} 
@@ -499,7 +499,7 @@ Le code précédent se base sur le fait que le fichier de données est dans le r
 d<-read.table("C:/Users/rouf1703/Documents/UdeS/GitHub/ECL749/lab/data.txt",header=TRUE)
 ```
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br>
 
 ### Inspection des données
 
@@ -517,7 +517,7 @@ La fonction `head` permet d'observer les 6 premières lignes.
 head(d)
 ```
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br>
 
 La fonction `str` permet d'inspecter le type de données dans chacune des colonnes.
 
@@ -525,7 +525,7 @@ La fonction `str` permet d'inspecter le type de données dans chacune des colonn
 str(d)
 ```
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br>
 
 La fonction `summary` permet de résumer les données dans chacune des colonnes.
 
@@ -533,7 +533,7 @@ La fonction `summary` permet de résumer les données dans chacune des colonnes.
 summary(d)
 ```
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br>
 
 ## Sauvegarde du travail
 
@@ -541,7 +541,7 @@ Suite à une session de travail dans R, il est généralement possible de sauveg
 
 Le premier sert à conserver les lignes de commandes et le second à conserver les objets générés dans la session de travail. En général, le plus important est de sauvegarder les lignes de commandes utilisées. Pour ce faire, il faut cliquer sur le bouton disquette en haut à gauche du panneau des scripts. Par la suite, il est possible d'envoyer à nouveau nos lignes de commande pour produire la tâche désirée.
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br>
 
 ### Script .R
 
@@ -556,7 +556,7 @@ Le premier sert à conserver les lignes de commandes et le second à conserver l
 rep(1:5,2)
 ```
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br>
 
 ### .RData
 
@@ -566,7 +566,7 @@ rep(1:5,2)
 
 - On peut ouvrir un environnement de travail avec la fonction `load` ou en faisant *Session > Load Workspace*
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br>
 
 ## Aide
 
@@ -600,7 +600,7 @@ Cette section donne des suggestions concernant d'autres fonctions jouant un rôl
 
 Cette section très utile donne des exemples d'utilisation de la fonction. Ces exemples peuvent être copiés et collés directement dans votre session R afin d'étudier l'utilisation de la fonction. Pour bien comprendre l'utilisation d'une fonction, cette section n'est pas à négliger! 
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br>
 
 ## Packages
 
@@ -620,7 +620,7 @@ Remarquez que l'utilisation des guillemets "" est optionnelle dans la fonction l
 
 Il est fréquent d'utiliser une fonction dans R sans avoir préalablement chargé le package la contenant. Dans ce cas, un message d'erreur nous dit que la fonction utilisée n'existe pas. Ceci peut également résulter d'une mauvaise orthographe de la fonction.
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br>
 
 ## Exercice
 
@@ -639,8 +639,6 @@ Finalement, effectuez et interprétez un test de t pour comparer la masse chez l
 Il y a peut-être quelques petits problèmes avec la base de données...
 
 <br><br><br>
-
-<!--
 
 ### Solution 
 
@@ -748,6 +746,8 @@ t.test(wt~Sex,data=d)
 ```
 
 Les résultats sont identiques. Cependant, le sexe de référence a été inversé entre les deux façons de formuler le test de t.
+
+<!--
 
 # Atelier 2
 
