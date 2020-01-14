@@ -533,92 +533,7 @@ La fonction `summary` permet de résumer les données dans chacune des colonnes.
 summary(d)
 ```
 
-<br>
 
-## Sauvegarde du travail
-
-Suite à une session de travail dans R, il est généralement possible de sauvegarder deux types d'éléments soit un fichier de commande (ou un script R, *nomdufichier.R*) ou l'environnement de travail (un *workspace*, *nomdufichier.RData*). 
-
-Le premier sert à conserver les lignes de commandes et le second à conserver les objets générés dans la session de travail. En général, le plus important est de sauvegarder les lignes de commandes utilisées. Pour ce faire, il faut cliquer sur le bouton disquette en haut à gauche du panneau des scripts. Par la suite, il est possible d'envoyer à nouveau nos lignes de commande pour produire la tâche désirée.
-
-<br>
-
-### Script .R
-
-- Fichier de commande ou script permettant de refaire les analyses. **C'est ce qui est important à conserver!**
-
-- On peut ouvrir un script *.R* avec le menu de RStudio en faisant: *File > Open File* ou en utilisant le bouton d'ouverture de dossier.
-
-- On peut insérer des commentaires dans un script avec le symbole `#` de cette façon:
-
-```{r, eval=TRUE} 
-# permet de répéter 2 fois le vecteur allant de 1 à 5
-rep(1:5,2)
-```
-
-<br>
-
-### .RData
-
-- Environnement de travail avec les objets de la console R au moment de la sauvegarde (mais ne contient pas les lignes de commandes!)
-
-- On peut le conserver au besoin en utilisant la fonction `save` ou en suivant dans le menu de RStudio  *Session > Save Workspace As*
-
-- On peut ouvrir un environnement de travail avec la fonction `load` ou en faisant *Session > Load Workspace*
-
-<br>
-
-## Aide
-
-Dès que l'on se met à jouer avec R, il est rapidement essentiel d'aller inspecter son fichier d'aide. Ceci peut être tout aussi éclairant que frustrant! Mais c'est généralement éclairant et absolument essentiel. Pour accéder à l'aide sur la fonction `rep`, on n'a qu'à taper `?rep`.
-
-##### Section *Description*
-
-Cette section contient une courte description de ce que fait la fonction.
-
-##### Section *Usage*
-
-Cette section montre comment la fonction est utilisée et liste également la plupart du temps les valeurs par défaut des arguments.
-
-##### Section *Arguments*
-
-Cette section explique l'utilisation de chacun des arguments de la fonction et donne également les valeurs par défaut.
-
-##### Section *Details*
-
-Cette section donne parfois des détails plus précis par rapport à l'utilisation de la fonction.
-
-##### Section *Value*
-
-Cette section décrit la valeur retournée par la fonction.
-
-##### Section *See Also*
-
-Cette section donne des suggestions concernant d'autres fonctions jouant un rôle similaire.
-
-##### Section *Examples*
-
-Cette section très utile donne des exemples d'utilisation de la fonction. Ces exemples peuvent être copiés et collés directement dans votre session R afin d'étudier l'utilisation de la fonction. Pour bien comprendre l'utilisation d'une fonction, cette section n'est pas à négliger! 
-
-<br>
-
-## Packages
-
-Les packages sont des banques de fonctions destinées à des tâches spécifiques. Plusieurs packages de bases sont installés avec R, mais il existe plusieurs milliers de packages de toutes sortes. Pour installer un package donné sur son ordinateur (par exemple le package **spatstat**, pour les statistiques spatiales), on utilise la fonction `install.packages` de cette façon :
- 
-```{r, eval=FALSE} 
-install.packages("spatstat")
-```
-
-Dépendamment de si on travaille avec R ou RStudio, on demande parfois de sélectionner un miroir CRAN à partir duquel le téléchargement sera fait. Une fois le package installé, il faut activer le package dans notre session de travail R. Pour les packages spéciaux qui ne font pas partie des packages de base de R, on doit les activer à chaque session de travail avec la fonction `library`.
-
-```{r, eval=FALSE}
-library(spatstat)
-```
-
-Remarquez que l'utilisation des guillemets "" est optionnelle dans la fonction library, mais c'est rarement le cas dans les autres fonction lorsque l'on réfère à un nom.
-
-Il est fréquent d'utiliser une fonction dans R sans avoir préalablement chargé le package la contenant. Dans ce cas, un message d'erreur nous dit que la fonction utilisée n'existe pas. Ceci peut également résulter d'une mauvaise orthographe de la fonction.
 
 <br>
 
@@ -747,10 +662,6 @@ t.test(wt~Sex,data=d)
 
 Les résultats sont identiques. Cependant, le sexe de référence a été inversé entre les deux façons de formuler le test de t.
 
-<!--
-
-# Atelier 2
-
 ## Retour
 
 ### Script et console
@@ -840,6 +751,97 @@ v+1
 
 Avant d'utiliser une fonction, il faut se rappeler que c'est toujours un bon réflexe de consulter l'aide et particulièrement les exemples qui montrent souvent comment utiliser la fonction et ses arguments. 
 
+<br><br><br>
+
+# Atelier 2
+
+<br>
+
+## Sauvegarde du travail
+
+Suite à une session de travail dans R, il est généralement possible de sauvegarder deux types d'éléments soit un fichier de commande (ou un script R, *nomdufichier.R*) ou l'environnement de travail (un *workspace*, *nomdufichier.RData*). 
+
+Le premier sert à conserver les lignes de commandes et le second à conserver les objets générés dans la session de travail. En général, le plus important est de sauvegarder les lignes de commandes utilisées. Pour ce faire, il faut cliquer sur le bouton disquette en haut à gauche du panneau des scripts. Par la suite, il est possible d'envoyer à nouveau nos lignes de commande pour produire la tâche désirée.
+
+<br>
+
+### Script .R
+
+- Fichier de commande ou script permettant de refaire les analyses. **C'est ce qui est important à conserver!**
+
+- On peut ouvrir un script *.R* avec le menu de RStudio en faisant: *File > Open File* ou en utilisant le bouton d'ouverture de dossier.
+
+- On peut insérer des commentaires dans un script avec le symbole `#` de cette façon:
+
+```{r, eval=TRUE} 
+# permet de répéter 2 fois le vecteur allant de 1 à 5
+rep(1:5,2)
+```
+
+<br>
+
+### .RData
+
+- Environnement de travail avec les objets de la console R au moment de la sauvegarde (mais ne contient pas les lignes de commandes!)
+
+- On peut le conserver au besoin en utilisant la fonction `save` ou en suivant dans le menu de RStudio  *Session > Save Workspace As*
+
+- On peut ouvrir un environnement de travail avec la fonction `load` ou en faisant *Session > Load Workspace*
+
+<br>
+
+## Aide
+
+Dès que l'on se met à jouer avec R, il est rapidement essentiel d'aller inspecter son fichier d'aide. Ceci peut être tout aussi éclairant que frustrant! Mais c'est généralement éclairant et absolument essentiel. Pour accéder à l'aide sur la fonction `rep`, on n'a qu'à taper `?rep`.
+
+##### Section *Description*
+
+Cette section contient une courte description de ce que fait la fonction.
+
+##### Section *Usage*
+
+Cette section montre comment la fonction est utilisée et liste également la plupart du temps les valeurs par défaut des arguments.
+
+##### Section *Arguments*
+
+Cette section explique l'utilisation de chacun des arguments de la fonction et donne également les valeurs par défaut.
+
+##### Section *Details*
+
+Cette section donne parfois des détails plus précis par rapport à l'utilisation de la fonction.
+
+##### Section *Value*
+
+Cette section décrit la valeur retournée par la fonction.
+
+##### Section *See Also*
+
+Cette section donne des suggestions concernant d'autres fonctions jouant un rôle similaire.
+
+##### Section *Examples*
+
+Cette section très utile donne des exemples d'utilisation de la fonction. Ces exemples peuvent être copiés et collés directement dans votre session R afin d'étudier l'utilisation de la fonction. Pour bien comprendre l'utilisation d'une fonction, cette section n'est pas à négliger! 
+
+<br>
+
+## Packages
+
+Les packages sont des banques de fonctions destinées à des tâches spécifiques. Plusieurs packages de bases sont installés avec R, mais il existe plusieurs milliers de packages de toutes sortes. Pour installer un package donné sur son ordinateur (par exemple le package **spatstat**, pour les statistiques spatiales), on utilise la fonction `install.packages` de cette façon :
+ 
+```{r, eval=FALSE} 
+install.packages("spatstat")
+```
+
+Dépendamment de si on travaille avec R ou RStudio, on demande parfois de sélectionner un miroir CRAN à partir duquel le téléchargement sera fait. Une fois le package installé, il faut activer le package dans notre session de travail R. Pour les packages spéciaux qui ne font pas partie des packages de base de R, on doit les activer à chaque session de travail avec la fonction `library`.
+
+```{r, eval=FALSE}
+library(spatstat)
+```
+
+Remarquez que l'utilisation des guillemets "" est optionnelle dans la fonction library, mais c'est rarement le cas dans les autres fonction lorsque l'on réfère à un nom.
+
+Il est fréquent d'utiliser une fonction dans R sans avoir préalablement chargé le package la contenant. Dans ce cas, un message d'erreur nous dit que la fonction utilisée n'existe pas. Ceci peut également résulter d'une mauvaise orthographe de la fonction.
+
 ## Les graphiques
 
 La principale fonction pour créer des graphiques est la fonction `plot`. Certains arguments de cette fonction sont décrits dans le fichier d'aide de la fonction (`?plot`), mais la plupart des arguments sont décrits dans la page de la fonction `?par` qui sert à établir les paramètres graphiques utilisés. Voici quelques paramètres (ou arguments) graphiques fréquemment utilisés. Notez la fonction `par` et l'argument `mfrow` qui sert à créer une fenêtre graphique 2 x 2. L'argument `mar` de la fonction `par` permet de modifier la largeur des marges du graphique (bas, gauche, haut et droite). 
@@ -903,6 +905,8 @@ Vous devrez réaliser plusieurs tâches et/ou répondre aux questions suivantes:
 3) Effectuez une ANOVA afin d'étudier l'effet du broutement, de la couverture arbustive, du fertilisant ou de l'espacement sur la hauteur et la largeur des individus. Pour ce faire, vous pouvez utiliser les fonctions `lm` ou `aov` en combinaison avec la fonction `summary`. Interprétez également les résultats.
 
 4) Réalisez une carte schématique permettant d'illustrer la plantation et les traitements (espacement et fertilisant). Pour ce faire, vous devrez utiliser les fonctions `plot`, `legend` et possiblement `points`. Voux aurez également besoin des différents paramètres graphiques (arguments) décrits plus haut (`col`, `cex`, `pch`). La tâche pourrait aussi être facilitée en créant des groupes selon les différentes possibilités.
+
+<!--
 
 ### Solution
 
