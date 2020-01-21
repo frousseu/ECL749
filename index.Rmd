@@ -999,7 +999,6 @@ legend("bottomright",pch=c(16,16,1,1),col=c("red","blue","red","blue"),legend=le
 
 ```
 
-<!--
 
 # Atelier 3
 
@@ -1083,6 +1082,7 @@ Le premier exercice consiste à étudier l'effet de la reproduction sur la long�
 
 3) Vérifiez les conditions d'applications avec la fonction `plot` appliquée sur votre modèle.
 
+<!--
 
 #### Solution
 
@@ -1141,6 +1141,7 @@ for(i in 1:nrow(dat)){
   
 ```
 
+-->
 
 ### Tendances dans la phénologie de nidification
 
@@ -1154,6 +1155,7 @@ Pour ce deuxième exercice, on veut savoir s'il y a des changements dans les dat
 
 4) Est-ce que les suppositions de base sont respectées? Est-ce que vous voyez des choses à améliorer avec cette analyse?
 
+<!--
 
 #### Solution
 
