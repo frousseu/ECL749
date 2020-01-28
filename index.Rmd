@@ -1209,13 +1209,11 @@ lines(p~year,data=dat[dat$prov=="NB",],col="green4",lwd=2)
 
 Du côté des conditions d'applications, les résidus ne suivent clairement pas une distribution normale. Il n'est toutefois pas évident de déterminer ce qui devrait être fait pour corriger la situation. Une option serait peut être d'utiliser la [régression quantile](https://esajournals.onlinelibrary.wiley.com/doi/10.1890/1540-9295(2003)001[0412%3AAGITQR]2.0.CO%3B2), qui comporte moins de conditions et qui permet d'étudier la réponse à des quantiles spécifiques au lieu de la régression qui permet d'étudier la réponse moyenne. Un autre problème évident est que nous ne prenons pas en compte la possible corrélation temporelle entre les observations. Il faudrait également ajouter des intervalles de confiance à nos courbes de prédictions. 
 
-<!--
-
 # Atelier 4
 
-data is frogs from the DAAG package
+<!-- data is frogs from the DAAG package -->
 
-Pour cet atelier, nous nous intéresserons aux variables affectant la présence d'une espèce de grenouilles ([Southern Corroboree frog](https://en.wikipedia.org/wiki/Corroboree_frog)) retrouvée en Australie. Pour ce faire, nous avons une base de données [frogs.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/frogs.csv) avec différentes variables explicatives. Pour cet exercice, vous devrez déterminer quelles sont les variables pertinentes à utiliser pour comprendre ou prédire l'occurence de l'espèce et vous devrez illustrer les prédictions de votre modèle à l'aide de la fonction `predict` et de graphiques ou encore en utilisant le package [visreg](http://pbreheny.github.io/visreg/). Pour mieux comprendre l'utilisation de ce package, le plus simple est de se référer à la vignette expliquant comment le package est utilisé. N'oubliez pas de faire un peu d'explorations de données avant de sélectionner vos variables explicatives. 
+Pour cet atelier, nous nous intéresserons aux variables affectant la présence d'une espèce de grenouilles ([Southern Corroboree frog](https://en.wikipedia.org/wiki/Corroboree_frog)) retrouvée en Australie. Pour ce faire, nous avons une base de données [frogs.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/frogs.csv) avec différentes variables explicatives. Pour cet exercice, vous devrez déterminer quelles sont les variables pertinentes à utiliser pour comprendre ou prédire l'occurrence de l'espèce et vous devrez illustrer les prédictions de votre modèle à l'aide de la fonction `predict` et de graphiques ou encore en utilisant les packages [**visreg**](http://pbreheny.github.io/visreg/) ou [**ggeffects**](https://strengejacke.github.io/ggeffects/articles/introduction_plotmethod.html). Pour mieux comprendre l'utilisation de ces packages, le plus simple est de se référer à leur page web. N'oubliez pas de faire un peu d'explorations de données et de vous poser quelques questions avant de sélectionner vos variables explicatives. 
 
 <br>
 
@@ -1231,16 +1229,16 @@ Pour cet atelier, nous nous intéresserons aux variables affectant la présence 
 
 <br>
 
-1) Étudiez la distribution et les relations entre vos variables
+1) Étudiez la distribution de vos variables avec la fonction `hist` et les relations entre vos variables avec la fonction `plot` ou autres.
 
-2) Illustrez spatialement les présences/absences
+2) Illustrez les présences/absences dans l'espace avec les coordonnées *easting* et *northing*.
 
-3) Construisez et interprétez votre modèle permettant d'expliquer la présence de l'espèce
+3) Construisez et interprétez votre modèle permettant d'expliquer la présence de l'espèce.
 
-4) Utilisez la fonction `predict` ou le package **visreg** pour illustrez les prédictions de votre modèle
+4) Utilisez la fonction `predict` ou les packages [**visreg**](https://pbreheny.github.io/visreg/) ou [**ggeffects**](https://strengejacke.github.io/ggeffects/articles/introduction_plotmethod.html) pour illustrer les prédictions de votre modèle. Ces deux packages devraient vous faciliter la tâche par rapport à l'utilisation de `predict`.
 
 
-
+<!--
 
 ## Solution
 
