@@ -1209,318 +1209,13 @@ lines(p~year,data=dat[dat$prov=="NB",],col="green4",lwd=2)
 
 Du côté des conditions d'applications, les résidus ne suivent clairement pas une distribution normale. Il n'est toutefois pas évident de déterminer ce qui devrait être fait pour corriger la situation. Une option serait peut être d'utiliser la [régression quantile](https://esajournals.onlinelibrary.wiley.com/doi/10.1890/1540-9295(2003)001[0412%3AAGITQR]2.0.CO%3B2), qui comporte moins de conditions et qui permet d'étudier la réponse à des quantiles spécifiques au lieu de la régression qui permet d'étudier la réponse moyenne. Un autre problème évident est que nous ne prenons pas en compte la possible corrélation temporelle entre les observations. Il faudrait également ajouter des intervalles de confiance à nos courbes de prédictions. 
 
+
 # Atelier 4
 
-<!-- data is frogs from the DAAG package -->
+Pour cet atelier, vous apprendrez à utiliser différentes fonctions pour explorer, manipuler et mettre en forme une base données. Cette base de données contient des observations de nombres d'individus pour 3 espèces d'oiseaux (Paruline couronnée (PACO), Carouge à épaulettes (CAEP) et Moineau domestique (MODO)) soumises lors de sorties sur le terrain. À chaque fois qu'un observateur va sur le terrain, un feuillet est soumis où le nombre d'individus de chaque espèce est noté. Nous avons ces informations pour les trois espèces d'oiseaux. Ces feuillets sont rattachés à différentes cellules ayant chacune un identifiant et des coordonnées. Vous devrez également intégrer des données d'habitat associées à chacune de ces cellules. Voici le contenu de ces deux bases de données ainsi que les tâches à accomplir.
 
-Pour cet atelier, nous nous intéresserons aux variables affectant la présence d'une espèce de grenouilles ([Southern Corroboree frog](https://en.wikipedia.org/wiki/Corroboree_frog)) retrouvée en Australie. Pour ce faire, nous avons une base de données [frogs.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/frogs.csv) avec différentes variables explicatives. Pour cet exercice, vous devrez déterminer quelles sont les variables pertinentes à utiliser pour comprendre ou prédire l'occurrence de l'espèce et vous devrez illustrer les prédictions de votre modèle à l'aide de la fonction `predict` et de graphiques ou encore en utilisant les packages [**visreg**](http://pbreheny.github.io/visreg/) ou [**ggeffects**](https://strengejacke.github.io/ggeffects/articles/introduction_plotmethod.html). Pour mieux comprendre l'utilisation de ces packages, le plus simple est de se référer à leur page web. N'oubliez pas de faire un peu d'explorations de données et de vous poser quelques questions avant de sélectionner vos variables explicatives. 
-
-<br>
-
-- **pres.abs**: 0 = espèce absente, 1 = espèce présente
-- **northing**: coordoonées nord
-- **easting**: coordonnées est
-- **altitude**: altitude en mètres
-- **distance**: distance à la population ou à la mention de présence connue la plus près
-- **NoOfPools**: nombre de mares de reproduction potentielles
-- **avrain**: quantité de pluie moyenne pendant le printemps
-- **meanmin**: température moyenne minimale pendant le printemps
-- **meanmax**: température moyenne maximale pendant le printemps
-
-<br>
-
-1) Étudiez la distribution de vos variables avec la fonction `hist` et les relations entre vos variables avec la fonction `plot` ou autres.
-
-2) Illustrez les présences/absences dans l'espace avec les coordonnées *easting* et *northing*.
-
-3) Construisez et interprétez votre modèle permettant d'expliquer la présence de l'espèce.
-
-4) Utilisez la fonction `predict` ou les packages [**visreg**](https://pbreheny.github.io/visreg/) ou [**ggeffects**](https://strengejacke.github.io/ggeffects/articles/introduction_plotmethod.html) pour illustrer les prédictions de votre modèle. Ces deux packages devraient vous faciliter la tâche par rapport à l'utilisation de `predict`.
-
-
-<!--
-
-## Solution
-
-La première étape consiste à explorer les différentes valeurs de nos variables. On peut faire cela avec la fonction `summary`. 
-
-```{r}
-
-d<-read.csv("https://raw.githubusercontent.com/frousseu/ECL749/master/data/frogs.csv",sep=";")
-summary(d)
-
-```
-
-Par la suite, il serait préférable d'inspecter les liens entre les différentes variables explicatives potentielles. On peut s'attendre à ce que certaines soient fortement corrélées (*i.e.* **meanmin** et **meanmax**). Pour illustrer toutes les paires de variables, on peut utiliser les fonctions `plot` ou `pairs` appliquées à notre jeu de données. On peut également éliminer la variable réponse et les coordonnées puisque celles-ci ne feront pas partie de nos variables explicatives. Ces trois variables se trouvent dans les 3 premières colonnes de notre tableau et on peut les éliminer en utilisant l'indexage négatif. Les coordonnées pourraient également être utilisées dans notre modèle, mais cela impliquerait que nous pensons qu'il devrait y avoir des gradients (linéaires) de probabilité de présence est-ouest ou nord-sud.
-
-```{r,fig.width=8,fig.height=7}
-
-plot(d[,-(1:3)])
-
-```
-
-À première vue, on a une corrélation très forte entre certaines variables, notamment entre l'altitude et les températures minimales et maximales. Il serait donc préférable de choisir l'une ou l'autre de ces variables pour éviter la collinéarité et la redondance dans notre modèle. On pourrait également utiliser la fonction `cor` pour calculer la corrélation entre chacune de nos paires de variables. 
-
-```{r}
-
-cor(d[,-(1:3)])
-
-```
-
-On a également une corrélation importante entre la pluie et l'altitude et la température maximale. Encore une fois, il pourrait être important de choisir l'une ou l'autre de ces variables. Bien que la température est certainement très importante pour les amphibiens, l'altitude est selon moi plus utile comme variable si l'intention est de faire de la prédiction sur la présence de l'espèce. En effet, cette variable est probablement plus facilement accessible à l'échelle du paysage comparativement à la température. 
-
-Maintenant, on peut également se poser la question quelle est la relation entre les variables explicatives et la probabilité de présence? Pour ce faire, on peut encore une fois utiliser la fonction plot avec une formule. L'utilisation du point `.` indique que nous voulons considérer toutes les variables du tableau de données.
-
-```{r,fig.width=8,fig.height=6}
-par(mfrow=c(2,3))
-plot(pres.abs~.,data=d[,-(2:3)])
-
-```
-
-Ce n'est pas si évident sur les graphiques en raison des valeurs binaires, mais il semble parfois y avoir des probabilité de présence plus élevées pour des valeurs intermédiaires de nos différentes variables environnementales. Si on y réfléchit un peu, ceci n'est pas nécessairement surprenant. Imaginons une espèce fictive ayant une aire de distribution donnée et une variable climatique comme la température moyenne annuelle. Il y aura probablement une température minimale en dessous de laquelle l'espèce ne sera jamais présente ainsi qu'une température maximale au delà de laquelle l'espèce ne sera jamais rencontrée. Si on fait des inventaires à grande échelle pour trouver cette espèce, on obtiendra probablement que l'espèce est davantage rencontrée pour des valeurs intermédiaires de température moyenne annuelle. Il est possible qu'on trouve une relation linéaire positive ou négative entre la température et la présence de l'espèce, mais si on couvre un gradient de température assez étendu, on obtiendra nécessairement que l'espèce est moins abondante ou absente pour les valeurs extrêmes de température de la superficie inventoriée. Dans notre cas, il se pourrait que notre espèce de grenouille se retrouve davantage à des altitudes intermédiaires ce qui pourrait donner lieu à une relation quadratique. Il pourrait donc être judicieux d'inclure des relations quadratiques dans notre modèle. 
-
-A *priori*, il ne me semble pas y avoir d'interactions évidentes à inclure dans le modèle. Puisque les variables climatiques sont très fortement corrélées, je ne sélectionnerais que l'altitude. Les deux autres variables me semblent toutes deux pertinentes à inclure. On s'attend à ce que le nombre de mares *NoOfPools* influence positivement la probabilité de présence. Pour ce qui est de la distance, on s'attend à la même relation. En effet, il est raisonnable de penser que plus on est près d'une présence connue, plus on risque de rencontrer l'espèce. L'effet de cette variable est plus à considérer comme étant un indicateur des conditions locales que comme une variable influençant directement la présence de l'espèce. Par exemple, on a de l'information partielle sur la présence de l'espèce dans une région donnée où on veut raffiner nos connaissances de distribution de l'espèce. Elle pourrait également être liée au potentiel de dispersion de l'espèce dans un context de méta-population.  Un modèle potentiel serait celui-ci:
-
-
-```{r}
-
-m<-glm(pres.abs~NoOfPools+distance+altitude+I(altitude^2),family="binomial",data=d)
-summary(m)
-
-```
-
-On peut voir que l'abondance de mares influence positivement la présence de l'espèce, alors que la distance à une présence connue a un effet négatif sur la probabilité de présence de l'espèce. Du côté de l'altitude, il est très difficile de décrire quel est l'effet sur la probabilité de présence sans utiliser de graphiques. On peut toutefois dire que l'effet quadratique semble justifié comme en témoigne la valeur du coefficient du terme quadratique qui est significativement différent de 0. Remarquez l'utilisation de la fonction `I` qui facilite la formulation du modèle et qui permet d'indiquer de la variable altitude est à la base des deux termes (linéaires et quadratiques). Cela peut nous éviter d'avoir à calculer plus de valeurs lorsque nous utiliserons la fonction `predict`. 
-
-Visualisons cet effet avec la fonction `predict`. En premier, on crée un `data.frame` avec des valeurs que nous allons soumettre à notre modèle. Pour ce faire, on couvre l'étendue de nos valeurs d'altitude et on fixe les autres variables à leur valeur moyenne.
-
-```{r,fig.width=8,fig.height=6}
-
-# on fait varier l'altitude de la valeur min à la valeur max par bond de 10
-alt<-seq(min(d$altitude),max(d$altitude),by=10) 
-
-# on crée un newdata avec les autres variables fixées à leur valeur moyenne
-dat<-data.frame(altitude=alt,NoOfPools=mean(d$NoOfPools),distance=mean(d$distance)) 
-
-# on sort les prédictions du modèle en précisant que nous les voulons sous l'échelle de notre réponse
-p<-predict(m,newdata=dat,type="response")
-
-# on illustre les résultats
-plot(d$altitude,d$pres.abs)
-lines(alt,p)
-
-```
-
-La probabilité de présence semble atteindre un pic aux alentours de 1400m. Il faut toutefois rester prudent dans l'interprétation précise de ces valeurs, car nous n'avons pas d'intervalles de confiance autour de ces courbes. On pourrait les ajouter en utilisant l'argument `se.fit` de `predict`, mais cela demanderait un peu plus de travail. Nous n'avons d'ailleurs pas encore visualisé l'effet de nos autres variables. Il faudrait produire ces graphiques pour chacune des variables. Il serait possible d'optimiser cette tâche en généralisant le code de prédictions, mais pour l'instant ceci donnerait un code un peu plus difficile à suivre. 
-
-
-Pour faciliter la visualisation des résultats, nous pouvons faire appel au package *visreg* qui s'occupe de la majeure partie du travail. Les deux premières pages vous indiquent de façon assez simple comment créer des graphiques de visualisation d'un modèle linéaire et même comment visualiser une interaction! Le package a même un [site web](http://pbreheny.github.io/visreg/index.html) pour décrire les fonctionnalités. Il y a notamment une section sur les [GLM](http://pbreheny.github.io/visreg/glm.html). Pour ce package, l'argument qui permet de spécifier que l'on veut notre prédiction sous l'échelle de la réponse s'appelle `scale` contrairement à `type` pour la fonction `predict`.
-
-```{r,fig.width=8,fig.height=6}
-library(visreg)
-
-par(mfrow=c(2,2),mar=c(4,3,1,1))
-visreg(m,scale="response",ylim=0:1)
-
-```
-
-Certains ont utilisé les coordonnées comme variables explicatives dans leur modèle. Ceci n'est pas nécessairement mauvais, mais cela mérite une bonne réflexion. Est-ce que la relation entre la présence et les coordonnées est linéaire ou est-elle plus complexe? Est-ce que la relation entre les coordonnées et la probabilité de présence pourrait servir à prédire la présence de l'espèce dans d'autres régions? Probablement pas. Si le but est de prédire la présence de l'espèce seulement à l'intérieur de la zone étudiée, les coordonnées pourraient être utilisées. Cependant, il faudrait s'assurer que la relation est linéaire, ce qui serait assez suprenant. Si c'est le cas, il faudrait plutôt se demander s'il n'y a pas une ou des variables non prises en compte qui pourraient créer un tel gradient de probabilité de présence dans l'aire d'étude. Si on s'intéresse à comprendre l'influence des variables environnementales sur l'occurence des grenouilles à l'extérieur de la zone étudiée, la relation observée avec les coordonnées devient probablement inutile. 
-
-Malheureusement, ou plutôt heureusement, il n'y a pas nécessairement une meilleure ou une unique réponse à ce défi d'analyse de données. La mienne n'est qu'une suggestion et vous avez peut être de meilleures suggestions. L'important est de justifier nos choix et de prendre en considération les éléments les plus importants. Un élément important que j'ai ignoré est la potentielle corrélation spatiale entre les observations. Par exemple, est-ce que les observations près les unes des autres peuvent être considérées comme étant indépendantes? Aussi, est-ce qu'il y aurait d'autres variables à prendre en compte dans cette analyse? Comment les inventaires ont été réalisés? Est-ce qu'il faudrait tenir compte de la probabilité de détection de l'espèce? 
-
-
-
-# Atelier 5
-
-## Les parasites chez le Colibri à gorge rubis
-
-Pour cet exercice, vous étudierez ce qui influence la charge parasitaire chez le Colibri à gorge rubis (*Archilochus colubris*), une espèce retrouvée au Québec. Dans la base de données [colibris.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/colibris.csv), vous retrouverez différentes variables comme le sexe (4 = mâle, 5 = femelle) et l'âge (1 = adulte, 2 = jeune). L'exercice consiste à déterminer quelles sont les variables qui affectent la quantité de parasites. Pour interpréter vos résultats, illustrez graphiquement votre modèle. Obtenez-vous des conclusions semblables si vous faites l'analyse en présence/absence? Pour transformer les valeurs en présence/absence, vous pouvez utiliser la fonction `ifelse`.
-
-### Solution
-
-On importe d'abord les données et on affiche notre `data.frame` et un petit résumé de ce qu'il contient.
-```{r}
-
-d <- read.csv("https://raw.githubusercontent.com/frousseu/ECL749/master/data/colibris.csv")
-head(d)
-summary(d)
-
-```
-
-On voit quelques zéros dans la colonne *parasites* et on peut donc se demander à quel type de données nous avons à faire. On peut illustrer les valeurs de *parasites* avec un histogramme.
-```{r}
-
-hist(d$parasites)
-
-```
-
-On a ici un nombre d'individus, avec des valeurs allant de 0 à environ 40. Il faudra donc probablement modéliser l'abondance de parasites avec une distribution de Poisson. On a également plusieurs colibris dans la base de données. Une deuxième question à se poser est est-ce qu'on a plusieurs comptes de parasites pour un même individus? On peut vérifier ceci en utilisant la fonction `table` qui va comptabiliser le nombre de fois que chaque numéro de bague apparaît dans la base de données. En utilisant une seconde fois la fonction `table`, on compte le nombre de fois où chacune de ces valeurs est observée.
-
-```{r}
-
-table(table(d$bague))
-
-```
-
-On voit que pour la majorité des colibris, on a une seule valeur, mais certains ont plusieurs valeurs (2, 3 ou 4 observations). On devrait donc par défaut se diriger vers les modèles mixtes pour traiter l'individu comme un effet aléatoire puisque les comptes de parasites sur un même individu ne sont pas indépendants. Par contre, puisque la majorité des individus ont une seule observation, cela peut créer des problèmes dans le cadre des modèles mixtes et on pourrait plutôt opter pour effectuer une moyenne ou pour une sélection aléatoire d'une seule observation pour les individus ayant plusieurs observations. On pourrait également comparer les deux approches et déterminer si nos conclusions par rapport à l'effet de nos variables sont fortement affectées par notre méthode d'analyse. Si ce n'est pas le cas, on peut choisir la méthode qui nous convient en justifiant notre choix et en exposant le fait que nos conclusions ne sont pas affectées par la méthode choisie.
-
-On devrait également explorer les liens entre nos variables explicatives. On peut faire ceci avec des `boxplot` ou des graphiques standards.
-
-```{r}
-
-par(mfrow=c(1,2))
-boxplot(masse~age,data=d)
-boxplot(masse~sexe,data=d)
-table(d$sexe,d$age)
-
-```
-
-Les femelles sont plus massives que les mâles et les adultes semblent également plus massifs que les jeunes. Cependant, il semble y avoir une disproportion de mâles par rapport aux femelles chez les jeunes.
-
-Avant de lancer nos modèles, il faut transformer le sexe et l'âge en facteur étant donné que ces deux variables sont représentées par des valeurs numériques.
-
-```{r}
-
-d$sexe<-as.factor(d$sexe)
-d$age<-as.factor(d$age)
-
-library(lme4)
-
-m1<-glm(parasites~sexe+age+masse,data=d,family=poisson)
-m2<-glmer(parasites~sexe+age+masse+(1|bague),data=d,family=poisson)
-
-summary(m1)
-summary(m2)
-
-```
-
-On obtient des résultats bien différents selon nos deux modèles. On a un effet négatif de la masse, mais pour l'âge et le sexe nos conclusions sont très différentes. Puisque nous avons une seule observation pour la majorité des individus, il est peut être préférable de ne pas utiliser de modèles mixtes qui requièrent plusieurs observations pour chaque niveau. 
-
-On peut visualiser les prédictions de nos modèles avec visreg et en créant une fenêtre graphique avec en haut les prédictions pour le glm et en bas les prédictions pour le modèle mixte. Remarquez que nous n'avons pas d'intervalles de confiance autour des prédictions pour le modèle mixte. La raison de ceci est expliquée dans la [GLMM FAQ](https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html#testing-hypotheses).
-
-```{r,eval=FALSE,echo=FALSE,include=FALSE}
-
-par(mfrow=c(2,3))
-visreg(m1,scale="response",ylim=c(0,8))
-visreg(m2,"sexe",scale="response",ylim=c(0,8))
-visreg(m2,"age",scale="response",ylim=c(0,8))
-visreg(m2,"masse",scale="response",ylim=c(0,8))
-
-```
-
-On pourrait opter pour un GLM et ne prendre qu'une seule observation aléatoirement par individu. On peut faire ceci en utilisant une combinaison de `split`, `lapply` et `sample`. Je vous laisse étudier le code en vous donnant quelques indications sur chaque étape.
-
-```{r}
-
-s<-split(d,d$bague) # on sépare les données par individu dans une liste
-l<-lapply(s,function(i){ # on applique une fonction sur chaque data.frame de la liste
-   if(nrow(i)==1){ # on prend la ligne s'il n'y en qu'une
-     i
-   }else{
-     i[sample(1:nrow(i),1),] # ou on choisit aléatoirement une ligne s'il y en a plusieurs
-   } 
-})
-d2<-do.call("rbind",l) # on fusionne les différents subsets de la liste ensemble dans un nouveau data.frame
-
-```
-
-Dans l'objet `d2`, on a maintenant une seule ligne par individu.
-
-```{r}
-
-m1sub<-glm(parasites~sexe+age+masse,data=d2,family=poisson)
-summary(m1sub)
-
-```
-
-Nos conclusions pour ce glm modifié sont très similaires. On conclut donc que les mâles et les jeunes sont davantage infectés par les parasites. Plusieurs interprétations sont possibles, mais aucune ne me semble évidente et il faudrait chercher dans la littérature pour valider ces interprétations. Quant à la masse, elle a un effet négatif sur le nombre de parasites. Ceci pourrait s'expliquer par le fait que les individus plus massifs sont aussi en meilleure santé et donc plus aptes à se défendre contre les parasites.
-
-```{r}
-
-par(mfrow=c(2,2))
-visreg(m1sub,scale="response",ylim=c(0,8))
-
-```
-
-
-## La richesse spécifique le long du littoral
-
-Ici, on s'intéresse aux variables influençant le nb d'espèces rencontrées le long du littoral. On a la hauteur de la station d'échantillonnage par rapport à la hauteur moyenne de la marée ainsi que l'exposition qui est quantifiée à l'aide d'un index construit à partir de la "sévérité" des conditions de la station (force des vagues, longueur de la zone d'impact, pente, substrat allant de fin à grossier). La base de données se trouve à cet endroit [plages.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/plages.csv). Une autre base de données [plage_type.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/plage_type.csv) est également disponible où le type de plage (roches ou sable) est donnée. Vous devrez fusionner ces deux bases de données pour mettre l'information dans une même base de données. Pour ce faire, vous devrez utiliser la fonction `merge`. Illustrez les résultats de votre modèle. 
-
-### Solution
-
-Importons d'abord les données.
-```{r}
-
-d <- read.csv("https://raw.githubusercontent.com/frousseu/ECL749/master/data/plages.csv")
-head(d)
-
-set.seed(123)
-s<-sample(c("roches","sable"),9,replace=TRUE)
-x<-data.frame(Plage=1:9,Type=s)
-write.csv(x,"plage_type.csv",row.names=FALSE)
-
-merge(d,x,by.x="plage",by.y="Plage")
-
-```
-
-Comme pour l'exercice précédent, on a une variable réponse qui correspond à un compte et qui est très asymmétrique à droite avec des valeurs de zéros.
-```{r}
-
-
-hist(d$richesse)
-range(d$richesse)
-
-```
-
-On semble également avoir des comptes effectués sur plusieurs plages. Vérifions ceci.
-
-```{r}
-
-table(d$plage)
-
-```
-
-On a cinq observations par plages et 9 plages. Il faudrait donc utiliser des modèles mixtes avec la plage en effet aléatoire. On devrait également explorer les liens entre les différentes variables. On peut inclure à la fois la richesse et les variables explicatives ce qui nous permettra d'un seul coup de vérifier la linéarité du lien avec les variables explicatives et la corrélation des variables explicatives. 
-
-```{r}
-
-plot(d[,c("richesse","exposition","hauteur")])
-
-```
-
-On remarque premièrement qu'il n'y a que trois valeurs d'exposition. On pourrait décider de traiter cette variable comme un facteur, mais puisque l'effet semble linéaire et qu'on peut s'imaginer que les valeurs représentent un gradient on pourrait décider de les traiter comme une variable numérique.
-
-```{r}
-
-m<-glmer(richesse~hauteur+exposition+(1|plage),data=d,family=poisson)
-summary(m)
-
-```
-
-On a des effets négatifs significatifs des deux variables ce qui signifie que la hauteur et l'exposition sont toutes deux associées à un moins grand nombre d'espèces. On peut visualiser l'effet de ces deux variables avec `visreg`. 
-
-```{r}
-
-par(mfrow=c(2,3))
-visreg(m,scale="linear")
-visreg(m,scale="response")
-
-```
-
-La série du haut représente les prédictions du modèle sous l'échelle de la fonction de lien *log* et la série du bas représente les prédictions du modèle à l'échelle de la réponse. Contrairement aux GLMS, il n'y a pas d'intervalles de confiance puisque la meilleure façon de les calculer est incertaine. Ceci est expliqué dans la [GLMM FAQ](https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html#testing-hypotheses). 
-
--->
-
-<!--
-
-# Atelier 6
-
-Pour cet atelier, vous apprendrez à utiliser différentes fonctions pour explorer, manipuler et mettre en forme une base données. Cette base de données contient des observations de nombres d'individus pour 3 espèces d'oiseaux (Paruline couronnée (PACO), Carouge à épaulettes (CAEP) et Moineau domestique (MODO)) soumises lors de sorties sur le terrain. À chaque fois qu'un observateur va sur le terrain, un feuillet est soumis où le nombre d'individus de chaque espèce est noté. Nous avons ces informations pour les trois espèces d'oiseaux. Ces feuillets sont rattachées à différentes cellules ayant chacune un identifiant et des coordonnées. Vous devrez également intégrer des données d'habitat associées à chacune de ces cellules. Voici le contenu de ces deux bases de données ainsi que les tâches à accomplir.
-
-# h<-read.csv("https://raw.githubusercontent.com/frousseu/ECL749/master/data/cell_milieux.csv",sep=";")
-# d<-read.csv("https://raw.githubusercontent.com/frousseu/ECL749/master/data/cell_oiseaux.csv",sep=";")
-
-
+<!-- h<-read.csv("https://raw.githubusercontent.com/frousseu/ECL749/master/data/cell_milieux.csv",sep=";") -->
+<!-- d<-read.csv("https://raw.githubusercontent.com/frousseu/ECL749/master/data/cell_oiseaux.csv",sep=";") -->
 
 <br>
 
@@ -1579,14 +1274,27 @@ tail(x,5)
 
 4) Par erreur, des valeurs de NA ont été utilisées dans certains cas lorsque le nombre d'individus rencontrés était de 0. Remplacez ces valeurs de `NA` par des 0 dans les nombres d'individus. Ici, vous aurez besoin des fonctions `ifelse` et `is.na`.
 
+Par exemple, voici une utilisation de ces deux fonctions.
+
+```{r}
+
+v<-c(1,2,3,NA)
+is.na(v)
+v<-ifelse(is.na(v),0,v)
+v
+
+```
+
 5) Illustrez pour une espèce donnée le nb d'individus vu à chaque jour. Pour ce faire, vous devrez utiliser votre date comme l'élément variant selon l'axe des X (sous le format `Date`). La date sera convertie en valeur numérique et les étiquettes s'ajusteront au format `Date`.
 
 6) Illustrez la localisation des différentes cellules dans un graphique. Vous remarquerez que les coordonnées contiennent des virgules au lieu des points. Il vous faudra donc transformer ces virgules en points avec la fonction `gsub` et ensuite transformer ce dernier résultat en valeur numérique avec la fonction `as.numeric`. Voici un exemple d'utilisation de la fonction `gsub`. Cette fonction permet de remplacer un caractère par un autre dans un vecteur de caractères.
 
 ```{r}
 
-x<-as.Date(c("2019-02-12","2019-02-13"))
-y<-gsub("-","_",x)
+x<-c("45,67","45,98")
+y<-gsub(",",".",x)
+y
+y<-as.numeric(y)
 y
 
 ```
@@ -1639,6 +1347,8 @@ head(x)
 12) Ajoutez un nouveau type de milieu (urbain) en additionnant les superficies occupées par les milieux résidentiels et les milieux commerciaux.
 
 13) Illustrez dans une même fenêtre graphique les valeurs de % de types de milieux pour chaque type. Cela correspond à la création de 4 cartes pour illustrer chaque type de milieu.
+
+<!--
 
 ### Solution
 
@@ -1835,6 +1545,314 @@ mapview(cells) # on trace les points avec différents fond de carte et on ouvre 
 
 ```
 
+
+<!--
+
+# Atelier 5
+
+ data is frogs from the DAAG package
+
+Pour cet atelier, nous nous intéresserons aux variables affectant la présence d'une espèce de grenouilles ([Southern Corroboree frog](https://en.wikipedia.org/wiki/Corroboree_frog)) retrouvée en Australie. Pour ce faire, nous avons une base de données [frogs.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/frogs.csv) avec différentes variables explicatives. Pour cet exercice, vous devrez déterminer quelles sont les variables pertinentes à utiliser pour comprendre ou prédire l'occurrence de l'espèce et vous devrez illustrer les prédictions de votre modèle à l'aide de la fonction `predict` et de graphiques ou encore en utilisant les packages [**visreg**](http://pbreheny.github.io/visreg/) ou [**ggeffects**](https://strengejacke.github.io/ggeffects/articles/introduction_plotmethod.html). Pour mieux comprendre l'utilisation de ces packages, le plus simple est de se référer à leur page web. N'oubliez pas de faire un peu d'explorations de données et de vous poser quelques questions avant de sélectionner vos variables explicatives. 
+
+<br>
+
+- **pres.abs**: 0 = espèce absente, 1 = espèce présente
+- **northing**: coordoonées nord
+- **easting**: coordonnées est
+- **altitude**: altitude en mètres
+- **distance**: distance à la population ou à la mention de présence connue la plus près
+- **NoOfPools**: nombre de mares de reproduction potentielles
+- **avrain**: quantité de pluie moyenne pendant le printemps
+- **meanmin**: température moyenne minimale pendant le printemps
+- **meanmax**: température moyenne maximale pendant le printemps
+
+<br>
+
+1) Étudiez la distribution de vos variables avec la fonction `hist` et les relations entre vos variables avec la fonction `plot` ou autres.
+
+2) Illustrez les présences/absences dans l'espace avec les coordonnées *easting* et *northing*.
+
+3) Construisez et interprétez votre modèle permettant d'expliquer la présence de l'espèce.
+
+4) Utilisez la fonction `predict` ou les packages [**visreg**](https://pbreheny.github.io/visreg/) ou [**ggeffects**](https://strengejacke.github.io/ggeffects/articles/introduction_plotmethod.html) pour illustrer les prédictions de votre modèle. Ces deux packages devraient vous faciliter la tâche par rapport à l'utilisation de `predict`.
+
+
+<!--
+
+## Solution
+
+La première étape consiste à explorer les différentes valeurs de nos variables. On peut faire cela avec la fonction `summary`. 
+
+```{r}
+
+d<-read.csv("https://raw.githubusercontent.com/frousseu/ECL749/master/data/frogs.csv",sep=";")
+summary(d)
+
+```
+
+Par la suite, il serait préférable d'inspecter les liens entre les différentes variables explicatives potentielles. On peut s'attendre à ce que certaines soient fortement corrélées (*i.e.* **meanmin** et **meanmax**). Pour illustrer toutes les paires de variables, on peut utiliser les fonctions `plot` ou `pairs` appliquées à notre jeu de données. On peut également éliminer la variable réponse et les coordonnées puisque celles-ci ne feront pas partie de nos variables explicatives. Ces trois variables se trouvent dans les 3 premières colonnes de notre tableau et on peut les éliminer en utilisant l'indexage négatif. Les coordonnées pourraient également être utilisées dans notre modèle, mais cela impliquerait que nous pensons qu'il devrait y avoir des gradients (linéaires) de probabilité de présence est-ouest ou nord-sud.
+
+```{r,fig.width=8,fig.height=7}
+
+plot(d[,-(1:3)])
+
+```
+
+À première vue, on a une corrélation très forte entre certaines variables, notamment entre l'altitude et les températures minimales et maximales. Il serait donc préférable de choisir l'une ou l'autre de ces variables pour éviter la collinéarité et la redondance dans notre modèle. On pourrait également utiliser la fonction `cor` pour calculer la corrélation entre chacune de nos paires de variables. 
+
+```{r}
+
+cor(d[,-(1:3)])
+
+```
+
+On a également une corrélation importante entre la pluie et l'altitude et la température maximale. Encore une fois, il pourrait être important de choisir l'une ou l'autre de ces variables. Bien que la température est certainement très importante pour les amphibiens, l'altitude est selon moi plus utile comme variable si l'intention est de faire de la prédiction sur la présence de l'espèce. En effet, cette variable est probablement plus facilement accessible à l'échelle du paysage comparativement à la température. 
+
+Maintenant, on peut également se poser la question quelle est la relation entre les variables explicatives et la probabilité de présence? Pour ce faire, on peut encore une fois utiliser la fonction plot avec une formule. L'utilisation du point `.` indique que nous voulons considérer toutes les variables du tableau de données.
+
+```{r,fig.width=8,fig.height=6}
+par(mfrow=c(2,3))
+plot(pres.abs~.,data=d[,-(2:3)])
+
+```
+
+Ce n'est pas si évident sur les graphiques en raison des valeurs binaires, mais il semble parfois y avoir des probabilité de présence plus élevées pour des valeurs intermédiaires de nos différentes variables environnementales. Si on y réfléchit un peu, ceci n'est pas nécessairement surprenant. Imaginons une espèce fictive ayant une aire de distribution donnée et une variable climatique comme la température moyenne annuelle. Il y aura probablement une température minimale en dessous de laquelle l'espèce ne sera jamais présente ainsi qu'une température maximale au delà de laquelle l'espèce ne sera jamais rencontrée. Si on fait des inventaires à grande échelle pour trouver cette espèce, on obtiendra probablement que l'espèce est davantage rencontrée pour des valeurs intermédiaires de température moyenne annuelle. Il est possible qu'on trouve une relation linéaire positive ou négative entre la température et la présence de l'espèce, mais si on couvre un gradient de température assez étendu, on obtiendra nécessairement que l'espèce est moins abondante ou absente pour les valeurs extrêmes de température de la superficie inventoriée. Dans notre cas, il se pourrait que notre espèce de grenouille se retrouve davantage à des altitudes intermédiaires ce qui pourrait donner lieu à une relation quadratique. Il pourrait donc être judicieux d'inclure des relations quadratiques dans notre modèle. 
+
+A *priori*, il ne me semble pas y avoir d'interactions évidentes à inclure dans le modèle. Puisque les variables climatiques sont très fortement corrélées, je ne sélectionnerais que l'altitude. Les deux autres variables me semblent toutes deux pertinentes à inclure. On s'attend à ce que le nombre de mares *NoOfPools* influence positivement la probabilité de présence. Pour ce qui est de la distance, on s'attend à la même relation. En effet, il est raisonnable de penser que plus on est près d'une présence connue, plus on risque de rencontrer l'espèce. L'effet de cette variable est plus à considérer comme étant un indicateur des conditions locales que comme une variable influençant directement la présence de l'espèce. Par exemple, on a de l'information partielle sur la présence de l'espèce dans une région donnée où on veut raffiner nos connaissances de distribution de l'espèce. Elle pourrait également être liée au potentiel de dispersion de l'espèce dans un context de méta-population.  Un modèle potentiel serait celui-ci:
+
+
+```{r}
+
+m<-glm(pres.abs~NoOfPools+distance+altitude+I(altitude^2),family="binomial",data=d)
+summary(m)
+
+```
+
+On peut voir que l'abondance de mares influence positivement la présence de l'espèce, alors que la distance à une présence connue a un effet négatif sur la probabilité de présence de l'espèce. Du côté de l'altitude, il est très difficile de décrire quel est l'effet sur la probabilité de présence sans utiliser de graphiques. On peut toutefois dire que l'effet quadratique semble justifié comme en témoigne la valeur du coefficient du terme quadratique qui est significativement différent de 0. Remarquez l'utilisation de la fonction `I` qui facilite la formulation du modèle et qui permet d'indiquer de la variable altitude est à la base des deux termes (linéaires et quadratiques). Cela peut nous éviter d'avoir à calculer plus de valeurs lorsque nous utiliserons la fonction `predict`. 
+
+Visualisons cet effet avec la fonction `predict`. En premier, on crée un `data.frame` avec des valeurs que nous allons soumettre à notre modèle. Pour ce faire, on couvre l'étendue de nos valeurs d'altitude et on fixe les autres variables à leur valeur moyenne.
+
+```{r,fig.width=8,fig.height=6}
+
+# on fait varier l'altitude de la valeur min à la valeur max par bond de 10
+alt<-seq(min(d$altitude),max(d$altitude),by=10) 
+
+# on crée un newdata avec les autres variables fixées à leur valeur moyenne
+dat<-data.frame(altitude=alt,NoOfPools=mean(d$NoOfPools),distance=mean(d$distance)) 
+
+# on sort les prédictions du modèle en précisant que nous les voulons sous l'échelle de notre réponse
+p<-predict(m,newdata=dat,type="response")
+
+# on illustre les résultats
+plot(d$altitude,d$pres.abs)
+lines(alt,p)
+
+```
+
+La probabilité de présence semble atteindre un pic aux alentours de 1400m. Il faut toutefois rester prudent dans l'interprétation précise de ces valeurs, car nous n'avons pas d'intervalles de confiance autour de ces courbes. On pourrait les ajouter en utilisant l'argument `se.fit` de `predict`, mais cela demanderait un peu plus de travail. Nous n'avons d'ailleurs pas encore visualisé l'effet de nos autres variables. Il faudrait produire ces graphiques pour chacune des variables. Il serait possible d'optimiser cette tâche en généralisant le code de prédictions, mais pour l'instant ceci donnerait un code un peu plus difficile à suivre. 
+
+
+Pour faciliter la visualisation des résultats, nous pouvons faire appel au package *visreg* qui s'occupe de la majeure partie du travail. Les deux premières pages vous indiquent de façon assez simple comment créer des graphiques de visualisation d'un modèle linéaire et même comment visualiser une interaction! Le package a même un [site web](http://pbreheny.github.io/visreg/index.html) pour décrire les fonctionnalités. Il y a notamment une section sur les [GLM](http://pbreheny.github.io/visreg/glm.html). Pour ce package, l'argument qui permet de spécifier que l'on veut notre prédiction sous l'échelle de la réponse s'appelle `scale` contrairement à `type` pour la fonction `predict`.
+
+```{r,fig.width=8,fig.height=6}
+library(visreg)
+
+par(mfrow=c(2,2),mar=c(4,3,1,1))
+visreg(m,scale="response",ylim=0:1)
+
+```
+
+Certains ont utilisé les coordonnées comme variables explicatives dans leur modèle. Ceci n'est pas nécessairement mauvais, mais cela mérite une bonne réflexion. Est-ce que la relation entre la présence et les coordonnées est linéaire ou est-elle plus complexe? Est-ce que la relation entre les coordonnées et la probabilité de présence pourrait servir à prédire la présence de l'espèce dans d'autres régions? Probablement pas. Si le but est de prédire la présence de l'espèce seulement à l'intérieur de la zone étudiée, les coordonnées pourraient être utilisées. Cependant, il faudrait s'assurer que la relation est linéaire, ce qui serait assez suprenant. Si c'est le cas, il faudrait plutôt se demander s'il n'y a pas une ou des variables non prises en compte qui pourraient créer un tel gradient de probabilité de présence dans l'aire d'étude. Si on s'intéresse à comprendre l'influence des variables environnementales sur l'occurence des grenouilles à l'extérieur de la zone étudiée, la relation observée avec les coordonnées devient probablement inutile. 
+
+Malheureusement, ou plutôt heureusement, il n'y a pas nécessairement une meilleure ou une unique réponse à ce défi d'analyse de données. La mienne n'est qu'une suggestion et vous avez peut être de meilleures suggestions. L'important est de justifier nos choix et de prendre en considération les éléments les plus importants. Un élément important que j'ai ignoré est la potentielle corrélation spatiale entre les observations. Par exemple, est-ce que les observations près les unes des autres peuvent être considérées comme étant indépendantes? Aussi, est-ce qu'il y aurait d'autres variables à prendre en compte dans cette analyse? Comment les inventaires ont été réalisés? Est-ce qu'il faudrait tenir compte de la probabilité de détection de l'espèce? 
+
+-->
+
+<!--
+
+# Atelier 6
+
+## Les parasites chez le Colibri à gorge rubis
+
+Pour cet exercice, vous étudierez ce qui influence la charge parasitaire chez le Colibri à gorge rubis (*Archilochus colubris*), une espèce retrouvée au Québec. Dans la base de données [colibris.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/colibris.csv), vous retrouverez différentes variables comme le sexe (4 = mâle, 5 = femelle) et l'âge (1 = adulte, 2 = jeune). L'exercice consiste à déterminer quelles sont les variables qui affectent la quantité de parasites. Pour interpréter vos résultats, illustrez graphiquement votre modèle. Obtenez-vous des conclusions semblables si vous faites l'analyse en présence/absence? Pour transformer les valeurs en présence/absence, vous pouvez utiliser la fonction `ifelse`.
+
+### Solution
+
+On importe d'abord les données et on affiche notre `data.frame` et un petit résumé de ce qu'il contient.
+```{r}
+
+d <- read.csv("https://raw.githubusercontent.com/frousseu/ECL749/master/data/colibris.csv")
+head(d)
+summary(d)
+
+```
+
+On voit quelques zéros dans la colonne *parasites* et on peut donc se demander à quel type de données nous avons à faire. On peut illustrer les valeurs de *parasites* avec un histogramme.
+```{r}
+
+hist(d$parasites)
+
+```
+
+On a ici un nombre d'individus, avec des valeurs allant de 0 à environ 40. Il faudra donc probablement modéliser l'abondance de parasites avec une distribution de Poisson. On a également plusieurs colibris dans la base de données. Une deuxième question à se poser est est-ce qu'on a plusieurs comptes de parasites pour un même individus? On peut vérifier ceci en utilisant la fonction `table` qui va comptabiliser le nombre de fois que chaque numéro de bague apparaît dans la base de données. En utilisant une seconde fois la fonction `table`, on compte le nombre de fois où chacune de ces valeurs est observée.
+
+```{r}
+
+table(table(d$bague))
+
+```
+
+On voit que pour la majorité des colibris, on a une seule valeur, mais certains ont plusieurs valeurs (2, 3 ou 4 observations). On devrait donc par défaut se diriger vers les modèles mixtes pour traiter l'individu comme un effet aléatoire puisque les comptes de parasites sur un même individu ne sont pas indépendants. Par contre, puisque la majorité des individus ont une seule observation, cela peut créer des problèmes dans le cadre des modèles mixtes et on pourrait plutôt opter pour effectuer une moyenne ou pour une sélection aléatoire d'une seule observation pour les individus ayant plusieurs observations. On pourrait également comparer les deux approches et déterminer si nos conclusions par rapport à l'effet de nos variables sont fortement affectées par notre méthode d'analyse. Si ce n'est pas le cas, on peut choisir la méthode qui nous convient en justifiant notre choix et en exposant le fait que nos conclusions ne sont pas affectées par la méthode choisie.
+
+On devrait également explorer les liens entre nos variables explicatives. On peut faire ceci avec des `boxplot` ou des graphiques standards.
+
+```{r}
+
+par(mfrow=c(1,2))
+boxplot(masse~age,data=d)
+boxplot(masse~sexe,data=d)
+table(d$sexe,d$age)
+
+```
+
+Les femelles sont plus massives que les mâles et les adultes semblent également plus massifs que les jeunes. Cependant, il semble y avoir une disproportion de mâles par rapport aux femelles chez les jeunes.
+
+Avant de lancer nos modèles, il faut transformer le sexe et l'âge en facteur étant donné que ces deux variables sont représentées par des valeurs numériques.
+
+```{r}
+
+d$sexe<-as.factor(d$sexe)
+d$age<-as.factor(d$age)
+
+library(lme4)
+
+m1<-glm(parasites~sexe+age+masse,data=d,family=poisson)
+m2<-glmer(parasites~sexe+age+masse+(1|bague),data=d,family=poisson)
+
+summary(m1)
+summary(m2)
+
+```
+
+On obtient des résultats bien différents selon nos deux modèles. On a un effet négatif de la masse, mais pour l'âge et le sexe nos conclusions sont très différentes. Puisque nous avons une seule observation pour la majorité des individus, il est peut être préférable de ne pas utiliser de modèles mixtes qui requièrent plusieurs observations pour chaque niveau. 
+
+On peut visualiser les prédictions de nos modèles avec visreg et en créant une fenêtre graphique avec en haut les prédictions pour le glm et en bas les prédictions pour le modèle mixte. Remarquez que nous n'avons pas d'intervalles de confiance autour des prédictions pour le modèle mixte. La raison de ceci est expliquée dans la [GLMM FAQ](https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html#testing-hypotheses).
+
+```{r,eval=FALSE,echo=FALSE,include=FALSE}
+
+par(mfrow=c(2,3))
+visreg(m1,scale="response",ylim=c(0,8))
+visreg(m2,"sexe",scale="response",ylim=c(0,8))
+visreg(m2,"age",scale="response",ylim=c(0,8))
+visreg(m2,"masse",scale="response",ylim=c(0,8))
+
+```
+
+On pourrait opter pour un GLM et ne prendre qu'une seule observation aléatoirement par individu. On peut faire ceci en utilisant une combinaison de `split`, `lapply` et `sample`. Je vous laisse étudier le code en vous donnant quelques indications sur chaque étape.
+
+```{r}
+
+s<-split(d,d$bague) # on sépare les données par individu dans une liste
+l<-lapply(s,function(i){ # on applique une fonction sur chaque data.frame de la liste
+   if(nrow(i)==1){ # on prend la ligne s'il n'y en qu'une
+     i
+   }else{
+     i[sample(1:nrow(i),1),] # ou on choisit aléatoirement une ligne s'il y en a plusieurs
+   } 
+})
+d2<-do.call("rbind",l) # on fusionne les différents subsets de la liste ensemble dans un nouveau data.frame
+
+```
+
+Dans l'objet `d2`, on a maintenant une seule ligne par individu.
+
+```{r}
+
+m1sub<-glm(parasites~sexe+age+masse,data=d2,family=poisson)
+summary(m1sub)
+
+```
+
+Nos conclusions pour ce glm modifié sont très similaires. On conclut donc que les mâles et les jeunes sont davantage infectés par les parasites. Plusieurs interprétations sont possibles, mais aucune ne me semble évidente et il faudrait chercher dans la littérature pour valider ces interprétations. Quant à la masse, elle a un effet négatif sur le nombre de parasites. Ceci pourrait s'expliquer par le fait que les individus plus massifs sont aussi en meilleure santé et donc plus aptes à se défendre contre les parasites.
+
+```{r}
+
+par(mfrow=c(2,2))
+visreg(m1sub,scale="response",ylim=c(0,8))
+
+```
+
+
+## La richesse spécifique le long du littoral
+
+Ici, on s'intéresse aux variables influençant le nb d'espèces rencontrées le long du littoral. On a la hauteur de la station d'échantillonnage par rapport à la hauteur moyenne de la marée ainsi que l'exposition qui est quantifiée à l'aide d'un index construit à partir de la "sévérité" des conditions de la station (force des vagues, longueur de la zone d'impact, pente, substrat allant de fin à grossier). La base de données se trouve à cet endroit [plages.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/plages.csv). Une autre base de données [plage_type.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/plage_type.csv) est également disponible où le type de plage (roches ou sable) est donnée. Vous devrez fusionner ces deux bases de données pour mettre l'information dans une même base de données. Pour ce faire, vous devrez utiliser la fonction `merge`. Illustrez les résultats de votre modèle. 
+
+### Solution
+
+Importons d'abord les données.
+```{r}
+
+d <- read.csv("https://raw.githubusercontent.com/frousseu/ECL749/master/data/plages.csv")
+head(d)
+
+set.seed(123)
+s<-sample(c("roches","sable"),9,replace=TRUE)
+x<-data.frame(Plage=1:9,Type=s)
+write.csv(x,"plage_type.csv",row.names=FALSE)
+
+merge(d,x,by.x="plage",by.y="Plage")
+
+```
+
+Comme pour l'exercice précédent, on a une variable réponse qui correspond à un compte et qui est très asymmétrique à droite avec des valeurs de zéros.
+```{r}
+
+
+hist(d$richesse)
+range(d$richesse)
+
+```
+
+On semble également avoir des comptes effectués sur plusieurs plages. Vérifions ceci.
+
+```{r}
+
+table(d$plage)
+
+```
+
+On a cinq observations par plages et 9 plages. Il faudrait donc utiliser des modèles mixtes avec la plage en effet aléatoire. On devrait également explorer les liens entre les différentes variables. On peut inclure à la fois la richesse et les variables explicatives ce qui nous permettra d'un seul coup de vérifier la linéarité du lien avec les variables explicatives et la corrélation des variables explicatives. 
+
+```{r}
+
+plot(d[,c("richesse","exposition","hauteur")])
+
+```
+
+On remarque premièrement qu'il n'y a que trois valeurs d'exposition. On pourrait décider de traiter cette variable comme un facteur, mais puisque l'effet semble linéaire et qu'on peut s'imaginer que les valeurs représentent un gradient on pourrait décider de les traiter comme une variable numérique.
+
+```{r}
+
+m<-glmer(richesse~hauteur+exposition+(1|plage),data=d,family=poisson)
+summary(m)
+
+```
+
+On a des effets négatifs significatifs des deux variables ce qui signifie que la hauteur et l'exposition sont toutes deux associées à un moins grand nombre d'espèces. On peut visualiser l'effet de ces deux variables avec `visreg`. 
+
+```{r}
+
+par(mfrow=c(2,3))
+visreg(m,scale="linear")
+visreg(m,scale="response")
+
+```
+
+La série du haut représente les prédictions du modèle sous l'échelle de la fonction de lien *log* et la série du bas représente les prédictions du modèle à l'échelle de la réponse. Contrairement aux GLMS, il n'y a pas d'intervalles de confiance puisque la meilleure façon de les calculer est incertaine. Ceci est expliqué dans la [GLMM FAQ](https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html#testing-hypotheses). 
+
+-->
+
+<!--
 
 # Atelier 7
 
