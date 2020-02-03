@@ -1348,8 +1348,6 @@ head(x)
 
 13) Illustrez dans une même fenêtre graphique les valeurs de % de types de milieux pour chaque type. Cela correspond à la création de 4 cartes pour illustrer chaque type de milieu.
 
-<!--
-
 ### Solution
 
 1)
