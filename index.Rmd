@@ -1543,12 +1543,9 @@ mapview(cells) # on trace les points avec différents fond de carte et on ouvre 
 
 ```
 
-
-<!--
-
 # Atelier 5
 
- data is frogs from the DAAG package
+<!-- data is frogs from the DAAG package -->
 
 Pour cet atelier, nous nous intéresserons aux variables affectant la présence d'une espèce de grenouilles ([Southern Corroboree frog](https://en.wikipedia.org/wiki/Corroboree_frog)) retrouvée en Australie. Pour ce faire, nous avons une base de données [frogs.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/frogs.csv) avec différentes variables explicatives. Pour cet exercice, vous devrez déterminer quelles sont les variables pertinentes à utiliser pour comprendre ou prédire l'occurrence de l'espèce et vous devrez illustrer les prédictions de votre modèle à l'aide de la fonction `predict` et de graphiques ou encore en utilisant les packages [**visreg**](http://pbreheny.github.io/visreg/) ou [**ggeffects**](https://strengejacke.github.io/ggeffects/articles/introduction_plotmethod.html). Pour mieux comprendre l'utilisation de ces packages, le plus simple est de se référer à leur page web. N'oubliez pas de faire un peu d'explorations de données et de vous poser quelques questions avant de sélectionner vos variables explicatives. 
 
@@ -1559,7 +1556,7 @@ Pour cet atelier, nous nous intéresserons aux variables affectant la présence 
 - **easting**: coordonnées est
 - **altitude**: altitude en mètres
 - **distance**: distance à la population ou à la mention de présence connue la plus près
-- **NoOfPools**: nombre de mares de reproduction potentielles
+- **NoOfPools**: nombre de mares de reproduction potentielles dans le secteur immédiat (dans un certain rayon)
 - **avrain**: quantité de pluie moyenne pendant le printemps
 - **meanmin**: température moyenne minimale pendant le printemps
 - **meanmax**: température moyenne maximale pendant le printemps
@@ -1572,7 +1569,7 @@ Pour cet atelier, nous nous intéresserons aux variables affectant la présence 
 
 3) Construisez et interprétez votre modèle permettant d'expliquer la présence de l'espèce.
 
-4) Utilisez la fonction `predict` ou les packages [**visreg**](https://pbreheny.github.io/visreg/) ou [**ggeffects**](https://strengejacke.github.io/ggeffects/articles/introduction_plotmethod.html) pour illustrer les prédictions de votre modèle. Ces deux packages devraient vous faciliter la tâche par rapport à l'utilisation de `predict`.
+4) Utilisez la fonction `predict` ou les packages [**visreg**](https://pbreheny.github.io/visreg/) ou [**ggeffects**](https://strengejacke.github.io/ggeffects/articles/introduction_plotmethod.html) pour illustrer les prédictions de votre modèle. Ces deux packages devraient vous faciliter la tâche comparativement à l'utilisation de `predict`.
 
 
 <!--
