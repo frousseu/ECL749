@@ -118,7 +118,7 @@ h5 {
 </style>
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo=TRUE, tidy=TRUE, error=TRUE)
+knitr::opts_chunk$set(echo=TRUE, tidy=TRUE, error=TRUE, fig.align="center")
 ```
 
 <br>
@@ -1666,7 +1666,6 @@ Malheureusement, ou plutôt heureusement, il n'y a pas nécessairement une meill
 
 Pour cet exercice, vous étudierez ce qui influence la charge parasitaire chez le Colibri à gorge rubis (*Archilochus colubris*), une espèce retrouvée au Québec. Dans la base de données [colibris.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/colibris.csv), vous retrouverez différentes variables comme le sexe (4 = mâle, 5 = femelle) et l'âge (1 = adulte, 2 = jeune). L'exercice consiste à déterminer quelles sont les variables qui affectent la quantité de parasites. Pour interpréter vos résultats, illustrez graphiquement votre modèle. Obtenez-vous des conclusions semblables si vous faites l'analyse en présence/absence? Pour transformer les valeurs en présence/absence, vous pouvez utiliser la fonction `ifelse`.
 
-<!--
 
 ### Solution
 
@@ -1732,6 +1731,7 @@ On peut visualiser les prédictions de nos modèles avec visreg et en créant un
 
 ```{r,eval=FALSE,echo=FALSE,include=FALSE}
 
+library(visreg)
 par(mfrow=c(2,3))
 visreg(m1,scale="response",ylim=c(0,8))
 visreg(m2,"sexe",scale="response",ylim=c(0,8))
@@ -1774,18 +1774,11 @@ visreg(m1sub,scale="response",ylim=c(0,8))
 
 ```
 
--->
+
 
 ## La richesse spécifique le long du littoral
 
-Ici, on s'intéresse aux variables influençant le nb d'espèces rencontrées le long du littoral. On a la hauteur de la station d'échantillonnage par rapport à la hauteur moyenne de la marée ainsi que l'exposition qui est quantifiée à l'aide d'un index construit à partir de la "sévérité" des conditions de la station (force des vagues, longueur de la zone d'impact, pente, substrat allant de fin à grossier). La base de données se trouve à cet endroit [plages.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/plages.csv). Une autre base de données [plage_type.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/plage_type.csv) est également disponible où le type de plage (roches ou sable) est donnée. Vous devrez fusionner ces deux bases de données pour mettre l'information dans une même base de données. Pour ce faire, vous devrez utiliser la fonction `merge`. Illustrez les résultats de votre modèle. 
-
-<!--
-
-### Solution
-
-Importons d'abord les données.
-```{r}
+```{r, eval=FALSE, include=FALSE}
 
 d <- read.csv("https://raw.githubusercontent.com/frousseu/ECL749/master/data/plages.csv")
 head(d)
@@ -1799,16 +1792,36 @@ merge(d,x,by.x="plage",by.y="Plage")
 
 ```
 
-Comme pour l'exercice précédent, on a une variable réponse qui correspond à un compte et qui est très asymmétrique à droite avec des valeurs de zéros.
+Ici, on s'intéresse aux variables influençant le nb d'espèces rencontrées le long du littoral. On a la hauteur de la station d'échantillonnage par rapport à la hauteur moyenne de la marée ainsi que l'exposition qui est quantifiée à l'aide d'un index construit à partir de la "sévérité" des conditions de la station (force des vagues, longueur de la zone d'impact, pente, substrat allant de fin à grossier). La base de données se trouve à cet endroit [plages.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/plages.csv). Une autre base de données [plage_type.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/plage_type.csv) est également disponible où le type de plage (roches ou sable) est donnée. Vous devrez fusionner ces deux bases de données pour mettre l'information dans une même base de données. Pour ce faire, vous devrez utiliser la fonction `merge`. Illustrez les résultats de votre modèle. 
+
+
+### Solution
+
+Importons d'abord les données.
 ```{r}
 
+d<-read.csv("https://raw.githubusercontent.com/frousseu/ECL749/master/data/plages.csv")
+h<-read.csv("https://raw.githubusercontent.com/frousseu/ECL749/master/data/plage_type.csv")
+head(d)
+head(h)
+```
+
+Nous pouvons utiliser la fonction `merge` pour fusionner les données d'habitat ou de types de plages aux données d'observation de richesse. Mais attention, les colonnes avec les identifiants de plages diffèrent entre les deux jeux de données (*plage* et *Plage*). Il faut donc spécifier à `merge` quelles colonnes utiliser pour la fusion entre les deux jeux de données. Si on ne le fait pas, le résultat de `merge` contiendra les deux colonnes et les associations ne se feront pas correctement. 
+
+```{r}
+d<-merge(d,h,by.x="plage",by.y="Plage")
+```
+
+
+Comme pour l'exercice précédent, on a une variable réponse qui correspond à un compte et qui est très asymmétrique à droite avec des valeurs de zéros.
+```{r}
 
 hist(d$richesse)
 range(d$richesse)
 
 ```
 
-On semble également avoir des comptes effectués sur plusieurs plages. Vérifions ceci.
+On semble également avoir des comptes effectués sur plusieurs plages. Vérifions ceci avec la fonction `table`.
 
 ```{r}
 
@@ -1816,7 +1829,7 @@ table(d$plage)
 
 ```
 
-On a cinq observations par plages et 9 plages. Il faudrait donc utiliser des modèles mixtes avec la plage en effet aléatoire. On devrait également explorer les liens entre les différentes variables. On peut inclure à la fois la richesse et les variables explicatives ce qui nous permettra d'un seul coup de vérifier la linéarité du lien avec les variables explicatives et la corrélation des variables explicatives. 
+On a cinq observations par plages et 9 plages. Idéalement, il faudrait utiliser des modèles mixtes avec la plage en effet aléatoire. On devrait également explorer les liens entre les différentes variables. On peut inclure à la fois la richesse et les variables explicatives ce qui nous permettra d'un seul coup de vérifier le lien apparent avec les variables explicatives et la corrélation entre les variables explicatives. 
 
 ```{r}
 
@@ -1824,11 +1837,12 @@ plot(d[,c("richesse","exposition","hauteur")])
 
 ```
 
-On remarque premièrement qu'il n'y a que trois valeurs d'exposition. On pourrait décider de traiter cette variable comme un facteur, mais puisque l'effet semble linéaire et qu'on peut s'imaginer que les valeurs représentent un gradient on pourrait décider de les traiter comme une variable numérique.
+On remarque premièrement qu'il n'y a que trois valeurs d'exposition. On pourrait décider de traiter cette variable comme un facteur, mais puisque l'effet semble linéaire et qu'on peut s'imaginer que les valeurs représentent un gradient on pourrait également décider de les traiter comme une variable numérique.
 
 ```{r}
 
-m<-glmer(richesse~hauteur+exposition+(1|plage),data=d,family=poisson)
+library(lme4)
+m<-glmer(richesse~hauteur+exposition+Type+(1|plage),data=d,family=poisson)
 summary(m)
 
 ```
@@ -1837,15 +1851,95 @@ On a des effets négatifs significatifs des deux variables ce qui signifie que l
 
 ```{r}
 
+library(visreg)
 par(mfrow=c(2,3))
 visreg(m,scale="linear")
 visreg(m,scale="response")
 
 ```
 
-La série du haut représente les prédictions du modèle sous l'échelle de la fonction de lien *log* et la série du bas représente les prédictions du modèle à l'échelle de la réponse. Contrairement aux GLMS, il n'y a pas d'intervalles de confiance puisque la meilleure façon de les calculer est incertaine. Ceci est expliqué dans la [GLMM FAQ](https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html#testing-hypotheses). 
+La série du haut représente les prédictions du modèle sous l'échelle de la fonction de lien *log* et la série du bas représente les prédictions du modèle à l'échelle de la réponse. Contrairement aux GLMs, il n'y a pas d'intervalles de confiance puisque la meilleure façon de les calculer est incertaine. Ceci est expliqué dans la [GLMM FAQ](https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html#testing-hypotheses). 
 
--->
+En utilisant le package **ggeffects** plutôt que visreg, on peut obtenir des intervalles de confiance approximatifs qui nous aident un peu plus à ce faire une idée de l'incertitude que nous avons dans l'estimation de nos effets. Ce package permet également un peu plus de flexibilité dans la visualisation des modèles comparativement à visreg. En combinaison avec le package [**patchwork**](https://patchwork.data-imaginist.com/index.html), il est facile d'organiser les différents graphiques dans une même fenêtre.
+
+```{r, message=FALSE, warning=FALSE}
+
+library(ggeffects)
+
+g1<-ggpredict(m,terms=c("hauteur"))
+g1<-plot(g1,rawdata=TRUE)
+g2<-ggpredict(m,terms=c("exposition[n=50]"))
+g2<-plot(g2,rawdata=TRUE)
+g3<-ggpredict(m,terms=c("Type"))
+g3<-plot(g3,rawdata=FALSE)
+
+library(patchwork)
+
+g1+g2+g3+plot_layout(ncol=2)
+
+```
+
+
+```{r, results="asis",eval=FALSE, include=FALSE}
+
+library(stargazer)
+
+stargazer(m,type="html",omit.table.layout="sn")
+
+```
+
+
+# Atelier 7
+
+Pour cet atelier, vous vous pratiquerez à présenter des méthodes et des résultats. Vous devrez effectuer l'analyse de deux bases de données, présenter les méthodes utilisées et présenter les résultats de vos analyses. Puisque vous n'avez pas énormément d'informations sur la façon dont les données ont été récoltés, il faudra surtout vous concentrer sur les méthodes statistiques qui ont été utilisées pour effectuer vos analyses. 
+
+<br>
+
+## Germination de différentes espèces dans la Caatinga, Brésil.
+
+<br>
+
+```{r, eval=FALSE, include=FALSE}
+
+a<-read.csv("C:/Users/rouf1703/Documents/UdeS/Consultation/SCôté/tous-germsurv-Table 1.csv")
+write.csv(a[,c("esp","traitement","substrat","frequence","germ")],"C:/Users/rouf1703/Documents/UdeS/Consultation/SCôté/germination.csv",row.names=FALSE,quote=FALSE)
+
+d<-read.csv("https://raw.githubusercontent.com/frousseu/ECL749/master/data/germination.csv")
+b<-glm(germ~traitement*esp,data=d,family=binomial)
+
+```
+
+Une des objectifs du projet consistait à déterminer quelles sont les meilleures méthodes pour favoriser la germination de différentes espèces de plantes pouvant servir à la restauration des forêts-galeries de la Catingaa. La base de données [germination](https://raw.githubusercontent.com/frousseu/ECL749/master/data/germination.csv) contient des observations sur la germination de graînes de différentes espèces de plantes en fonction de deux traitements. Ces données ont été récoltées dans la Catingaa au Brésil lors d'un stage d'une étudiante à l'été 2019. Le premier traitement est le type de **substrat** utilisé qui est soit du sable (S), soit du sable amendé avec une certaine quantité de fumier (A). Le deuxième traitement est la **fréquence** d'arrosage qui est soit à chaque jour (un), soit au trois jours (trois). La colonne **traitement** combine ces deux traitements en 4 possibilités (A1, A3, S1, S3). La colonne **esp** contient le nom vernaculaire de l'espèce et **germ** indique si la graîne a germé (1) ou pas (0). 
+
+
+## Effet de lumières dissuasives sur les taux de visites par les prédateurs du mouton, Argentine.
+
+<br>
+
+Dans ce projet, un des objectifs était de déterminer l'efficacité de lumières dissuasives pour réduire la prédation du bétail par les prédateurs (renards, cougars). Pour ce faire, des caméras-trappes ont été installées dans un certain nombre de champs afin d'enregistrer la présence de prédateurs. Le nombre de visites de prédateurs enregistrées en présence ou en absence de lumières dissuasives par chaque caméra a été compilé afin de déterminer si les lumières ont un effet négatif sur le nombre de visites par les prédateurs. Dans la base de données [lumiere_predateur](https://raw.githubusercontent.com/frousseu/ECL749/master/data/lumiere_predateur.csv), vous avez la présence (1) ou l'absence (0) de lumières, l'identifiant du **champ**, l'identifiant de la **camera**, le nombre de visites par des prédateurs (**nbpred**) et le nombre de jours avec ou sans lumière (**nbjour**). Ces données ont été récoltés à l'été 2019 par un étudiant en stage.
+
+```{r, eval=FALSE, include=FALSE}
+
+ratioc <- as.data.frame(read_excel("C:/Users/rouf1703/Documents/UdeS/Consultation/ALehnebach/ratioc.xlsx"))
+ratioc$lumiere<-as.factor(ratioc$Luces)
+ratioc$champ<-substr(ratioc$Camara,1,1)
+ratioc$camera<-substr(ratioc$Camara,1,2)
+ratioc$nbpred<-ratioc$Pred
+ratioc$nbjour<-ratioc$dia
+
+write.csv(ratioc[,c("champ","camera","lumiere","nbpred","nbjour")],"C:/Users/rouf1703/Documents/UdeS/Consultation/ALehnebach/lumiere_predateur.csv",row.names=FALSE,quote=FALSE)
+
+d<-read.csv("https://raw.githubusercontent.com/frousseu/ECL749/master/data/lumiere_predateur.csv")
+
+m<-glmer(pred~lumiere+offset(dia)+(1|champ),data=Ratiocampo,family=poisson)
+m<-glmer(nbpred~lumiere+(1|champ),data=d,family=poisson)
+summary(m)
+
+
+```
+
+
+
 
 <!--
 
@@ -1981,7 +2075,7 @@ Le travail de session se déroulera en deux temps. La première partie (20%) con
 
 ## Partie I
 
-La première partie (20%) devra comprendre la méthodologie proposée pour récolter et analyser les données. Plus spécifiquement, vous devrez présenter un plan d’échantillonnage en plus d’indiquer quelles mesures seront prises sur le terrain. Une ou des méthodes d'analyses statistiques devront également être proposées. Cette partie du travail devra être remise par courriel au plus tard le **mardi 25 février à 17h**. 
+La première partie (20%) devra comprendre la méthodologie proposée pour récolter et analyser les données. Plus spécifiquement, vous devrez présenter un plan d’échantillonnage en plus d’indiquer quelles mesures seront prises sur le terrain. Une ou des méthodes d'analyses statistiques devront également être proposées. Cette partie du travail devra être remise par courriel au plus tard le **mardi 25 février à 17h**. Pour ceux désirant utiliser leur propre jeu de données, vous devrez énoncer vous même votre propre mise en situation et m'en faire part d'ici mardi le 12 février à 17h par courriel ou en personne en me montrant également la base de données qui sera utilisée (ou un extrait).
 
 Comment-allez vous répondre à cette mise en situation? Quel sera votre plan d'échantillonnage? Quelles seront les variables que vous utiliserez? Quelles méthodes envisagez-vous utiliser pour analyser les données récoltées? La méthodologie proposée devrait pouvoir être exposée en un maximum de **2 pages**. Puisque certains éléments sont inconnus, il sera bien sûr impossible de détailler tous les aspects de votre méthodologie. Le travail proposé ici a surtout pour objectif de vous faire réfléchir à un design d'étude vous permettant de répondre à une question de nature écologique. 
 
@@ -2004,7 +2098,7 @@ biologique.
 mettre en contexte la problématique et/ou interpréter les résultats.
 - **Annexe** : Code R (propre!) utilisé pour effectuer les manipulations de données, les analyses statistiques et les graphiques. Ce code devrait contenir toutes les lignes de programmation permettant de reproduire votre travail à partir de votre base de données jusqu'aux graphiques présentés. Les lignes de codes inutiles, exploratoires ou générant des erreurs devraient être éliminées. Les parties plus compliquées de votre code devraient inclure des commentaires expliquant ce qui est effectué.
 
-Pour ceux désirant utiliser leur propre jeu de données, vous devrez énoncer vous même votre propre mise en situation et m'en faire part au plus tard au cours du mardi 26 février par courriel ou en personne en me montrant également la base de données qui sera utilisée (ou un extrait). Votre travail au complet ne devrait pas prendre plus de **10 pages**. Ce travail est à remettre au plus tard le **vendredi 20 mars à 17h**.
+Votre travail au complet ne devrait pas prendre plus de **10 pages**. Ce travail est à remettre au plus tard le **vendredi 20 mars à 17h**.
 
 <!-- 
 
@@ -2074,7 +2168,6 @@ Ces données ont été récoltées dans différentes sections de sites dans les 
 Quel est l'effet de la fragmentation forestière sur la richesse aviaire en milieu tropical?
 
 <!--
-
 Ces données ont été récoltées dans différents sites fragmentés d'une région du Costa Rica. Le nombre d'espèces d'oiseaux à l'intérieur de chaque fragment a été évalué en visitant chaque parcelle pour un minimum de 4h chacune et jusqu'à ce que le nb de nouvelles espèces rencontrées n'augmente pas pendant une période de deux heures. Les visites ont été effectuées pendant la période de reproduction et à des moments propices (*i.e.* tôt le matin, conditions climatiques clémentes) pour l'observation. Voici la base de données [fragmentation_aviaire](https://raw.githubusercontent.com/frousseu/ECL749/master/data/fragmentation_aviaire.csv) et une description des variables:
 
 - **alpha**: nb d'espèces d'oiseaux répertoriées
