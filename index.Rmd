@@ -1895,23 +1895,6 @@ Pour cet atelier, vous vous pratiquerez à présenter des méthodes et des résu
 
 <br>
 
-## Germination de différentes espèces dans la Caatinga, Brésil.
-
-<br>
-
-```{r, eval=FALSE, include=FALSE}
-
-a<-read.csv("C:/Users/rouf1703/Documents/UdeS/Consultation/SCôté/tous-germsurv-Table 1.csv")
-write.csv(a[,c("esp","traitement","substrat","frequence","germ")],"C:/Users/rouf1703/Documents/UdeS/Consultation/SCôté/germination.csv",row.names=FALSE,quote=FALSE)
-
-d<-read.csv("https://raw.githubusercontent.com/frousseu/ECL749/master/data/germination.csv")
-b<-glm(germ~traitement*esp,data=d,family=binomial)
-
-```
-
-Une des objectifs du projet consistait à déterminer quelles sont les meilleures méthodes pour favoriser la germination de différentes espèces de plantes pouvant servir à la restauration des forêts-galeries de la Catingaa. La base de données [germination](https://raw.githubusercontent.com/frousseu/ECL749/master/data/germination.csv) contient des observations sur la germination de graînes de différentes espèces de plantes en fonction de deux traitements. Ces données ont été récoltées dans la Catingaa au Brésil lors d'un stage d'une étudiante à l'été 2019. Le premier traitement est le type de **substrat** utilisé qui est soit du sable (S), soit du sable amendé avec une certaine quantité de fumier (A). Le deuxième traitement est la **fréquence** d'arrosage qui est soit à chaque jour (un), soit au trois jours (trois). La colonne **traitement** combine ces deux traitements en 4 possibilités (A1, A3, S1, S3). La colonne **esp** contient le nom vernaculaire de l'espèce et **germ** indique si la graîne a germé (1) ou pas (0). 
-
-
 ## Effet de lumières dissuasives sur les taux de visites par les prédateurs du mouton, Argentine.
 
 <br>
@@ -1937,6 +1920,25 @@ summary(m)
 
 
 ```
+
+
+## Germination de différentes espèces dans la Caatinga, Brésil.
+
+<br>
+
+```{r, eval=FALSE, include=FALSE}
+
+a<-read.csv("C:/Users/rouf1703/Documents/UdeS/Consultation/SCôté/tous-germsurv-Table 1.csv")
+write.csv(a[,c("esp","traitement","substrat","frequence","germ")],"C:/Users/rouf1703/Documents/UdeS/Consultation/SCôté/germination.csv",row.names=FALSE,quote=FALSE)
+
+d<-read.csv("https://raw.githubusercontent.com/frousseu/ECL749/master/data/germination.csv")
+b<-glm(germ~traitement*esp,data=d,family=binomial)
+
+```
+
+Une des objectifs du projet consistait à déterminer quelles sont les meilleures méthodes pour favoriser la germination de différentes espèces de plantes pouvant servir à la restauration des forêts-galeries de la Caatinga. La base de données [germination](https://raw.githubusercontent.com/frousseu/ECL749/master/data/germination.csv) contient des observations sur la germination de graînes de différentes espèces de plantes en fonction de deux traitements. Le premier traitement est le type de **substrat** utilisé qui est soit du sable (S), soit du sable amendé avec une certaine quantité de fumier (A). Le deuxième traitement est la **fréquence** d'arrosage qui est soit à chaque jour (un), soit au trois jours (trois). La colonne **traitement** combine ces deux traitements en 4 possibilités (A1, A3, S1, S3). La colonne **esp** contient le nom vernaculaire de l'espèce et **germ** indique si la graîne a germé (1) ou pas (0). Ces données ont été récoltées dans la Caatinga au Brésil lors d'un stage d'une étudiante à l'été 2019. 
+
+
 
 
 
