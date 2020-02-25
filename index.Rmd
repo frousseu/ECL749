@@ -1940,10 +1940,9 @@ Une des objectifs du projet consistait à déterminer quelles sont les meilleure
 
 
 
-# Étude de cas
+<!-- # Étude de cas -->
 
-
-```{r}
+```{r, eval=FALSE, include=FALSE}
 
 ### generate data
 
@@ -1985,7 +1984,7 @@ d<-d[,keep]
 
 
 
-```{r}
+```{r, eval=FALSE, include=FALSE}
 
 library(vegan)
 library(scales)
