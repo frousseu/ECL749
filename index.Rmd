@@ -2090,7 +2090,8 @@ Une des objectifs du projet consistait à déterminer quelles sont les meilleure
 
 ### Solution
 
-Voici le code que j'utiliserais pour analyser ces données.
+Voici le code que j'utiliserais pour analyser ces données. À noter qu'il y a moins de suppositions de bases à vérifier avec les glm binomiaux dont la variable réponse est binaire (*i.e.*. 0 ou 1, [voir ici](https://cran.r-project.org/web/packages/DHARMa/vignettes/DHARMa.html#binomial-01-data)). Dans ces cas, le point le plus important à vérifier est la linéarité du lien entre les variables explicatives quantitatives et la variable réponse. Dans notre cas, les variables explicatives sont toutes des facteurs et donc la question de la linéarité ne se pose pas, car une probabilité est estimée pour chaque niveau des facteurs.
+
 
 ```{r, fig.align="center", echo=TRUE, eval=TRUE, results="hide", fig.show="hide"}
 library(ggeffects)
@@ -2115,7 +2116,7 @@ plot(g)+
 
 #### Quoi présenter
 
-Voici ce que je présenterais concernant cette analyse dans les sections méthodes et résultats. Encore ici, cet exemple donne une bonne idée de quoi il faudrait présenter dans ces sections, mais ce n'est pas nécessairement un exemple absolu! À noter qu'il y a moins de suppositions de bases à vérifier avec les glm binomiaux dont la variable réponse est binaire (*i.e.*. 0 ou 1). Dans ces cas, le point le plus important à vérifier est la linéarité du lien entre les variables explicatives quantitatives et la variable réponse. Dans notre cas, les variables explicatives sont toutes des facteurs et donc la question de la linéarité ne se pose pas, car une probabilité est estimée pour chaque niveau des facteurs.
+Voici ce que je présenterais concernant cette analyse dans les sections méthodes et résultats. Encore ici, cet exemple donne une bonne idée de quoi il faudrait présenter dans ces sections, mais ce n'est pas nécessairement un exemple absolu! 
 
 ##### Méthodes
 
