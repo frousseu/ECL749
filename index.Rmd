@@ -1891,7 +1891,7 @@ stargazer(m,type="html",omit.table.layout="sn")
 
 # Atelier 7
 
-Pour cet atelier, vous vous pratiquerez à présenter des méthodes et des résultats. Vous devrez effectuer l'analyse de deux bases de données, présenter les méthodes utilisées et présenter les résultats de vos analyses. Puisque vous n'avez pas énormément d'informations sur la façon dont les données ont été récoltés, il faudra surtout vous concentrer sur les méthodes statistiques qui ont été utilisées pour effectuer vos analyses. 
+Pour cet atelier, vous vous pratiquerez à présenter des méthodes et des résultats. Vous devrez effectuer l'analyse de deux bases de données, présenter les méthodes utilisées et présenter les résultats de vos analyses. Puisque vous n'avez pas énormément d'informations sur la façon dont les données ont été récoltés, vous vous concentrerez surtout sur les méthodes statistiques qui ont été utilisées pour effectuer vos analyses. 
 
 <br>
 
@@ -1921,6 +1921,156 @@ summary(m)
 
 ```
 
+### Solution
+
+Importons d'abord les données.
+
+```{r, fig.height=4,fig.width=8, fig.align="center"}
+d<-read.csv("https://raw.githubusercontent.com/frousseu/ECL749/master/data/lumiere_predateur.csv")
+head(d)
+```
+
+On doit également faire un peu d'exploration de données avant de procéder à l'analyse. 
+
+```{r, fig.height=4,fig.width=8, fig.align="center"}
+par(mfrow=c(1,2))
+hist(d$nbpred)
+boxplot(nbpred~lumiere,data=d)
+
+```
+
+Puisque le nombre de prédateur est un nombre d'individus, un glm avec une distribution de Poisson devrait être utilisé. Aussi, nous avons des mesures répétées par champ et par caméra. Il serait donc nécessaire de traiter ces deux variables comme des effets aléatoires dans notre analyse. Ici, je ne vais utiliser que les caméras comme effet aléatoire en raison de problèmes de convergence lorsque le champ est également considéré. Ceci est possiblement dû au fait qu'il y a trop peu de champ pour traiter cette variable comme un effet aléatoire.
+
+Un autre élément important à remarquer est que le nombre de jours pendant lesquels les caméras et les lumières ont été installées semblent changer d'une caméra à l'autre. Il faudra tenir compte de cela si nous comparons le nombre de prédateurs vus d'une caméra et d'un traitement à l'autre. Nous pouvons prendre cela en compte par l'intermédiaire d'un [*offset*](https://stats.stackexchange.com/questions/11182/when-to-use-an-offset-in-a-poisson-regression). Plûtot que de modéliser le nombre de prédateur vus, le *offset* nous permettra de modéliser un taux d'observation de prédateurs. Ici, cela reviendra à modéliser un nombre de prédateurs vu par jour étant donné que nous utilisons le nombre de jour. Une transformation *log* est appliquée sur le nombre de jour puisque la relation est étudiée sur une échelle logarithmique par l'intermédiaire d'une fonction de lien *log*.
+
+
+```{r, message=FALSE}
+
+library(lme4)
+
+d$lumiere<-as.factor(d$lumiere)
+m<-glmer(nbpred~lumiere+offset(log(nbjour))+(1|camera),data=d,family=poisson())
+summary(m)
+```
+
+On voit que la présence de lumières dissuasives semble avoir un effet négatif sur le taux de visite par les prédateurs. Toutefois, avant de conclure sur cet effet, il serait important de vérfier les suppositions de bases de notre modèle. 
+
+#### Validation du modèle
+
+Dans le cas d'un glm avec une distribution de Poisson avec une seule variable explicative catégorique, il faut surtout vérifier qu'il n'y a pas de surdispersion ou de surabondance de zéros. On peut vérifier ceci avec le package [DHARMa](https://cran.r-project.org/web/packages/DHARMa/vignettes/DHARMa.html). L'idée derrière ce package est de comparer nos observations à des observations simulées à partir du modèle. Si nos observations réelles sont très différentes des observations simulées, c'est que le modèle n'est probablement pas approprié pour nos observations et nous devrions ajuster le modèle ou ses suppositions. Par exemple, si les observations simulées contiennent peu de zéros et si nos observations contiennent beaucoup de zéros, il y a probablement un problème de surabondance de zéros dans les observations et le modèle devrait être réajusté pour prendre en compte cette surabondance.
+
+```{r,results="hold", fig.height=6,fig.width=12, fig.align="center"}
+library(DHARMa)
+sims<-simulateResiduals(m)
+par(mfrow=c(1,2))
+testZeroInflation(sims)
+testDispersion(sims)
+```
+
+Dans les deux graphiques précédents, les histogrammes montrent les différentes valeurs simulées et les lignes rouges montrent les valeurs observées. Dans le premier graphique, ce sont les nombres de zéros simulés et dans le second, ce sont les écarts-types des résidus simulés. Il faut voir les deux histogrammes comme des distributions (simulées) auxquelles on compare nos observations afin de déterminer si elles sont "extrêmes" ou inatttendues par rapport aux valeurs simulées. Dans les deux cas, les valeurs observées ne diffèrent pas de façon importante des valeurs simulées. On conclut donc que le modèle est approprié pour nos données.
+
+On peut également utiliser un graphique quantile-quantile ou les résidus quantiles afin de vérifier si notre modèle est approrié.
+
+```{r, fig.height=6,fig.width=12, fig.align="center"}
+plot(sims)
+```
+
+Dans le premier graphique, les points devraient être relativement bien alignés le long de la droite si notre modèle est approprié. Dans le second, nous devrions avoir des points distribués de façon uniforme dans le graphique. Nous avons relativement peu de points pour juger de cela, mais la distribution des points semble relativement uniforme. Encore ici, on conclut que note modèle est approrié.
+
+#### Visualisation des résultats
+
+Maintenant que nous avons valider notre modèle en vérifiant les suppositions de bases, on peut maintenant procéder à la visualisation des résultats. Pour ce faire, nous allons utiliser le package [ggeffects](https://strengejacke.github.io/ggeffects/index.html) et sa fonction `ggpredict`. À noter que je fixe le nombre de jour à 1 afin de faire les prédictions sur le nombre de prédateurs vus par jour. Aussi, j'ajoute les observations brutes sur le graphique pour fin de visualisation. Puisque les observations sont faites sur des périodes plus ou moins grandes (et donc pas sur une période de 1 jour!), je divise le nombre de prédateurs par le nombre de jours d'observation.
+
+```{r, fig.height=4,fig.width=6, fig.align="center", message=FALSE}
+library(ggeffects)
+library(ggplot2)
+
+g<-ggpredict(m,terms=c("lumiere"),condition=list(nbjour=1))
+plot(g)+
+	geom_point(data=d,aes(x=as.integer(lumiere)-1,y=nbpred/nbjour),size=2,alpha=0.25)+
+ labs(x="Lumières dissuasives (0 = désactivées, 1 = activées)",y="Nombre de prédateurs détectés par jour",title="")
+```
+
+
+#### Quoi présenter ?
+
+Voici ce que je présenterais dans les sections méthodes et résultats pour cette analyse. Évidemment, si nous avions plus de détails sur les lieux, les méthodes de terrain et le dispositif technique, il faudrait les présenter. Ici, nous nous en tenons à ce qui est présenté et disponible dans la mise en situation. Ce qui est présenté ici est un bon exemple de ce qu'il faudrait présenter dans ces sections, mais ce n'est pas un exemple absolu!
+
+##### Méthodes
+
+L'étude a eu lieu en Argentine entre juin et septembre 2019. Un total de 12 caméras-trappes ont été installées dans 4 champs afin de détecter la présence de prédateurs. À chaque caméra, une lumière dissuasive a été installée. Les lumières ont été activées ou désactivées pendant des périodes consécutives variant de 23 à 72 jours (moy = 57.7, sd = 15.8). Pour chaque caméra, le nombre total de visites par des prédateurs a été noté.
+
+Le nombre de visite par les prédateurs a été modélisé en fonction de la présence ou non de lumières dissuasives. Un modèle linéaire généralisé mixte (GLMM) 
+avec une distribution de Poisson et une fonction de lien *log* a été utilisé. Afin de prendre en compte les observations effectuées par une même caméra, la caméra a été considérée comme un effet aléatoire. En raison du faible nombre de champs et de problèmes de convergence des modèles, le champ n'a pas été considéré effet aléatoire dans les modèles.  Un *offset* a été utilisé dans le modèle afin de prendre en compte le nombres de jour variable pour chaque période d'observation. La fonction `glmer` du package [lme4 ](https://CRAN.R-project.org/package=lme4) 1.1-21 (Bates et al., 2015) a été utilisée. L'absence de surdispersion et de surabondance de zéros ont été vérifiées à l'aide du package [DHARMa](https://cran.r-project.org/web/packages/DHARMa/vignettes/DHARMa.html) 0.2.4 (Hartig, 2019) et les prédictions ont été illustrées avec le package [ggeffects](https://strengejacke.github.io/ggeffects/index.html) 0.14.2 (Lüdecke, 2018).
+
+
+##### Résultats
+
+Un total de 134 visites de prédateurs ont été enregistrées (48 visites avec les lumières activées et 86 vistes avec les lumières désactivées). Bien que l'effet demeure faible, le taux de visites par les prédateurs est plus faible lorsque les lumières dissuasives sont activées (Tableau 1, Figure 1). 
+
+
+```{r, echo=FALSE, include=FALSE}
+
+co<-as.data.frame(summary(m)$coefficients)
+co[1:3]<-lapply(co[1:3],round,digits=2)
+co[4]<-lapply(co[4],round,digits=3)
+co<-cbind(Variable=row.names(co),co,stringsAsFactors=FALSE)
+row.names(co)<-NULL
+names(co)<-c("Variable","Estimé","Erreur-type","Z","p")
+co$p<-ifelse(co$p<0.001,"<0.001",co$p)
+co
+
+library(htmlTable)
+cat("\014")
+htmlTable(co,rnames=FALSE,align="cccc",css.table="width: 75%")
+```
+
+<br>
+
+<div style="width: 75%; text-align:justify; margin: 0px auto; font-size: 70%">
+<b>Tableau 1</b>. Coefficients, erreurs-types, statistiques (Z) et significativité des paramètres du modèle linéaire généralisé mixte (GLMM) utilisé pour modéliser l'effet de la présence de lumières dissuasives sur le taux de visites par les prédateurs du mouton en Argentine à l'été 2019. Une distribution de Poisson et une fonction de lien log ont été utilisées dans le modèle. Un offset a été utilisé pour prendre en compte la durée variable des périodes d'enregistrement des visites par des prédateurs.</td></tr>
+</div>
+<table class='gmisc_table' align="center" style='border-collapse: collapse; width: 75%; font-size: 70%' >
+<thead>
+<tr><td colspan='5' style='text-align: left;'>
+<tr>
+<th style='border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>Variable</th>
+<th style='border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>Estimé</th>
+<th style='border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>Erreur-type</th>
+<th style='border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>Z</th>
+<th style='border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>p</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style='text-align: center;'>(Intercept)</td>
+<td style='text-align: center;'>-2.52</td>
+<td style='text-align: center;'>0.19</td>
+<td style='text-align: center;'>-13.57</td>
+<td style='text-align: center;'><0.001</td>
+</tr>
+<tr>
+<td style='border-bottom: 2px solid grey; text-align: center;'>lumiere [activée]</td>
+<td style='border-bottom: 2px solid grey; text-align: center;'>0.22</td>
+<td style='border-bottom: 2px solid grey; text-align: center;'>0.09</td>
+<td style='border-bottom: 2px solid grey; text-align: center;'>2.5</td>
+<td style='border-bottom: 2px solid grey; text-align: center;'>0.012</td>
+</tr>
+</tbody>
+</table>
+
+<br><br>
+
+```{r, out.height="60%",out.width="60%", fig.height=4,fig.width=6, fig.align="center", message=FALSE, echo=FALSE}
+g<-ggpredict(m,terms=c("lumiere"),condition=list(nbjour=1))
+plot(g)+
+	geom_point(data=d,aes(x=as.integer(lumiere)-1,y=nbpred/nbjour),size=2,alpha=0.25)+
+ labs(x="Lumières dissuasives (0 = désactivées, 1 = activées)",y="Nombre de visites / jour",title="")
+```
+<div style="width: 60%; text-align:justify; margin: 0px auto; font-size: 70%">
+<b>Figure 1</b>. Effet de l'utilisation de lumières dissuasives sur les taux de visites par les prédateurs (nb de prédateurs / jour) aux enclos de moutons en Argentine (juin à septembre 2019). Les prédictions proviennt d'un modèle linéaire généralisé mixte avec la caméra en effet aléatoire et l'utilisation de lumières dissuasives comme facteur. Les points représentent pour chaque caméra le nombre de visites divisé par le nombre de jours d'observation. Les barres d'erreurs représentent les intervalles de confiance à 95% sur les prédictions. </td></tr>
+</div>
+
 
 ## Germination de différentes espèces dans la Caatinga, Brésil.
 
@@ -1938,7 +2088,233 @@ b<-glm(germ~traitement*esp,data=d,family=binomial)
 
 Une des objectifs du projet consistait à déterminer quelles sont les meilleures méthodes pour favoriser la germination de différentes espèces de plantes pouvant servir à la restauration des forêts-galeries de la Caatinga. La base de données [germination](https://raw.githubusercontent.com/frousseu/ECL749/master/data/germination.csv) contient des observations sur la germination de graînes de différentes espèces de plantes en fonction de deux traitements. Le premier traitement est le type de **substrat** utilisé qui est soit du sable (S), soit du sable amendé avec une certaine quantité de fumier (A). Le deuxième traitement est la **fréquence** d'arrosage qui est soit à chaque jour (un), soit au trois jours (trois). La colonne **traitement** combine ces deux traitements en 4 possibilités (A1, A3, S1, S3). La colonne **esp** contient le nom vernaculaire de l'espèce et **germ** indique si la graîne a germé (1) ou pas (0). Ces données ont été récoltées dans la Caatinga au Brésil lors d'un stage d'une étudiante à l'été 2019. 
 
+### Solution
 
+Voici le code que j'utiliserais pour analyser ces données.
+
+```{r, fig.align="center", echo=TRUE, eval=TRUE, results="hide", fig.show="hide"}
+library(ggeffects)
+
+d<-read.csv("https://raw.githubusercontent.com/frousseu/ECL749/master/data/germination.csv")
+
+### modèle
+m<-glm(germ~esp*traitement,data=d,family=binomial)
+summary(m)
+summary(m)$coefficients
+
+### vérification
+sims<-simulateResiduals(m)
+plot(sims)
+
+### illustration des résultats
+g<-ggpredict(m,terms=c("esp","traitement"))
+plot(g)+
+ labs(x="Espèce",y="Taux de germination",title="",color="Traitement")
+
+```
+
+#### Quoi présenter
+
+Voici ce que je présenterais concernant cette analyse dans les sections méthodes et résultats. Encore ici, cet exemple donne une bonne idée de quoi il faudrait présenter dans ces sections, mais ce n'est pas nécessairement un exemple absolu! À noter qu'il y a moins de suppositions de bases à vérifier avec les glm binomiaux dont la variable réponse est binaire (*i.e.*. 0 ou 1). Dans ces cas, le point le plus important à vérifier est la linéarité du lien entre les variables explicatives quantitatives et la variable réponse. Dans notre cas, les variables explicatives sont toutes des facteurs et donc la question de la linéarité ne se pose pas, car une probabilité est estimée pour chaque niveau des facteurs.
+
+##### Méthodes
+
+L'étude a eu lieu dans la Caatinga au Brésil en juillet 2019. Quatre traitements ont été utilisés afin de déterminer les effets du type de substrat et de la fréquence d'arrosage sur les taux de germination des graines. Deux types de substrat ont été utilisés, soit un substrat sableux (S) et un substrat sableux amendé avec du fumier (A). Deux fréquences d'arrosage ont été utilisées, soit à tous les jours (1) ou à tous les trois jours (3) pour un total de quatre traitements (S1, S3, A1 et A3). Un total de cinq espèces ont été utilisées (*calumbi*, *jamerim*, *pajeuzeiro*, *saboneteiro* et *salgueiro*) et pour chaque espèce et chaque traitement, 100 graines ont été plantées pour un total de 2000 graines.
+
+La probabilité de germination des graines (0: non-germée, 1: germée) a été modélisée en fonction de l'espèce, du traitement et de leur interaction à l'aide un modèle linéaire généralisé avec une distribution binomiale et une fonction de lien *log*. Toutes les analyses ont été effectuées avec R 3.6.3 (R Core Team, 2020). Le modèle a été validé avec le package DHARMa 0.2.4 (Hartig, 2019) et les prédictions du modèle ont été illustrées avec le package ggeffects 0.14.2 (Lüdecke, 2018).
+
+##### Résultats
+
+Le taux de germination global était de 53.6%. Les taux de germination diffèrent à la fois entre les espèce et entre les traitements (Tableau 1), quoique les effets du traitement sont beaucoup moins prononcés. Les taux de germination sont beaucoup plus faibles chez *pajeuzeiro* et dans une moindre mesure chez *calumbi*, alors qu'ils sont similaires chez les trois autres espèces (Figure 1). Au niveau des traitements, il n'y a aucune différence entre les traitement chez la majorité des espèces, sauf dans le cas de *jamerim* chez qui l'utilisation de sols sablonneux semblent réduire les taux de germination (Figure 1). 
+
+```{r, echo=FALSE, include=FALSE}
+
+co<-as.data.frame(summary(m)$coefficients)
+co[1:3]<-lapply(co[1:3],round,digits=2)
+co[4]<-lapply(co[4],round,digits=3)
+co<-cbind(Variable=row.names(co),co,stringsAsFactors=FALSE)
+row.names(co)<-NULL
+names(co)<-c("Variable","Estimé","Erreur-type","Z","p")
+co$p<-ifelse(co$p<0.001,"<0.001",co$p)
+vals<-c("esp","jamerim","pajeuzeiro","saboneteiro","salgueiro","A3","S1","S3","traitement",":")
+repl<-c("Espèce"," [jamerim]"," [pajeuzeiro]"," [saboneteiro]"," [salgueiro]"," [A3]"," [S1]"," [S3]","Traitement"," : ")
+for(i in seq_along(vals)){
+  co$Variable<-gsub(vals[i],repl[i],co$Variable)	
+}
+
+library(htmlTable)
+cat("\014")
+htmlTable(co,rnames=FALSE,align="cccc",css.table="width: 60%")
+```
+<br>
+
+<div style="width: 80%; text-align:justify; margin: 0px auto; font-size: 70%">
+<b>Tableau 1</b>. Coefficients, erreurs-types, statistiques (Z) et significativité des paramètres du modèle linéaire généralisé (GLM) utilisé pour modéliser la probabilité de germination de graines de 5 espèces de plantes soumises à différents traitements (substrat sableux (S) ou amendé avec du fumier (A) et arrosage journalier (1) ou au trois jours (3). Une distribution binomiale et une fonction de lien *logit* ont été utilisées dans le modèle. Les travaux ont eu lieu en juillet 2019 dans la Caatinga, Brésil.</td></tr>
+</div>
+<table class='gmisc_table' align=center style='border-collapse: collapse; width: 80%; font-size: 70%' >
+<thead>
+<tr>
+<th style='border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>Variable</th>
+<th style='border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>Estimé</th>
+<th style='border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>Erreur-type</th>
+<th style='border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>Z</th>
+<th style='border-bottom: 1px solid grey; border-top: 2px solid grey; text-align: center;'>p</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style='text-align: center; font-weight: bold'>(Intercept)</td>
+<td style='text-align: center; font-weight: bold'>-0.58</td>
+<td style='text-align: center; font-weight: bold'>0.21</td>
+<td style='text-align: center; font-weight: bold'>-2.76</td>
+<td style='text-align: center; font-weight: bold'>0.006</td>
+</tr>
+<tr>
+<td style='text-align: center; font-weight: bold'>Espèce [jamerim]</td>
+<td style='text-align: center; font-weight: bold'>2.39</td>
+<td style='text-align: center; font-weight: bold'>0.36</td>
+<td style='text-align: center; font-weight: bold'>6.72</td>
+<td style='text-align: center; font-weight: bold'><0.001</td>
+</tr>
+<tr>
+<td style='text-align: center; font-weight: bold'>Espèce [pajeuzeiro]</td>
+<td style='text-align: center; font-weight: bold'>-2.01</td>
+<td style='text-align: center; font-weight: bold'>0.44</td>
+<td style='text-align: center; font-weight: bold'>-4.53</td>
+<td style='text-align: center; font-weight: bold'><0.001</td>
+</tr>
+<tr>
+<td style='text-align: center; font-weight: bold'>Espèce [saboneteiro]</td>
+<td style='text-align: center; font-weight: bold'>1.57</td>
+<td style='text-align: center; font-weight: bold'>0.31</td>
+<td style='text-align: center; font-weight: bold'>5.12</td>
+<td style='text-align: center; font-weight: bold'><0.001</td>
+</tr>
+<tr>
+<td style='text-align: center; font-weight: bold'>Espèce [salgueiro]</td>
+<td style='text-align: center; font-weight: bold'>1.33</td>
+<td style='text-align: center; font-weight: bold'>0.3</td>
+<td style='text-align: center; font-weight: bold'>4.45</td>
+<td style='text-align: center; font-weight: bold'><0.001</td>
+</tr>
+<tr>
+<td style='text-align: center;'>Traitement [A3]</td>
+<td style='text-align: center;'>-0.13</td>
+<td style='text-align: center;'>0.3</td>
+<td style='text-align: center;'>-0.45</td>
+<td style='text-align: center;'>0.655</td>
+</tr>
+<tr>
+<td style='text-align: center;'>Traitement [S1]</td>
+<td style='text-align: center;'>0.17</td>
+<td style='text-align: center;'>0.29</td>
+<td style='text-align: center;'>0.58</td>
+<td style='text-align: center;'>0.56</td>
+</tr>
+<tr>
+<td style='text-align: center;'>Traitement [S3]</td>
+<td style='text-align: center;'>0.25</td>
+<td style='text-align: center;'>0.29</td>
+<td style='text-align: center;'>0.87</td>
+<td style='text-align: center;'>0.385</td>
+</tr>
+<tr>
+<td style='text-align: center;'>Espèce [jamerim] : Traitement [A3]</td>
+<td style='text-align: center;'>-0.17</td>
+<td style='text-align: center;'>0.49</td>
+<td style='text-align: center;'>-0.34</td>
+<td style='text-align: center;'>0.734</td>
+</tr>
+<tr>
+<td style='text-align: center;'>Espèce [pajeuzeiro] : Traitement [A3]</td>
+<td style='text-align: center;'>-0.76</td>
+<td style='text-align: center;'>0.77</td>
+<td style='text-align: center;'>-0.99</td>
+<td style='text-align: center;'>0.323</td>
+</tr>
+<tr>
+<td style='text-align: center;'>Espèce [saboneteiro] : Traitement [A3]</td>
+<td style='text-align: center;'>0.46</td>
+<td style='text-align: center;'>0.45</td>
+<td style='text-align: center;'>1.04</td>
+<td style='text-align: center;'>0.3</td>
+</tr>
+<tr>
+<td style='text-align: center;'>Espèce [salgueiro] : Traitement [A3]</td>
+<td style='text-align: center;'>0.18</td>
+<td style='text-align: center;'>0.43</td>
+<td style='text-align: center;'>0.42</td>
+<td style='text-align: center;'>0.674</td>
+</tr>
+<tr>
+<td style='text-align: center; font-weight: bold'>Espèce [jamerim] : Traitement [S1]</td>
+<td style='text-align: center; font-weight: bold'>-0.99</td>
+<td style='text-align: center; font-weight: bold'>0.47</td>
+<td style='text-align: center; font-weight: bold'>-2.12</td>
+<td style='text-align: center; font-weight: bold'>0.034</td>
+</tr>
+<tr>
+<td style='text-align: center;'>Espèce [pajeuzeiro] : Traitement [S1]</td>
+<td style='text-align: center;'>0.1</td>
+<td style='text-align: center;'>0.6</td>
+<td style='text-align: center;'>0.17</td>
+<td style='text-align: center;'>0.864</td>
+</tr>
+<tr>
+<td style='text-align: center;'>Espèce [saboneteiro] : Traitement [S1]</td>
+<td style='text-align: center;'>0.83</td>
+<td style='text-align: center;'>0.48</td>
+<td style='text-align: center;'>1.72</td>
+<td style='text-align: center;'>0.085</td>
+</tr>
+<tr>
+<td style='text-align: center;'>Espèce [salgueiro] : Traitement [S1]</td>
+<td style='text-align: center;'>-0.35</td>
+<td style='text-align: center;'>0.42</td>
+<td style='text-align: center;'>-0.83</td>
+<td style='text-align: center;'>0.404</td>
+</tr>
+<tr>
+<td style='text-align: center; font-weight: bold'>Espèce [jamerim] : Traitement [S3]</td>
+<td style='text-align: center; font-weight: bold'>-1.7</td>
+<td style='text-align: center; font-weight: bold'>0.46</td>
+<td style='text-align: center; font-weight: bold'>-3.73</td>
+<td style='text-align: center; font-weight: bold'><0.001</td>
+</tr>
+<tr>
+<td style='text-align: center;'>Espèce [pajeuzeiro] : Traitement [S3]</td>
+<td style='text-align: center;'>0.14</td>
+<td style='text-align: center;'>0.59</td>
+<td style='text-align: center;'>0.23</td>
+<td style='text-align: center;'>0.817</td>
+</tr>
+<tr>
+<td style='text-align: center;'>Espèce [saboneteiro] : Traitement [S3]</td>
+<td style='text-align: center;'>0.08</td>
+<td style='text-align: center;'>0.44</td>
+<td style='text-align: center;'>0.18</td>
+<td style='text-align: center;'>0.86</td>
+</tr>
+<tr>
+<td style='border-bottom: 2px solid grey; text-align: center;'>Espèce [salgueiro] : Traitement [S3]</td>
+<td style='border-bottom: 2px solid grey; text-align: center;'>-0.06</td>
+<td style='border-bottom: 2px solid grey; text-align: center;'>0.42</td>
+<td style='border-bottom: 2px solid grey; text-align: center;'>-0.15</td>
+<td style='border-bottom: 2px solid grey; text-align: center;'>0.884</td>
+</tr>
+</tbody>
+</table>
+
+<br>
+
+```{r, out.width="60%", fig.height=4,fig.width=6, fig.align="center", message=FALSE, echo=FALSE}
+g<-ggpredict(m,terms=c("esp","traitement"))
+plot(g)+
+ labs(x="Espèce",y="Taux de germination",title="",color="Traitement")
+```
+<div style="width: 60%; text-align:justify; margin: 0px auto; font-size: 70%">
+<b>Figure 1</b>. Taux de germination prédits chez différentes espèces en fonction du type de substrats et de la fréquence d'arrosage (substrat sableux (S) ou substrat sableux amendé avec du fumier (A) et arrosage journalier (1) ou aux trois jours (3)). Les tests de germination ont été réalisés au Brésil dans la Caatinga en juillet 2019. Les taux prédits proviennent d'un modèle linéaire généralisé (glm) avec une distribution binomiale et une fonction de lien *logit*. L'espèce, le traitement et leur interaction ont été considérés dans le modèle. Les barres d'erreurs représentent les intervalles de confiance à 95% sur les prédictions.</td></tr>
+</div>
 
 <!-- # Étude de cas -->
 
