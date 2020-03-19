@@ -2203,7 +2203,7 @@ Pour la seconde partie du travail (80%), chaque étudiant ou étudiante recevra 
 - **Introduction** : Courte introduction présentant et mettant en contexte la question posée et les
 hypothèses biologiques.
 - **Méthodologie** : Description des méthodes et des données récoltées et description et
-justification des analyses statistiques effectuées.
+justification des analyses statistiques effectuées. Vous devez vous en tenir à ce qui est disponible comme information dans la mise en situation et dans votre base de données. Il est donc normal de ne pas retrouver dans votre méthodologie tout ce qu'on retrouverait normalement dans une méthodologie complète. Pour ceux utilisant leurs propres données, vous pouvez donner un peu plus de détails sur ce qui entoure votre aire d'étude et votre récolte de données.
 - **Résultats** : Présentation des résultats accompagnée de graphiques et/ou de tableaux.
 - **Discussion** : Courte explication et interprétation des résultats et de leur signification
 biologique.
@@ -2211,7 +2211,7 @@ biologique.
 mettre en contexte la problématique et/ou interpréter les résultats.
 - **Annexe** : Code R (propre!) utilisé pour effectuer les manipulations de données, les analyses statistiques et les graphiques. Ce code devrait contenir toutes les lignes de programmation permettant de reproduire votre travail à partir de votre base de données jusqu'aux graphiques présentés. Les lignes de codes inutiles, exploratoires ou générant des erreurs devraient être éliminées. Les parties plus compliquées de votre code devraient inclure des commentaires expliquant ce qui est effectué.
 
-Votre travail au complet ne devrait pas prendre plus de **10 pages**. Ce travail est à remettre au plus tard le **vendredi 20 mars à 17h**.
+Votre travail au complet ne devrait pas prendre plus de **10 pages**. Ce travail est à remettre au plus tard le **vendredi 27 mars à 17h**.
 
 <!-- 
 
