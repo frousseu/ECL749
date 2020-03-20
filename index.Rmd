@@ -1860,7 +1860,7 @@ visreg(m,scale="response")
 
 La série du haut représente les prédictions du modèle sous l'échelle de la fonction de lien *log* et la série du bas représente les prédictions du modèle à l'échelle de la réponse. Contrairement aux GLMs, il n'y a pas d'intervalles de confiance puisque la meilleure façon de les calculer est incertaine. Ceci est expliqué dans la [GLMM FAQ](https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html#testing-hypotheses). 
 
-En utilisant le package **ggeffects** plutôt que visreg, on peut obtenir des intervalles de confiance approximatifs qui nous aident un peu plus à ce faire une idée de l'incertitude que nous avons dans l'estimation de nos effets. Ce package permet également un peu plus de flexibilité dans la visualisation des modèles comparativement à visreg. En combinaison avec le package [**patchwork**](https://patchwork.data-imaginist.com/index.html), il est facile d'organiser les différents graphiques dans une même fenêtre.
+En utilisant le package **ggeffects** plutôt que visreg, on peut obtenir des intervalles de confiance approximatifs qui nous aident un peu plus à se faire une idée de l'incertitude que nous avons dans l'estimation de nos effets. Ce package permet également un peu plus de flexibilité dans la visualisation des modèles comparativement à visreg. En combinaison avec le package [**patchwork**](https://patchwork.data-imaginist.com/index.html), il est facile d'organiser les différents graphiques dans une même fenêtre.
 
 ```{r, message=FALSE, warning=FALSE}
 
