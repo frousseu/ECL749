@@ -1,7 +1,7 @@
 ---
 title: "ECL749 Ateliers R"
 author: "François Rousseu"
-date: "Hiver 2020"
+date: "Hiver 2021"
 output:
   html_document:
     depth: 4
@@ -747,13 +747,11 @@ mean(v)
 v+1
 ```
 
-### Consultez l'aide!
+# Atelier 2
+
+## Consultez l'aide!
 
 Avant d'utiliser une fonction, il faut se rappeler que c'est toujours un bon réflexe de consulter l'aide et particulièrement les exemples qui montrent souvent comment utiliser la fonction et ses arguments. 
-
-<br><br><br>
-
-# Atelier 2
 
 <br>
 
@@ -765,7 +763,7 @@ Le premier sert à conserver les lignes de commandes et le second à conserver l
 
 <br>
 
-### Script .R
+## Script .R
 
 - Fichier de commande ou script permettant de refaire les analyses. **C'est ce qui est important à conserver!**
 
@@ -780,7 +778,7 @@ rep(1:5,2)
 
 <br>
 
-### .RData
+## .RData
 
 - Environnement de travail avec les objets de la console R au moment de la sauvegarde (mais ne contient pas les lignes de commandes!)
 
@@ -873,7 +871,7 @@ legend("topleft",pch=16,col=c("red","blue"),legend=c("Série 1","Série 2"),titl
 
 ```
 
-### ggplot2
+## ggplot2
 
 Il existe trois principaux systèmes dans R pour effectuer des graphiques. Les graphiques de bases sont représentés par les fonctions `plot`, `par` et les fonctions associées. Un autre système, passablement plus compliqué est le package [lattice](https://cran.r-project.org/web/packages/lattice/index.html) qui est souvent utilisé par d'autres fonctions. Un autre système, très populaire, est ggplot2 qui est de plus en plus utilisé. Un des principaux avantages de [ggplot2](http://ggplot2.org/) est que ce système permet de faire rapidement des graphiques plus attrayants comparativement aux graphiques de bases. La documentation concernant ggplot2 est également très détaillée et bien expliquée pour quiconque voudrait employer ce système. Toutefois, dans ce cours, nous n'utiliserons que les graphiques de bases puisque ceux-ci sont plus souvent utilisés par d'autres packages utiles en écologie.
 
@@ -1140,6 +1138,7 @@ for(i in 1:nrow(dat)){
   
 ```
 
+-->
 
 ### Tendances dans la phénologie de nidification
 
@@ -1348,6 +1347,7 @@ head(x)
 
 13) Illustrez dans une même fenêtre graphique les valeurs de % de types de milieux pour chaque type. Cela correspond à la création de 4 cartes pour illustrer chaque type de milieu.
 
+
 ### Solution
 
 1)
@@ -1543,6 +1543,7 @@ mapview(cells) # on trace les points avec différents fond de carte et on ouvre 
 
 ```
 
+
 # Atelier 5
 
 <!-- data is frogs from the DAAG package -->
@@ -1664,7 +1665,7 @@ Malheureusement, ou plutôt heureusement, il n'y a pas nécessairement une meill
 
 ## Les parasites chez le Colibri à gorge rubis
 
-Pour cet exercice, vous étudierez ce qui influence la charge parasitaire chez le Colibri à gorge rubis (*Archilochus colubris*), une espèce retrouvée au Québec. Dans la base de données [colibris.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/colibris.csv), vous retrouverez différentes variables comme le sexe (4 = mâle, 5 = femelle) et l'âge (1 = adulte, 2 = jeune). L'exercice consiste à déterminer quelles sont les variables qui affectent la quantité de parasites. Pour interpréter vos résultats, illustrez graphiquement votre modèle. Obtenez-vous des conclusions semblables si vous faites l'analyse en présence/absence? Pour transformer les valeurs en présence/absence, vous pouvez utiliser la fonction `ifelse`.
+Pour cet exercice, vous étudierez ce qui influence la charge parasitaire chez le Colibri à gorge rubis (*Archilochus colubris*), une espèce retrouvée au Québec. Dans la base de données [colibris.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/colibris.csv), vous retrouverez différentes variables comme le sexe (4 = mâle, 5 = femelle) et l'âge (1 = adulte, 2 = jeune). L'exercice consiste à déterminer quelles sont les variables qui affectent la quantité de parasites. Vérifiez également les conditions d'application de votre modèle avec le package [DHARMa](https://cran.r-project.org/web/packages/DHARMa/vignettes/DHARMa.html). Pour interpréter vos résultats, illustrez graphiquement votre modèle. Obtenez-vous des conclusions semblables si vous faites l'analyse en présence/absence? Pour transformer les valeurs en présence/absence, vous pouvez utiliser la fonction `ifelse`.
 
 
 ### Solution
@@ -1774,7 +1775,32 @@ visreg(m1sub,scale="response",ylim=c(0,8))
 
 ```
 
+Un petit élément que nous n'avons pas encore vérifié est si le modèle est approprié pour les données. Par exemple, est-ce qu'il y a de la surdispersion? On peut vérifier cela facilement avec le package [DHARMa](https://cran.r-project.org/web/packages/DHARMa/vignettes/DHARMa.html).
 
+```{r}
+library(DHARMa)
+library(glmmTMB)
+
+m1<-glm(parasites~sexe+age+masse,data=d,family=poisson)
+m2<-glmer(parasites~sexe+age+masse+(1|bague),data=d,family=poisson)
+m3<-glmmTMB(parasites~sexe+age+masse+(1|bague),data=d,family="nbinom1")
+
+par(mfrow=c(3,4))
+testUniformity(m1)
+testQuantiles(m1)
+testDispersion(m1)
+testZeroInflation(m1)
+testUniformity(m2)
+testQuantiles(m2)
+testDispersion(m2)
+testZeroInflation(m2)
+testUniformity(m3)
+testQuantiles(m3)
+testDispersion(m3)
+testZeroInflation(m3)
+```
+
+Le premier modèle ne semble pas du tout approprié. Il semble y avoir une très forte surdispersion ou surabondance de zéros. Les deux modèles suivants avec effets aléatoires semblent beaucoup mieux répondre aux suppositions de bases du modèle. Il est fort probable que l'effet aléatoire sur les individus capture une bonne partie de la surdispersion. Dans le modèle 2 avec une distribution de Poisson, il y a encore un peu de surdispersion/surabondance de zéros comparativement au modèle 3. Pour ce dernier modèle, l'utilisation d'une distribution négative-binomiale (distributiuon qui permet plus de flexibilité sur la variance comparativmeent qui utilise 
 
 ## La richesse spécifique le long du littoral
 
@@ -1792,7 +1818,7 @@ merge(d,x,by.x="plage",by.y="Plage")
 
 ```
 
-Ici, on s'intéresse aux variables influençant le nb d'espèces rencontrées le long du littoral. On a la hauteur de la station d'échantillonnage par rapport à la hauteur moyenne de la marée ainsi que l'exposition qui est quantifiée à l'aide d'un index construit à partir de la "sévérité" des conditions de la station (force des vagues, longueur de la zone d'impact, pente, substrat allant de fin à grossier). La base de données se trouve à cet endroit [plages.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/plages.csv). Une autre base de données [plage_type.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/plage_type.csv) est également disponible où le type de plage (roches ou sable) est donnée. Vous devrez fusionner ces deux bases de données pour mettre l'information dans une même base de données. Pour ce faire, vous devrez utiliser la fonction `merge`. Illustrez les résultats de votre modèle. 
+Ici, on s'intéresse aux variables influençant le nb d'espèces rencontrées le long du littoral. On a la hauteur de la station d'échantillonnage par rapport à la hauteur moyenne de la marée ainsi que l'exposition qui est quantifiée à l'aide d'un index construit à partir de la "sévérité" des conditions de la station (force des vagues, longueur de la zone d'impact, pente, substrat allant de fin à grossier). La base de données se trouve à cet endroit [plages.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/plages.csv). Une autre base de données [plage_type.csv](https://raw.githubusercontent.com/frousseu/ECL749/master/data/plage_type.csv) est également disponible où le type de plage (roches ou sable) est donnée. Vous devrez fusionner ces deux bases de données pour mettre l'information dans une même base de données. Pour ce faire, vous devrez utiliser la fonction `merge`. Illustrez les résultats de votre modèle. Vérifiez les conditions d'application de votre modèle avec le package [DHARMa](https://cran.r-project.org/web/packages/DHARMa/vignettes/DHARMa.html). 
 
 
 ### Solution
@@ -1889,6 +1915,8 @@ stargazer(m,type="html",omit.table.layout="sn")
 ```
 
 
+<!--
+
 # Atelier 7
 
 Pour cet atelier, vous vous pratiquerez à présenter des méthodes et des résultats. Vous devrez effectuer l'analyse de deux bases de données, présenter les méthodes utilisées et présenter les résultats de vos analyses. Puisque vous n'avez pas énormément d'informations sur la façon dont les données ont été récoltés, il faudra surtout vous concentrer sur les méthodes statistiques qui ont été utilisées pour effectuer vos analyses. 
@@ -1941,6 +1969,8 @@ Une des objectifs du projet consistait à déterminer quelles sont les meilleure
 
 
 <!-- # Étude de cas -->
+
+<!--
 
 ```{r, eval=FALSE, include=FALSE}
 
@@ -2182,6 +2212,8 @@ Articles à lire pour le cours du 20 mars.
 
 -->
 
+<!--
+
 # Travail de session
 
 Le travail de session se déroulera en deux temps. La première partie (20%) consistera en l'établissement d'une méthodologie afin de répondre à une mise en situation et la seconde partie (80%) consistera en la rédaction d'un rapport sous forme d'article scientifique à partir d'une base de données en lien avec la première partie. Dans la plupart des cas, il y aura des différences entre la méthodologie proposée pour la mise en situation et la méthodologie utilisée pour récolter les données fournies. Dans ce cas, il faudra adapter votre méthodologie décrite dans la partie 2 du travail afin de refléter la méthodologie utilisée. Dans tous les cas, la méthodologie de la partie 2 sera davantage axée sur les statistiques étant donné que vous n'aurez pas accès à tous les détails concernant la partie de récolte de données sur le terrain. Pour ceux désirant utiliser leur propre jeu de données pour la partie 2 du travail, vous devrez m'en faire part d'ici mardi le 12 février à 17h par courriel ou en personne en me montrant également la base de données qui sera utilisée (ou un extrait).
@@ -2212,6 +2244,27 @@ mettre en contexte la problématique et/ou interpréter les résultats.
 - **Annexe** : Code R (propre!) utilisé pour effectuer les manipulations de données, les analyses statistiques et les graphiques. Ce code devrait contenir toutes les lignes de programmation permettant de reproduire votre travail à partir de votre base de données jusqu'aux graphiques présentés. Les lignes de codes inutiles, exploratoires ou générant des erreurs devraient être éliminées. Les parties plus compliquées de votre code devraient inclure des commentaires expliquant ce qui est effectué.
 
 Votre travail au complet ne devrait pas prendre plus de **10 pages**. Ce travail est à remettre au plus tard le **vendredi 20 mars à 17h**.
+
+-->
+
+# Travail de session
+
+Le travail de session consistera en la rédaction d'un rapport sous forme d'article scientifique pour présenter une analyse statistique d'une mise en situation proposée ou à partir de vos propres données. Pour ceux désirant utiliser leur propre jeu de données, vous devrez m'en faire part d'ici mardi le 9 mars par courriel (ou par Teams) en me montrant également la base de données qui sera utilisée (ou un extrait).
+
+Chaque étudiant ou étudiante devra réaliser les analyses, les interpréter et présenter les résultats dans un bref rapport écrit qui prendra la forme d'un article scientifique comprenant les éléments suivants :
+
+- **Introduction** : Courte introduction présentant et mettant en contexte la question posée et les
+hypothèses biologiques.
+- **Méthodologie** : Description des méthodes et des données récoltées et description et
+justification des analyses statistiques effectuées.
+- **Résultats** : Présentation des résultats accompagnée de graphiques et/ou de tableaux.
+- **Discussion** : Courte explication et interprétation des résultats et de leur signification
+biologique.
+- **Références** : Un minimum de cinq références (**articles scientifiques**) devront être utilisées pour
+mettre en contexte la problématique et/ou interpréter les résultats.
+- **Annexe** : Code R (propre!) utilisé pour effectuer les manipulations de données, les analyses statistiques et les graphiques. Ce code devrait contenir toutes les lignes de programmation permettant de reproduire votre travail à partir de votre base de données jusqu'aux graphiques présentés. Les lignes de codes inutiles, exploratoires ou générant des erreurs devraient être éliminées. Les parties plus compliquées de votre code devraient inclure des commentaires expliquant ce qui est effectué.
+
+Votre travail au complet devrait être de **10 pages** maximum (excluant annexe). Ce travail est à remettre au plus tard le **vendredi 26 mars à 17h**.
 
 <!-- 
 
