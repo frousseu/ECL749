@@ -118,7 +118,7 @@ h5 {
 </style>
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo=TRUE, tidy=TRUE, error=TRUE, fig.align="center")
+knitr::opts_chunk$set(echo=TRUE, tidy=TRUE, error=TRUE, cache=FALSE ,fig.align="center")
 ```
 
 <br>
@@ -1694,7 +1694,7 @@ table(table(d$bague))
 
 ```
 
-On voit que pour la majorité des colibris, on a une seule valeur, mais certains ont plusieurs valeurs (2, 3 ou 4 observations). On devrait donc par défaut se diriger vers les modèles mixtes pour traiter l'individu comme un effet aléatoire puisque les comptes de parasites sur un même individu ne sont pas indépendants. Par contre, puisque la majorité des individus ont une seule observation, cela peut créer des problèmes dans le cadre des modèles mixtes et on pourrait plutôt opter pour effectuer une moyenne ou pour une sélection aléatoire d'une seule observation pour les individus ayant plusieurs observations. On pourrait également comparer les deux approches et déterminer si nos conclusions par rapport à l'effet de nos variables sont fortement affectées par notre méthode d'analyse. Si ce n'est pas le cas, on peut choisir la méthode qui nous convient en justifiant notre choix et en exposant le fait que nos conclusions ne sont pas affectées par la méthode choisie.
+On voit que pour la majorité des individus, on a une seule valeur, mais certains ont plusieurs valeurs (2, 3 ou 4 observations). On devrait donc par défaut se diriger vers les modèles mixtes pour traiter l'individu comme un effet aléatoire puisque les comptes de parasites sur un même individu ne sont pas indépendants. Par contre, puisque la majorité des individus ont une seule observation, cela peut créer des problèmes dans le cadre des modèles mixtes et on pourrait plutôt opter pour effectuer une moyenne ou pour une sélection aléatoire d'une seule observation pour les individus ayant plusieurs observations. On pourrait également comparer les deux approches et déterminer si nos conclusions par rapport à l'effet de nos variables sont fortement affectées par notre méthode d'analyse. Si ce n'est pas le cas, on peut choisir la méthode qui nous convient en justifiant notre choix et en exposant le fait que nos conclusions ne sont pas affectées par la méthode choisie.
 
 On devrait également explorer les liens entre nos variables explicatives. On peut faire ceci avec des `boxplot` ou des graphiques standards.
 
@@ -1718,66 +1718,16 @@ d$age<-as.factor(d$age)
 
 library(lme4)
 
-m1<-glm(parasites~sexe+age+masse,data=d,family=poisson)
-m2<-glmer(parasites~sexe+age+masse+(1|bague),data=d,family=poisson)
+m<-glmer(parasites~sexe+age+masse+(1|bague),data=d,family=poisson)
 
-summary(m1)
-summary(m2)
+summary(m)
 
 ```
 
-On obtient des résultats bien différents selon nos deux modèles. On a un effet négatif de la masse, mais pour l'âge et le sexe nos conclusions sont très différentes. Puisque nous avons une seule observation pour la majorité des individus, il est peut être préférable de ne pas utiliser de modèles mixtes qui requièrent plusieurs observations pour chaque niveau. 
-
-On peut visualiser les prédictions de nos modèles avec visreg et en créant une fenêtre graphique avec en haut les prédictions pour le glm et en bas les prédictions pour le modèle mixte. Remarquez que nous n'avons pas d'intervalles de confiance autour des prédictions pour le modèle mixte. La raison de ceci est expliquée dans la [GLMM FAQ](https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html#testing-hypotheses).
-
-```{r,eval=FALSE,echo=FALSE,include=FALSE}
-
-library(visreg)
-par(mfrow=c(2,3))
-visreg(m1,scale="response",ylim=c(0,8))
-visreg(m2,"sexe",scale="response",ylim=c(0,8))
-visreg(m2,"age",scale="response",ylim=c(0,8))
-visreg(m2,"masse",scale="response",ylim=c(0,8))
-
-```
-
-On pourrait opter pour un GLM et ne prendre qu'une seule observation aléatoirement par individu. On peut faire ceci en utilisant une combinaison de `split`, `lapply` et `sample`. Je vous laisse étudier le code en vous donnant quelques indications sur chaque étape.
-
-```{r}
-
-s<-split(d,d$bague) # on sépare les données par individu dans une liste
-l<-lapply(s,function(i){ # on applique une fonction sur chaque data.frame de la liste
-   if(nrow(i)==1){ # on prend la ligne s'il n'y en qu'une
-     i
-   }else{
-     i[sample(1:nrow(i),1),] # ou on choisit aléatoirement une ligne s'il y en a plusieurs
-   } 
-})
-d2<-do.call("rbind",l) # on fusionne les différents subsets de la liste ensemble dans un nouveau data.frame
-
-```
-
-Dans l'objet `d2`, on a maintenant une seule ligne par individu.
-
-```{r}
-
-m1sub<-glm(parasites~sexe+age+masse,data=d2,family=poisson)
-summary(m1sub)
-
-```
-
-Nos conclusions pour ce glm modifié sont très similaires. On conclut donc que les mâles et les jeunes sont davantage infectés par les parasites. Plusieurs interprétations sont possibles, mais aucune ne me semble évidente et il faudrait chercher dans la littérature pour valider ces interprétations. Quant à la masse, elle a un effet négatif sur le nombre de parasites. Ceci pourrait s'expliquer par le fait que les individus plus massifs sont aussi en meilleure santé et donc plus aptes à se défendre contre les parasites.
-
-```{r}
-
-par(mfrow=c(2,2))
-visreg(m1sub,scale="response",ylim=c(0,8))
-
-```
 
 Un petit élément que nous n'avons pas encore vérifié est si le modèle est approprié pour les données. Par exemple, est-ce qu'il y a de la surdispersion? On peut vérifier cela facilement avec le package [DHARMa](https://cran.r-project.org/web/packages/DHARMa/vignettes/DHARMa.html).
 
-```{r}
+```{r, results='hide', fig.keep='all', message=FALSE, fig.height=8, fig.width=12}
 library(DHARMa)
 library(glmmTMB)
 
@@ -1800,7 +1750,22 @@ testDispersion(m3)
 testZeroInflation(m3)
 ```
 
-Le premier modèle ne semble pas du tout approprié. Il semble y avoir une très forte surdispersion ou surabondance de zéros. Les deux modèles suivants avec effets aléatoires semblent beaucoup mieux répondre aux suppositions de bases du modèle. Il est fort probable que l'effet aléatoire sur les individus capture une bonne partie de la surdispersion. Dans le modèle 2 avec une distribution de Poisson, il y a encore un peu de surdispersion/surabondance de zéros comparativement au modèle 3. Pour ce dernier modèle, l'utilisation d'une distribution négative-binomiale (distributiuon qui permet plus de flexibilité sur la variance comparativmeent qui utilise 
+Le premier modèle ne semble pas du tout approprié. Il semble y avoir une très forte surdispersion ou surabondance de zéros. Les deux modèles suivants avec effets aléatoires semblent beaucoup mieux répondre aux suppositions de bases du modèle. Il est fort probable que l'effet aléatoire sur les individus capture une bonne partie de la surdispersion. Dans le modèle 2 avec une distribution de Poisson, il y a encore un peu de surdispersion/surabondance de zéros comparativement au modèle 3. Pour ce dernier modèle, l'utilisation d'une distribution négative-binomiale (distributiuon qui permet plus de flexibilité quant à la variance comparativement à une distirbution de Poisson) permet d'obtenir un modèle qui semble approprié pour les données.
+
+
+```{r,fig.height=4,fig.width=12}
+
+library(ggeffects)
+library(patchwork)
+p1<-plot(ggpredict(m3,terms="sexe"),add.data=TRUE)
+p2<-plot(ggpredict(m3,terms="age"),add.data=TRUE)
+p3<-plot(ggpredict(m3,terms="masse"),add.data=TRUE)
+wrap_plots(list(p1,p2,p3))
+summary(m3)
+```
+
+On conclut que bien qu'il y ait des tendances, il n'y a pas d'effets évidents du sexe, de l'âge ou de la masse sur le nombre de parasites.
+
 
 ## La richesse spécifique le long du littoral
 
@@ -1893,11 +1858,11 @@ En utilisant le package **ggeffects** plutôt que visreg, on peut obtenir des in
 library(ggeffects)
 
 g1<-ggpredict(m,terms=c("hauteur"))
-g1<-plot(g1,rawdata=TRUE)
+g1<-plot(g1,add.data=TRUE)
 g2<-ggpredict(m,terms=c("exposition[n=50]"))
-g2<-plot(g2,rawdata=TRUE)
+g2<-plot(g2,add.data=TRUE)
 g3<-ggpredict(m,terms=c("Type"))
-g3<-plot(g3,rawdata=FALSE)
+g3<-plot(g3,add.data=FALSE)
 
 library(patchwork)
 
@@ -1915,7 +1880,6 @@ stargazer(m,type="html",omit.table.layout="sn")
 ```
 
 
-<!--
 
 # Atelier 7
 
@@ -1948,6 +1912,8 @@ summary(m)
 
 
 ```
+
+<!--
 
 ### Solution
 
@@ -2099,6 +2065,7 @@ plot(g)+
 <b>Figure 1</b>. Effet de l'utilisation de lumières dissuasives sur les taux de visites par les prédateurs (nb de prédateurs / jour) aux enclos de moutons en Argentine (juin à septembre 2019). Les prédictions proviennt d'un modèle linéaire généralisé mixte avec la caméra en effet aléatoire et l'utilisation de lumières dissuasives comme facteur. Les points représentent pour chaque caméra le nombre de visites divisé par le nombre de jours d'observation. Les barres d'erreurs représentent les intervalles de confiance à 95% sur les prédictions. </td></tr>
 </div>
 
+-->
 
 ## Germination de différentes espèces dans la Caatinga, Brésil.
 
@@ -2115,6 +2082,8 @@ b<-glm(germ~traitement*esp,data=d,family=binomial)
 ```
 
 Une des objectifs du projet consistait à déterminer quelles sont les meilleures méthodes pour favoriser la germination de différentes espèces de plantes pouvant servir à la restauration des forêts-galeries de la Caatinga. La base de données [germination](https://raw.githubusercontent.com/frousseu/ECL749/master/data/germination.csv) contient des observations sur la germination de graînes de différentes espèces de plantes en fonction de deux traitements. Le premier traitement est le type de **substrat** utilisé qui est soit du sable (S), soit du sable amendé avec une certaine quantité de fumier (A). Le deuxième traitement est la **fréquence** d'arrosage qui est soit à chaque jour (un), soit au trois jours (trois). La colonne **traitement** combine ces deux traitements en 4 possibilités (A1, A3, S1, S3). La colonne **esp** contient le nom vernaculaire de l'espèce et **germ** indique si la graîne a germé (1) ou pas (0). Ces données ont été récoltées dans la Caatinga au Brésil lors d'un stage d'une étudiante à l'été 2019. 
+
+<!--
 
 ### Solution
 
