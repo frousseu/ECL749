@@ -1883,7 +1883,7 @@ stargazer(m,type="html",omit.table.layout="sn")
 
 # Atelier 7
 
-Pour cet atelier, vous vous pratiquerez à présenter des méthodes et des résultats. Vous devrez effectuer l'analyse de deux bases de données, présenter les méthodes utilisées et présenter les résultats de vos analyses. Puisque vous n'avez pas énormément d'informations sur la façon dont les données ont été récoltés, vous vous concentrerez surtout sur les méthodes statistiques qui ont été utilisées pour effectuer vos analyses. 
+Pour cet atelier, vous vous pratiquerez à présenter des méthodes et des résultats. Vous devrez effectuer l'analyse de deux bases de données, présenter les méthodes utilisées et présenter les résultats de vos analyses. Puisque vous n'avez pas énormément d'informations sur la façon dont les données ont été récoltées, vous vous concentrerez surtout sur les méthodes statistiques qui ont été utilisées pour effectuer vos analyses. 
 
 <br>
 
@@ -1891,7 +1891,12 @@ Pour cet atelier, vous vous pratiquerez à présenter des méthodes et des résu
 
 <br>
 
-Dans ce projet, un des objectifs était de déterminer l'efficacité de lumières dissuasives pour réduire la prédation du bétail par les prédateurs (renards, cougars). Pour ce faire, des caméras-trappes ont été installées dans un certain nombre de champs afin d'enregistrer la présence de prédateurs. Le nombre de visites de prédateurs enregistrées en présence ou en absence de lumières dissuasives par chaque caméra a été compilé afin de déterminer si les lumières ont un effet négatif sur le nombre de visites par les prédateurs. Dans la base de données [lumiere_predateur](https://raw.githubusercontent.com/frousseu/ECL749/master/data/lumiere_predateur.csv), vous avez la présence (1) ou l'absence (0) de lumières, l'identifiant du **champ**, l'identifiant de la **camera**, le nombre de visites par des prédateurs (**nbpred**) et le nombre de jours avec ou sans lumière (**nbjour**). Ces données ont été récoltés à l'été 2019 par un étudiant en stage.
+Dans ce projet, un des objectifs était de déterminer l'efficacité de lumières dissuasives pour réduire la prédation du bétail par les prédateurs (renards, cougars). Pour ce faire, des caméras-trappes ont été installées dans un certain nombre de champs afin d'enregistrer la présence de prédateurs. Le nombre de visites de prédateurs enregistré en présence ou en absence de lumières dissuasives par chaque caméra a été compilé afin de déterminer si les lumières ont un effet négatif sur le nombre de visites par les prédateurs. Dans la base de données [lumiere_predateur](https://raw.githubusercontent.com/frousseu/ECL749/master/data/lumiere_predateur.csv), vous avez la présence (1) ou l'absence (0) de lumières, l'identifiant du **champ**, l'identifiant de la **camera**, le nombre de visites par des prédateurs (**nbpred**) et le nombre de jours avec ou sans lumière (**nbjour**). Ces données ont été récoltés à l'été 2019 par un étudiant en stage. Puisque le nombre de jours d'installation change d'une caméra à l'autre, il faudra ajuster le modèle pour tenir compte de ce changement qui peut avoir une influence sur le nb de prédateurs détectés. Pour cela, vous devrez utiliser un *offset* qui permet en quelque sorte de standardiser les observations pour le nombre de jours d'enregistrement. Dans la formule de votre modèle, vous pouvez ajouter un *offset* de cette façon:
+
+```{r,eval=FALSE,echo=TRUE}
+glm(y~x1+x2+offset(log(nbjour)),data=d)
+```
+
 
 ```{r, eval=FALSE, include=FALSE}
 
@@ -1913,7 +1918,6 @@ summary(m)
 
 ```
 
-<!--
 
 ### Solution
 
@@ -1961,7 +1965,7 @@ testZeroInflation(sims)
 testDispersion(sims)
 ```
 
-Dans les deux graphiques précédents, les histogrammes montrent les différentes valeurs simulées et les lignes rouges montrent les valeurs observées. Dans le premier graphique, ce sont les nombres de zéros simulés et dans le second, ce sont les écarts-types des résidus simulés. Il faut voir les deux histogrammes comme des distributions (simulées) auxquelles on compare nos observations afin de déterminer si elles sont "extrêmes" ou inatttendues par rapport aux valeurs simulées. Dans les deux cas, les valeurs observées ne diffèrent pas de façon importante des valeurs simulées. On conclut donc que le modèle est approprié pour nos données.
+Dans les deux graphiques précédents, les histogrammes montrent les différentes valeurs simulées et les lignes rouges montrent les valeurs observées. Dans le premier graphique, ce sont les nombres de zéros simulés et dans le second, ce sont les écarts-types des résidus simulés. Il faut voir les deux histogrammes comme des distributions (simulées) auxquelles on compare nos observations afin de déterminer si elles sont "extrêmes" ou inattendues par rapport aux valeurs simulées. Dans les deux cas, les valeurs observées ne diffèrent pas de façon importante des valeurs simulées. On conclut donc que le modèle est approprié pour nos données.
 
 On peut également utiliser un graphique quantile-quantile ou les résidus quantiles afin de vérifier si notre modèle est approrié.
 
@@ -2065,7 +2069,6 @@ plot(g)+
 <b>Figure 1</b>. Effet de l'utilisation de lumières dissuasives sur les taux de visites par les prédateurs (nb de prédateurs / jour) aux enclos de moutons en Argentine (juin à septembre 2019). Les prédictions proviennt d'un modèle linéaire généralisé mixte avec la caméra en effet aléatoire et l'utilisation de lumières dissuasives comme facteur. Les points représentent pour chaque caméra le nombre de visites divisé par le nombre de jours d'observation. Les barres d'erreurs représentent les intervalles de confiance à 95% sur les prédictions. </td></tr>
 </div>
 
--->
 
 ## Germination de différentes espèces dans la Caatinga, Brésil.
 
@@ -2083,7 +2086,6 @@ b<-glm(germ~traitement*esp,data=d,family=binomial)
 
 Une des objectifs du projet consistait à déterminer quelles sont les meilleures méthodes pour favoriser la germination de différentes espèces de plantes pouvant servir à la restauration des forêts-galeries de la Caatinga. La base de données [germination](https://raw.githubusercontent.com/frousseu/ECL749/master/data/germination.csv) contient des observations sur la germination de graînes de différentes espèces de plantes en fonction de deux traitements. Le premier traitement est le type de **substrat** utilisé qui est soit du sable (S), soit du sable amendé avec une certaine quantité de fumier (A). Le deuxième traitement est la **fréquence** d'arrosage qui est soit à chaque jour (un), soit au trois jours (trois). La colonne **traitement** combine ces deux traitements en 4 possibilités (A1, A3, S1, S3). La colonne **esp** contient le nom vernaculaire de l'espèce et **germ** indique si la graîne a germé (1) ou pas (0). Ces données ont été récoltées dans la Caatinga au Brésil lors d'un stage d'une étudiante à l'été 2019. 
 
-<!--
 
 ### Solution
 
@@ -2113,7 +2115,7 @@ plot(g)+
 
 #### Quoi présenter
 
-Voici ce que je présenterais concernant cette analyse dans les sections méthodes et résultats. Encore ici, cet exemple donne une bonne idée de quoi il faudrait présenter dans ces sections, mais ce n'est pas nécessairement un exemple absolu! 
+Voici ce que je présenterais concernant cette analyse dans les sections méthodes et résultats. Encore ici, cet exemple donne une bonne idée de ce qu'il faudrait présenter dans ces sections, mais ce n'est pas nécessairement un exemple absolu! 
 
 ##### Méthodes
 
